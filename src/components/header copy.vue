@@ -140,10 +140,18 @@ export default {
         console.error("Erro ao carregar configurações:", e);
       }
     },
+
+    alterarPropriedade(chave, valor) {
+      if (this.dados.hasOwnProperty(chave)) {
+        this.dados[chave] = valor;
+        this.salvarConfiguracoes();
+      } else {
+        console.warn(`A chave "${chave}" não existe nas configurações.`);
+      }
+    },
   },
 
   mounted() {
-    // this.salvarConfiguracoes();
     this.carregarConfiguracoes(); // Carregar configurações ao montar o componente
   },
 };
