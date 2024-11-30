@@ -48,7 +48,7 @@
                     color="green"
                     base-color="red"
                   >
-                    <Header :btnHomeVisible="btnHomeVisible1" />
+                    <Header :btnHomeVisible="true" />
                   </v-switch>
                 </v-col>
               </v-row>
@@ -126,7 +126,8 @@ export default {
   data() {
     return {
       btnHomeVisible1: true,
-      mostrarHome: this.mostrarHome ? this.mostrarHom : !this.mostrarHome,
+      mostrarHome: false,
+
       colorSalvar: "white",
       bg: "bg-blue",
       iconeAba1Visivel: false,
@@ -144,8 +145,12 @@ export default {
   },
   methods: {
     opcaoHome() {
-      if (!btnHomeVisible) {
-        this.btnHomeVisible1 = false;
+      if (this.mostrarHome) {
+        console.log("this.mostrarHome" + this.mostrarHome);
+        localStorage.setItem("opcao", JSON.stringify(this.mostrarHome));
+      } else {
+        console.log("this.mostrarHome" + this.mostrarHome);
+        localStorage.setItem("opcao", JSON.stringify(this.mostrarHome));
       }
     },
     salvar() {
@@ -176,6 +181,10 @@ export default {
         console.error("Erro ao alterar as configurações:", error);
       }
     },
+  },
+  mounted() {
+    const opcaoArmazenada = localStorage.getItem("opcao");
+    this.mostrarHome = opcaoArmazenada ? JSON.parse(opcaoArmazenada) : false;
   },
 };
 </script>
