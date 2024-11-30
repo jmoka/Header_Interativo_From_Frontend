@@ -19,18 +19,48 @@
           <v-toolbar-title>Configurar Textos e Títulos</v-toolbar-title>
           <v-spacer></v-spacer>
 
-          <!-- Botão Salvar com cor e fundo dinâmicos -->
-          <v-btn :color="colorSalvar" :class="bg" text @click="salvar"> Salvar </v-btn>
+          <v-btn :color="colorSalvar" :class="bg" text @click="salvar">Salvar</v-btn>
         </v-toolbar>
 
         <v-container>
           <v-sheet class="mx-auto" width="300">
             <v-form @submit.prevent="alterar">
+              <v-row>
+                <v-col cols="10">
+                  <span class="d-flex">
+                    <v-text-field
+                      v-model="textHome"
+                      label="Título do Home"
+                    ></v-text-field>
+                    <svg-icon
+                      :color="colorIcone"
+                      v-if="iconeAba1Visivel"
+                      type="mdi"
+                      :path="mdiHandOkay"
+                      size="50"
+                    />
+                  </span>
+                </v-col>
+                <v-col>
+                  <v-switch
+                    v-model="mostrarHome"
+                    @change="opcaoHome"
+                    color="green"
+                    base-color="red"
+                  >
+                    <Header :btnHomeVisible="btnHomeVisible1" />
+                  </v-switch>
+                </v-col>
+              </v-row>
+
               <span class="d-flex">
-                <v-text-field v-model="textHome" label="Texto do Home"></v-text-field>
+                <v-text-field
+                  v-model="textContato"
+                  label="Título do Contato"
+                ></v-text-field>
                 <svg-icon
                   :color="colorIcone"
-                  v-if="textoAba1"
+                  v-if="iconeAba2Visivel"
                   type="mdi"
                   :path="mdiHandOkay"
                   size="50"
@@ -39,19 +69,30 @@
 
               <span class="d-flex">
                 <v-text-field
-                  v-model="textContato"
-                  label="Texto do Contato"
+                  v-model="textSobreNos"
+                  label="Título Sobre Nós"
                 ></v-text-field>
                 <svg-icon
                   :color="colorIcone"
-                  v-if="textoAba2"
+                  v-if="iconeAba3Visivel"
                   type="mdi"
                   :path="mdiHandOkay"
                   size="50"
                 />
               </span>
 
-              <v-btn class="mt-2" type="submit" block @click="alterar"> Submit </v-btn>
+              <span class="d-flex">
+                <v-text-field v-model="textLogin" label="Título Login"></v-text-field>
+                <svg-icon
+                  :color="colorIcone"
+                  v-if="iconeLoginVisivel"
+                  type="mdi"
+                  :path="mdiHandOkay"
+                  size="50"
+                />
+              </span>
+
+              <v-btn class="mt-2" type="submit" block @click="alterar">Alterar</v-btn>
             </v-form>
           </v-sheet>
         </v-container>
@@ -63,6 +104,7 @@
 <script>
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiHandOkay } from "@mdi/js";
+import header from "../components/header.vue";
 
 export default {
   props: {
@@ -77,52 +119,59 @@ export default {
   },
   components: {
     SvgIcon,
+    async function(header) {
+      await header;
+    },
   },
   data() {
     return {
-      // Definir a cor inicial do botão: texto branco e fundo azul
+      btnHomeVisible1: true,
+      mostrarHome: this.mostrarHome ? this.mostrarHom : !this.mostrarHome,
       colorSalvar: "white",
       bg: "bg-blue",
-      textoAba1: false,
-      textoAba2: false,
+      iconeAba1Visivel: false,
+      iconeAba2Visivel: false,
+      iconeAba3Visivel: false,
+      iconeLoginVisivel: false,
       dialog: false,
-      textHome: "", // Valor inicial para Texto do Home
-      textContato: "", // Correção do nome do campo para "textContato"
+      textHome: "",
+      textContato: "",
+      textSobreNos: "",
+      textLogin: "",
       mdiHandOkay,
       colorIcone: "green",
     };
   },
   methods: {
+    opcaoHome() {
+      if (!btnHomeVisible) {
+        this.btnHomeVisible1 = false;
+      }
+    },
     salvar() {
       location.reload();
     },
     alterar() {
       try {
         let db = localStorage.getItem("dbConfig");
-        let dbAtualizado = db ? JSON.parse(db) : {}; // Recupera o objeto existente ou inicia um novo
+        let dbAtualizado = db ? JSON.parse(db) : {};
 
-        // Atualiza somente os campos que possuem valores informados
-        if (this.textHome) {
-          dbAtualizado.textoAba1 = this.textHome;
-          this.textoAba1 = true;
-        } else {
-          this.textoAba1 = false; // Se o campo for vazio, não exibe o ícone
-        }
+        dbAtualizado.textoAba1 = this.textHome || null;
+        this.iconeAba1Visivel = !!this.textHome;
 
-        if (this.textContato) {
-          // Corrigido para "textContato"
-          dbAtualizado.textoAba2 = this.textContato;
-          this.textoAba2 = true;
-        } else {
-          this.textoAba2 = false; // Se o campo for vazio, não exibe o ícone
-        }
+        dbAtualizado.textoAba2 = this.textContato || null;
+        this.iconeAba2Visivel = !!this.textContato;
 
-        // Salva o objeto atualizado no localStorage
+        dbAtualizado.textoAba3 = this.textSobreNos || null;
+        this.iconeAba3Visivel = !!this.textSobreNos;
+
+        dbAtualizado.textoLogin = this.textLogin || null;
+        this.iconeLoginVisivel = !!this.textLogin;
+
         localStorage.setItem("dbConfig", JSON.stringify(dbAtualizado));
 
-        // Mudando a cor e o fundo do botão Salvar após o envio
-        this.colorSalvar = "white"; // Texto branco
-        this.bg = "bg-green"; // Fundo verde
+        this.colorSalvar = "white";
+        this.bg = "bg-green";
       } catch (error) {
         console.error("Erro ao alterar as configurações:", error);
       }

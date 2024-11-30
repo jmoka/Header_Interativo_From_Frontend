@@ -18,7 +18,7 @@
     </v-spacer>
 
     <!-- Botões de Navegação -->
-    <v-btn v-once to="/">
+    <v-btn v-if="btnHomeVisible" v-once to="/">
       <svg-icon :color="dados.colorIcoHome" type="mdi" :path="mdiHomeAccount" />
       <h4 :class="dados.colorAba1" v-text="dados.textoAba1" />
     </v-btn>
@@ -37,6 +37,7 @@
     <dialogFormLogin
       :colorIconeLogin="dados.colorIconeLogin"
       :colorTextLogin="dados.colorTextLogin"
+      :TextLogin="textLogin"
     />
 
     <!-- WhatsApp -->
@@ -61,6 +62,7 @@ import {
   mdiInformation,
   mdiWhatsapp,
   mdiMenu,
+  mdiFormatLineStyle,
 } from "@mdi/js";
 import dialogFormLogin from "../../src/components/dialogFormLogin.vue";
 import bottomSheets from "../../src/components/bottomSheets.vue";
@@ -71,12 +73,20 @@ export default {
     dialogFormLogin,
     bottomSheets,
   },
+  props: {
+    btnHomeVisible: {
+      type: Boolean,
+    },
+  },
 
   data() {
     return {
       dados: {
         titulo: "Header Reativo",
+        // Botao Home
         textoAba1: "Home",
+        btnHomeVisible: false,
+        // Botao Contatos
         textoAba2: "Contatos",
         textoAba3: "Sobre Nós",
         visibleObs: true,
@@ -89,6 +99,7 @@ export default {
         colorIconeWhatsapp: "green",
         colorIconeLogin: "blue",
         colorTextLogin: "#AB47BC",
+        textLogin: "Login",
         colorIconeContato: "blue",
         colorIconeInforme: "blue",
         colorBarra: "bg-black",
@@ -98,7 +109,7 @@ export default {
         imageHeader: false,
         numeroWhatsApp: "559999999999",
       },
-
+      btnHomeVisible: true,
       mdiAccount,
       mdiHomeAccount,
       mdiCardAccountMail,
@@ -124,7 +135,7 @@ export default {
       try {
         // Usando o localStorage nativo para salvar
         localStorage.setItem("dbConfig", JSON.stringify(this.dados));
-        console.log("Configurações salvas:", this.dados);
+        console.log("Configurações salvas:", JSON.stringify(this.dados));
       } catch (e) {
         console.error("Erro ao salvar configurações:", e);
       }

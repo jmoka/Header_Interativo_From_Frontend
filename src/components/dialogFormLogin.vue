@@ -9,7 +9,7 @@
             :path="mdiAccount"
             :color="colorIconeLogin"
           ></svg-icon>
-          <h4 :class="colorTextLogin">Login</h4>
+          <h4 :class="colorTextLogin" v-text="TextLogin" />
         </v-btn>
       </template>
 
@@ -62,6 +62,10 @@ export default {
     colorTextLogin: {
       type: String,
       default: "text-blue", // Classe de texto padrão
+    },
+    TextLogin: {
+      type: String,
+      default: "Login", // Classe de texto padrão
     },
   },
 };
