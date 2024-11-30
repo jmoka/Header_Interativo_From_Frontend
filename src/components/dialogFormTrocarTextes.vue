@@ -43,12 +43,11 @@
                 </v-col>
                 <v-col>
                   <v-switch
-                    v-model="mostrarHome"
-                    @change="opcaoHome"
+                    v-model="keyHome"
+                    @change="acaoBtnOpcaoHome"
                     color="green"
                     base-color="red"
                   >
-                    <Header :btnHomeVisible="true" />
                   </v-switch>
                 </v-col>
               </v-row>
@@ -104,7 +103,6 @@
 <script>
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiHandOkay } from "@mdi/js";
-import header from "../components/header.vue";
 
 export default {
   props: {
@@ -119,14 +117,11 @@ export default {
   },
   components: {
     SvgIcon,
-    async function(header) {
-      await header;
-    },
   },
+
   data() {
     return {
-      btnHomeVisible1: true,
-      mostrarHome: false,
+      keyHome: false,
 
       colorSalvar: "white",
       bg: "bg-blue",
@@ -144,13 +139,11 @@ export default {
     };
   },
   methods: {
-    opcaoHome() {
-      if (this.mostrarHome) {
-        console.log("this.mostrarHome" + this.mostrarHome);
-        localStorage.setItem("opcao", JSON.stringify(this.mostrarHome));
+    acaoBtnOpcaoHome() {
+      if (this.keyHome) {
+        localStorage.setItem("opcao", JSON.stringify(this.keyHome));
       } else {
-        console.log("this.mostrarHome" + this.mostrarHome);
-        localStorage.setItem("opcao", JSON.stringify(this.mostrarHome));
+        localStorage.setItem("opcao", JSON.stringify(this.keyHome));
       }
     },
     salvar() {
@@ -161,17 +154,19 @@ export default {
         let db = localStorage.getItem("dbConfig");
         let dbAtualizado = db ? JSON.parse(db) : {};
 
-        dbAtualizado.textoAba1 = this.textHome || null;
+        dbAtualizado.textoAba1 = this.textHome || false;
         this.iconeAba1Visivel = !!this.textHome;
 
-        dbAtualizado.textoAba2 = this.textContato || null;
+        dbAtualizado.textoAba2 = this.textContato || false;
         this.iconeAba2Visivel = !!this.textContato;
 
-        dbAtualizado.textoAba3 = this.textSobreNos || null;
+        dbAtualizado.textoAba3 = this.textSobreNos || false;
         this.iconeAba3Visivel = !!this.textSobreNos;
 
-        dbAtualizado.textoLogin = this.textLogin || null;
+        dbAtualizado.textoLogin = this.textLogin || false;
         this.iconeLoginVisivel = !!this.textLogin;
+
+        dbAtualizado.textVisibleHome = this.keyHome || false;
 
         localStorage.setItem("dbConfig", JSON.stringify(dbAtualizado));
 
@@ -184,7 +179,7 @@ export default {
   },
   mounted() {
     const opcaoArmazenada = localStorage.getItem("opcao");
-    this.mostrarHome = opcaoArmazenada ? JSON.parse(opcaoArmazenada) : false;
+    this.keyHome = opcaoArmazenada ? JSON.parse(opcaoArmazenada) : false;
   },
 };
 </script>

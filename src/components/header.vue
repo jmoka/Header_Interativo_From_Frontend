@@ -4,12 +4,7 @@
     <bottomSheets :colorIconeMenu="dados.colorIconeMenu" />
 
     <!-- Logo -->
-    <v-img
-      v-once
-      :src="dados.logo"
-      :max-height="dados.altLogo"
-      :max-width="dados.lagLogo"
-    />
+    <v-img :src="dados.logo" :max-height="dados.altLogo" :max-width="dados.lagLogo" />
 
     <!-- Texto Central -->
     <v-spacer v-if="!dados.visibleObs"></v-spacer>
@@ -18,17 +13,21 @@
     </v-spacer>
 
     <!-- Botões de Navegação -->
-    <v-btn v-if="btnHomeVisible" v-once to="/">
+    <v-btn to="/">
       <svg-icon :color="dados.colorIcoHome" type="mdi" :path="mdiHomeAccount" />
-      <h4 :class="dados.colorAba1" v-text="dados.textoAba1" />
+      <h4
+        v-if="dados.textVisibleHome"
+        :class="dados.colorAba1"
+        v-text="dados.textoAba1"
+      />
     </v-btn>
 
-    <v-btn v-once to="/contatos" :color="dados.colorIconeContato">
+    <v-btn to="/contatos" :color="dados.colorIconeContato">
       <svg-icon type="mdi" :path="mdiCardAccountMail" />
       <h4 :class="dados.colorAba2" v-text="dados.textoAba2" />
     </v-btn>
 
-    <v-btn v-once :color="dados.colorIconeInforme" to="/sobre">
+    <v-btn :color="dados.colorIconeInforme" to="/sobre">
       <svg-icon type="mdi" :path="mdiInformation" />
       <h4 :class="dados.colorAba3" v-text="dados.textoAba3" />
     </v-btn>
@@ -73,19 +72,13 @@ export default {
     dialogFormLogin,
     bottomSheets,
   },
-  props: {
-    btnHomeVisible: {
-      type: Boolean,
-    },
-  },
-
   data() {
     return {
       dados: {
         titulo: "Header Reativo",
         // Botao Home
         textoAba1: "Home",
-        btnHomeVisible: false,
+        textVisibleHome: true,
         // Botao Contatos
         textoAba2: "Contatos",
         textoAba3: "Sobre Nós",
@@ -109,7 +102,7 @@ export default {
         imageHeader: false,
         numeroWhatsApp: "559999999999",
       },
-      btnHomeVisible: true,
+
       mdiAccount,
       mdiHomeAccount,
       mdiCardAccountMail,
@@ -154,7 +147,7 @@ export default {
   },
 
   mounted() {
-    // this.salvarConfiguracoes();
+    //this.salvarConfiguracoes();
     this.carregarConfiguracoes(); // Carregar configurações ao montar o componente
   },
 };
