@@ -18,17 +18,17 @@
 
     <!-- Botões de Navegação -->
     <v-btn to="/" v-if="dados.textVisibleHome">
-      <svg-icon :color="dados.colorIcoHome" type="mdi" :path="mdiHomeAccount" />
+      <svg-icon :color="dados.colorIcoHome" type="mdi" :path="icohome" />
       <h4 :class="dados.colorAba1" v-text="dados.textoAba1" />
     </v-btn>
 
     <v-btn to="/contatos" :color="dados.colorIconeContato">
-      <svg-icon type="mdi" :path="mdiCardAccountMail" />
+      <svg-icon type="mdi" :path="icoContato" />
       <h4 :class="dados.colorAba2" v-text="dados.textoAba2" />
     </v-btn>
 
     <v-btn :color="dados.colorIconeInforme" to="/sobre">
-      <svg-icon type="mdi" :path="mdiInformation" />
+      <svg-icon type="mdi" :path="icoSobre" />
       <h4 :class="dados.colorAba3" v-text="dados.textoAba3" />
     </v-btn>
 
@@ -37,6 +37,7 @@
       :colorIconeLogin="dados.colorIconeLogin"
       :colorTextLogin="dados.colorTextLogin"
       :TextLogin="textLogin"
+      :icologin="icoLogin"
     />
 
     <!-- WhatsApp -->
@@ -47,7 +48,7 @@
       :href="linkWhatsapp"
       target="_blank"
     >
-      <svg-icon type="mdi" :path="mdiWhatsapp" />
+      <svg-icon type="mdi" :path="icoWhatsapp" />
     </v-btn>
   </v-toolbar>
 </template>
@@ -106,11 +107,11 @@ export default {
         wnatsappVisible: true,
       },
 
-      mdiAccount,
-      mdiHomeAccount,
-      mdiCardAccountMail,
-      mdiInformation,
-      mdiWhatsapp,
+      icohome: mdiHomeAccount,
+      icoContato: mdiCardAccountMail,
+      icoSobre: mdiInformation,
+      icoLogin: mdiAccount,
+      icoWhatsapp: mdiWhatsapp,
       mdiMenu,
     };
   },

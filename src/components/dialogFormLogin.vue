@@ -6,7 +6,7 @@
           <svg-icon
             class="me-2"
             type="mdi"
-            :path="mdiAccount"
+            :path="icologin"
             :color="colorIconeLogin"
           ></svg-icon>
           <h4 :class="colorTextLogin" v-text="TextLogin" />
@@ -66,6 +66,10 @@ export default {
     TextLogin: {
       type: String,
       default: "Login", // Classe de texto padrão
+    },
+    icologin: {
+      tyoe: String,
+      default: mdiAccount,
     },
   },
 };
