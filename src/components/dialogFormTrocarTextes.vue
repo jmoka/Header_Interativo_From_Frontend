@@ -122,7 +122,7 @@
                 />
                 <v-switch
                   v-model="whatsapp"
-                  @change="acaoBtnwhatsapp"
+                  @change="acaobtnVisivel"
                   color="green"
                   base-color="red"
                 >
@@ -202,7 +202,6 @@ export default {
       try {
         let db = localStorage.getItem("dbConfig");
         let dbAtualizado = db ? JSON.parse(db) : {};
-        let alterado = false;
 
         if (this.textHome) {
           dbAtualizado.textoAba1 = this.textHome || null;
@@ -225,7 +224,8 @@ export default {
           dbAtualizado.obs = this.textOBS || null;
           this.visibleObs = true;
         }
-        if (this.whatsapp) {
+        if (this.TextWhatsapp) {
+          console.log();
           dbAtualizado.numeroWhatsApp = this.TextWhatsapp || null;
           this.visibleWhatsapp = true;
         }
