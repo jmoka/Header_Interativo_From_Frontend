@@ -102,7 +102,7 @@
 
 <script>
 import SvgIcon from "@jamescoyle/vue-icon";
-import { mdiHandOkay } from "@mdi/js";
+import { mdiHandOkay, mdiNull } from "@mdi/js";
 
 export default {
   props: {
@@ -154,19 +154,25 @@ export default {
         let db = localStorage.getItem("dbConfig");
         let dbAtualizado = db ? JSON.parse(db) : {};
 
-        dbAtualizado.textoAba1 = this.textHome || false;
-        this.iconeAba1Visivel = !!this.textHome;
+        if (this.textHome) {
+          dbAtualizado.textoAba1 = this.textHome || null;
+          this.iconeAba1Visivel = true;
+        }
 
-        dbAtualizado.textoAba2 = this.textContato || false;
-        this.iconeAba2Visivel = !!this.textContato;
+        if (this.textContato) {
+          dbAtualizado.textoAba2 = this.textContato || null;
+          this.iconeAba2Visivel = true;
+        }
+        if (this.textSobreNos) {
+          dbAtualizado.textoAba3 = this.textSobreNos || null;
+          this.iconeAba3Visivel = true;
+        }
+        if (this.textLogin) {
+          dbAtualizado.textoLogin = this.textLogin || null;
+          this.iconeLoginVisivel = true;
+        }
 
-        dbAtualizado.textoAba3 = this.textSobreNos || false;
-        this.iconeAba3Visivel = !!this.textSobreNos;
-
-        dbAtualizado.textoLogin = this.textLogin || false;
-        this.iconeLoginVisivel = !!this.textLogin;
-
-        dbAtualizado.textVisibleHome = this.keyHome || false;
+        dbAtualizado.textVisibleHome = this.keyHome || null;
 
         localStorage.setItem("dbConfig", JSON.stringify(dbAtualizado));
 

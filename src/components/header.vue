@@ -147,7 +147,7 @@ export default {
   },
 
   mounted() {
-    //this.salvarConfiguracoes();
+    // this.salvarConfiguracoes();
     this.carregarConfiguracoes(); // Carregar configurações ao montar o componente
   },
 };
