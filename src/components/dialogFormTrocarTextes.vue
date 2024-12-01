@@ -81,7 +81,7 @@
               </span>
 
               <span class="d-flex">
-                <v-text-field v-model="textLogin" label="Título Login"></v-text-field>
+                <v-text-field v-model="textDoLogin" label="Título Login"></v-text-field>
                 <svg-icon
                   :color="colorIcone"
                   v-if="iconeLoginVisivel"
@@ -91,7 +91,7 @@
                 />
               </span>
 
-              <v-btn class="mt-2" type="submit" block @click="alterar">Alterar</v-btn>
+              <v-btn class="mt-2" type="submit" block>Alterar</v-btn>
             </v-form>
           </v-sheet>
         </v-container>
@@ -133,7 +133,7 @@ export default {
       textHome: "",
       textContato: "",
       textSobreNos: "",
-      textLogin: "",
+      textDoLogin: "",
       mdiHandOkay,
       colorIcone: "green",
     };
@@ -167,8 +167,8 @@ export default {
           dbAtualizado.textoAba3 = this.textSobreNos || null;
           this.iconeAba3Visivel = true;
         }
-        if (this.textLogin) {
-          dbAtualizado.textoLogin = this.textLogin || null;
+        if (this.textDoLogin) {
+          dbAtualizado.textLogin = this.textDoLogin || null;
           this.iconeLoginVisivel = true;
         }
 

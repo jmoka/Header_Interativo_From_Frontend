@@ -12,10 +12,9 @@
     />
 
     <!-- Texto Central -->
-    <v-spacer v-if="!dados.visibleObs"></v-spacer>
-    <v-spacer v-if="dados.visibleObs" class="d-flex justify-left">
-      <h4 :class="colorObs" v-text="dados.obs"></h4>
-    </v-spacer>
+
+    <h4 class="ml-5" :v-if="visibleObs" :class="colorObs" v-text="dados.obs"></h4>
+    <v-spacer></v-spacer>
 
     <!-- Botões de Navegação -->
     <v-btn to="/">
@@ -144,9 +143,11 @@ export default {
       try {
         const dadossalvos = localStorage.getItem("dbConfig");
         let p = JSON.parse(dadossalvos);
+        console.log(p);
 
         if (dadossalvos && p.padrao) {
-          this.dados = JSON.parse(dadossalvos);
+          this.dados = p; // Atualize a propriedade `dados` diretamente
+          this.textLogin = this.dados.textLogin; // Carregue o valor de `textLogin`
         } else {
           this.salvarConfiguracoes();
         }
