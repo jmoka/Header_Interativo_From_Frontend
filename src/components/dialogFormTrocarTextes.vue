@@ -19,7 +19,14 @@
           <v-toolbar-title>Configurar Textos e Títulos</v-toolbar-title>
           <v-spacer></v-spacer>
 
-          <v-btn :color="colorSalvar" :class="bg" text @click="salvar">Salvar</v-btn>
+          <v-btn
+            v-if="visiveBtnlSalvar"
+            :color="colorSalvar"
+            :class="bg"
+            text
+            @click="salvar"
+            >Salvar</v-btn
+          >
         </v-toolbar>
 
         <v-container>
@@ -122,6 +129,7 @@ export default {
   data() {
     return {
       keyHome: true,
+      visiveBtnlSalvar: false,
 
       colorSalvar: "white",
       bg: "bg-blue",
@@ -153,6 +161,7 @@ export default {
       try {
         let db = localStorage.getItem("dbConfig");
         let dbAtualizado = db ? JSON.parse(db) : {};
+        let alterado = false;
 
         if (this.textHome) {
           dbAtualizado.textoAba1 = this.textHome || null;
@@ -175,6 +184,7 @@ export default {
         dbAtualizado.textVisibleHome = this.keyHome || null;
 
         localStorage.setItem("dbConfig", JSON.stringify(dbAtualizado));
+        this.visiveBtnlSalvar = true;
 
         this.colorSalvar = "white";
         this.bg = "bg-green";
