@@ -75,6 +75,7 @@ export default {
   data() {
     return {
       dados: {
+        padrao: true,
         titulo: "Header Reativo",
         // Botao Home
         textoAba1: "Home",
@@ -136,9 +137,13 @@ export default {
 
     carregarConfiguracoes() {
       try {
-        const slavadados = localStorage.getItem("dbConfig");
-        if (slavadados) {
-          this.dados = JSON.parse(slavadados);
+        const dadossalvos = localStorage.getItem("dbConfig");
+        let p = JSON.parse(dadossalvos);
+
+        if (dadossalvos && p.padrao) {
+          this.dados = JSON.parse(dadossalvos);
+        } else {
+          this.salvarConfiguracoes();
         }
       } catch (e) {
         console.error("Erro ao carregar configurações:", e);

@@ -121,7 +121,7 @@ export default {
 
   data() {
     return {
-      keyHome: false,
+      keyHome: true,
 
       colorSalvar: "white",
       bg: "bg-blue",
