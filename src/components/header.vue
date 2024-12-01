@@ -4,7 +4,12 @@
     <bottomSheets :colorIconeMenu="dados.colorIconeMenu" />
 
     <!-- Logo -->
-    <v-img :src="dados.logo" :max-height="dados.altLogo" :max-width="dados.lagLogo" />
+    <v-img
+      @dblclick="reset"
+      :src="dados.logo"
+      :max-height="dados.altLogo"
+      :max-width="dados.lagLogo"
+    />
 
     <!-- Texto Central -->
     <v-spacer v-if="!dados.visibleObs"></v-spacer>
@@ -148,6 +153,10 @@ export default {
       } catch (e) {
         console.error("Erro ao carregar configurações:", e);
       }
+    },
+    reset() {
+      localStorage.removeItem("dbConfig");
+      location.reload();
     },
   },
 
