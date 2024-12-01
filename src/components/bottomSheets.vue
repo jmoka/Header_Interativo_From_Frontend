@@ -30,6 +30,7 @@
         />
       </v-list-item>
     </v-list>
+    <v-btn color="red" class="text-whit" @click="reset">Restaurar</v-btn>
   </v-bottom-sheet>
 </template>
 
@@ -107,6 +108,20 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    reset() {
+      const resultado = confirm(
+        "Você tem certeza que deseja restaurar as configurações do site?"
+      );
+      if (resultado) {
+        alert("Você clicou em OK.");
+        localStorage.removeItem("dbConfig");
+        location.reload();
+      } else {
+        alert("Você clicou em Cancelar.");
+      }
+    },
   },
 };
 </script>

@@ -230,8 +230,8 @@ export default {
           this.visibleWhatsapp = true;
         }
 
-        dbAtualizado.textVisibleHome = this.keyHome || null;
-        dbAtualizado.wnatsappVisible = this.whatsapp || null;
+        dbAtualizado.textVisibleHome = this.keyHome || true;
+        dbAtualizado.wnatsappVisible = this.whatsapp || true;
 
         localStorage.setItem("dbConfig", JSON.stringify(dbAtualizado));
         this.visiveBtnlSalvar = true;

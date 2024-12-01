@@ -5,7 +5,7 @@
 
     <!-- Logo -->
     <v-img
-      @dblclick="reset"
+      v-if="logoVisible"
       :src="dados.logo"
       :max-height="dados.altLogo"
       :max-width="dados.lagLogo"
@@ -98,6 +98,7 @@ export default {
         colorIconeContato: "blue",
         colorIconeInforme: "blue",
         colorBarra: "bg-black",
+        logoVisible: true,
         logo: "logo.webp",
         altLogo: "70",
         lagLogo: "300",
@@ -106,7 +107,7 @@ export default {
         numeroWhatsApp: "",
         wnatsappVisible: true,
       },
-
+      logoVisible: true,
       icohome: mdiHomeAccount,
       icoContato: mdiCardAccountMail,
       icoSobre: mdiInformation,
@@ -154,10 +155,10 @@ export default {
         console.error("Erro ao carregar configurações:", e);
       }
     },
-    reset() {
-      localStorage.removeItem("dbConfig");
-      location.reload();
-    },
+    // reset() {
+    //   localStorage.removeItem("dbConfig");
+    //   location.reload();
+    // },
   },
 
   mounted() {
