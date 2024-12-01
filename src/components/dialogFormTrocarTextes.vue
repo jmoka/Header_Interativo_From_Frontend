@@ -185,7 +185,7 @@ export default {
   },
   mounted() {
     const opcaoArmazenada = localStorage.getItem("opcao");
-    this.keyHome = opcaoArmazenada ? JSON.parse(opcaoArmazenada) : false;
+    this.keyHome = opcaoArmazenada ? JSON.parse(opcaoArmazenada) : true;
   },
 };
 </script>
