@@ -51,7 +51,7 @@
                 <v-col>
                   <v-switch
                     v-model="keyHome"
-                    @change="acaoBtnOpcaoHome"
+                    @change="acaobtnVisivel"
                     color="green"
                     base-color="red"
                   >
@@ -97,6 +97,37 @@
                   size="50"
                 />
               </span>
+              <span class="d-flex">
+                <v-text-field v-model="textOBS" label="Título Observação"></v-text-field>
+                <svg-icon
+                  :color="colorIcone"
+                  v-if="visibleObs"
+                  type="mdi"
+                  :path="mdiHandOkay"
+                  size="50"
+                />
+              </span>
+              <span class="d-flex">
+                <v-label text="+5591999999999"></v-label>
+                <v-text-field
+                  v-model="TextWhatsapp"
+                  label="Numero WhatsApp"
+                ></v-text-field>
+                <svg-icon
+                  :color="colorIcone"
+                  v-if="visibleWhatsapp"
+                  type="mdi"
+                  :path="mdiHandOkay"
+                  size="50"
+                />
+                <v-switch
+                  v-model="whatsapp"
+                  @change="acaoBtnwhatsapp"
+                  color="green"
+                  base-color="red"
+                >
+                </v-switch>
+              </span>
 
               <v-btn class="mt-2" type="submit" block>Alterar</v-btn>
             </v-form>
@@ -109,7 +140,7 @@
 
 <script>
 import SvgIcon from "@jamescoyle/vue-icon";
-import { mdiHandOkay, mdiNull } from "@mdi/js";
+import { mdiHandOkay, mdiNull, mdiWhatsapp } from "@mdi/js";
 
 export default {
   props: {
@@ -129,8 +160,10 @@ export default {
   data() {
     return {
       keyHome: true,
+      whatsapp: true,
       visiveBtnlSalvar: false,
-
+      visibleWhatsapp: false,
+      visibleObs: false,
       colorSalvar: "white",
       bg: "bg-blue",
       iconeAba1Visivel: false,
@@ -142,18 +175,26 @@ export default {
       textContato: "",
       textSobreNos: "",
       textDoLogin: "",
+      TextWhatsapp: "",
       mdiHandOkay,
       colorIcone: "green",
     };
   },
   methods: {
-    acaoBtnOpcaoHome() {
+    acaobtnVisivel() {
       if (this.keyHome) {
         localStorage.setItem("opcao", JSON.stringify(this.keyHome));
       } else {
         localStorage.setItem("opcao", JSON.stringify(this.keyHome));
       }
+
+      if (this.whatsapp) {
+        localStorage.setItem("opcao1", JSON.stringify(this.whatsapp));
+      } else {
+        localStorage.setItem("opcao1", JSON.stringify(this.whatsapp));
+      }
     },
+
     salvar() {
       location.reload();
     },
@@ -180,8 +221,17 @@ export default {
           dbAtualizado.textLogin = this.textDoLogin || null;
           this.iconeLoginVisivel = true;
         }
+        if (this.textOBS) {
+          dbAtualizado.obs = this.textOBS || null;
+          this.visibleObs = true;
+        }
+        if (this.whatsapp) {
+          dbAtualizado.numeroWhatsApp = this.TextWhatsapp || null;
+          this.visibleWhatsapp = true;
+        }
 
         dbAtualizado.textVisibleHome = this.keyHome || null;
+        dbAtualizado.wnatsappVisible = this.whatsapp || null;
 
         localStorage.setItem("dbConfig", JSON.stringify(dbAtualizado));
         this.visiveBtnlSalvar = true;
@@ -196,6 +246,9 @@ export default {
   mounted() {
     const opcaoArmazenada = localStorage.getItem("opcao");
     this.keyHome = opcaoArmazenada ? JSON.parse(opcaoArmazenada) : true;
+
+    const opcaoWhatsappa = localStorage.getItem("opcao1");
+    this.whatsapp = opcaoWhatsappa ? JSON.parse(opcaoWhatsappa) : true;
   },
 };
 </script>

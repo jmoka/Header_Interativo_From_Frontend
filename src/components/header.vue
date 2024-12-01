@@ -17,13 +17,9 @@
     <v-spacer></v-spacer>
 
     <!-- Botões de Navegação -->
-    <v-btn to="/">
+    <v-btn to="/" v-if="dados.textVisibleHome">
       <svg-icon :color="dados.colorIcoHome" type="mdi" :path="mdiHomeAccount" />
-      <h4
-        v-if="dados.textVisibleHome"
-        :class="dados.colorAba1"
-        v-text="dados.textoAba1"
-      />
+      <h4 :class="dados.colorAba1" v-text="dados.textoAba1" />
     </v-btn>
 
     <v-btn to="/contatos" :color="dados.colorIconeContato">
@@ -45,7 +41,7 @@
 
     <!-- WhatsApp -->
     <v-btn
-      v-once
+      v-if="dados.wnatsappVisible"
       icon
       :color="dados.colorIconeWhatsapp"
       :href="linkWhatsapp"
@@ -105,7 +101,9 @@ export default {
         altLogo: "70",
         lagLogo: "300",
         imageHeader: false,
-        numeroWhatsApp: "559999999999",
+        // whatsapp
+        numeroWhatsApp: "",
+        wnatsappVisible: true,
       },
 
       mdiAccount,
