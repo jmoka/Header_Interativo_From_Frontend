@@ -9,7 +9,7 @@
             :path="icologin"
             :color="colorIconeLogin"
           ></svg-icon>
-          <h4 :class="colorTextLogin" v-text="TextLogin" />
+          <h4 v-if="TextLoginVisible" :class="colorTextLogin" v-text="TextLogin" />
         </v-btn>
       </template>
 
@@ -70,6 +70,9 @@ export default {
     icologin: {
       tyoe: String,
       default: mdiAccount,
+    },
+    TextLoginVisible: {
+      type: Boolean,
     },
   },
 };

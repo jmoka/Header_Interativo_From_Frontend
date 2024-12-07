@@ -83,8 +83,16 @@
                   :path="mdiHandOkay"
                   size="50"
                 />
+                <v-switch
+                  v-model="sobrenos"
+                  @change="acaobtnVisivel"
+                  color="green"
+                  base-color="red"
+                >
+                </v-switch>
               </span>
 
+              <!-- login -->
               <span class="d-flex">
                 <v-text-field v-model="textDoLogin" label="Título Login"></v-text-field>
                 <svg-icon
@@ -94,7 +102,16 @@
                   :path="mdiHandOkay"
                   size="50"
                 />
+                <v-switch
+                  v-model="textVisibleLogin"
+                  @change="acaobtnVisivel"
+                  color="green"
+                  base-color="red"
+                >
+                </v-switch>
               </span>
+
+              <!-- observação -->
               <span class="d-flex">
                 <v-text-field v-model="textOBS" label="Título Observação"></v-text-field>
                 <svg-icon
@@ -105,6 +122,8 @@
                   size="50"
                 />
               </span>
+
+              <!-- whatsApp -->
               <span class="d-flex">
                 <v-text-field
                   v-model="TextWhatsapp"
@@ -158,6 +177,9 @@ export default {
     return {
       keyHome: true,
       whatsapp: true,
+      contato: true,
+      sobrenos: true,
+      textVisibleLogin: true,
       visiveBtnlSalvar: false,
       visibleWhatsapp: false,
       visibleObs: false,
@@ -173,7 +195,7 @@ export default {
       textSobreNos: "",
       textDoLogin: "",
       TextWhatsapp: "",
-      contato: "",
+
       mdiHandOkay,
       colorIcone: "green",
     };
@@ -196,6 +218,18 @@ export default {
         localStorage.setItem("opcao2", JSON.stringify(this.contato));
       } else {
         localStorage.setItem("opcao2", JSON.stringify(this.contato));
+      }
+
+      if (this.sobrenos) {
+        localStorage.setItem("opcao3", JSON.stringify(this.sobrenos));
+      } else {
+        localStorage.setItem("opcao3", JSON.stringify(this.sobrenos));
+      }
+
+      if (this.textVisibleLogin) {
+        localStorage.setItem("opcao4", JSON.stringify(this.textVisibleLogin));
+      } else {
+        localStorage.setItem("opcao4", JSON.stringify(this.textVisibleLogin));
       }
     },
 
@@ -232,10 +266,17 @@ export default {
           dbAtualizado.numeroWhatsApp = this.TextWhatsapp || null;
           this.visibleWhatsapp = true;
         }
+        if (this.textLoginVisible) {
+          console.log("true" + true);
+          dbAtualizado.textLoginVisible = this.textVisibleLogin;
+        } else {
+          dbAtualizado.textLoginVisible = this.textVisibleLogin;
+        }
 
         dbAtualizado.textVisibleHome = this.keyHome;
         dbAtualizado.wnatsappVisible = this.whatsapp;
         dbAtualizado.contatoVisible = this.contato;
+        dbAtualizado.sobrenostoVisible = this.sobrenos;
 
         localStorage.setItem("dbConfig", JSON.stringify(dbAtualizado));
         this.visiveBtnlSalvar = true;
@@ -254,8 +295,14 @@ export default {
     const opcaoWhatsappa = localStorage.getItem("opcao1");
     this.whatsapp = opcaoWhatsappa ? JSON.parse(opcaoWhatsappa) : true;
 
-    const opcaoWContato = localStorage.getItem("opcao2");
-    this.contato = opcaoWContato ? JSON.parse(opcaoWContato) : true;
+    const opcaoContato = localStorage.getItem("opcao2");
+    this.contato = opcaoContato ? JSON.parse(opcaoContato) : true;
+
+    const opcaoSobreNos = localStorage.getItem("opcao3");
+    this.sobrenos = opcaoSobreNos ? JSON.parse(opcaoSobreNos) : true;
+
+    const opcaoTextoLogin = localStorage.getItem("opcao4");
+    this.textVisibleLogin = opcaoTextoLogin ? JSON.parse(opcaoTextoLogin) : true;
   },
 };
 </script>

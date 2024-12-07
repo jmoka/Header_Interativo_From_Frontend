@@ -27,7 +27,7 @@
       <h4 :class="dados.colorAba2" v-text="dados.textoAba2" />
     </v-btn>
 
-    <v-btn :color="dados.colorIconeInforme" to="/sobre">
+    <v-btn v-if="dados.sobrenostoVisible" :color="dados.colorIconeInforme" to="/sobre">
       <svg-icon type="mdi" :path="icoSobre" />
       <h4 :class="dados.colorAba3" v-text="dados.textoAba3" />
     </v-btn>
@@ -36,8 +36,9 @@
     <dialogFormLogin
       :colorIconeLogin="dados.colorIconeLogin"
       :colorTextLogin="dados.colorTextLogin"
-      :TextLogin="textLogin"
+      :TextLogin="dados.textLogin"
       :icologin="icoLogin"
+      :TextLoginVisible="dados.textLoginVisible"
     />
 
     <!-- WhatsApp -->
@@ -81,11 +82,24 @@ export default {
         // Botao Home
         textoAba1: "Home",
         textVisibleHome: true,
+
         // Botao Contatos
         textoAba2: "Contatos",
         contatoVisible: true,
+
+        // BOtão Sobre Nós
         textoAba3: "Sobre Nós",
+        sobrenostoVisible: true,
+
+        // Observação
         visibleObs: true,
+
+        // Login
+        textLogin: "Login",
+        textLoginVisible: true,
+
+        colorIconeLogin: "blue",
+        colorTextLogin: "#AB47BC",
 
         obs: "empresa@gmail.com / (91)9 9629-3532",
         colorAba1: "text-white",
@@ -94,9 +108,7 @@ export default {
         colorIcoHome: "blue",
         colorIconeMenu: "blue",
         colorIconeWhatsapp: "green",
-        colorIconeLogin: "blue",
-        colorTextLogin: "#AB47BC",
-        textLogin: "Login",
+
         colorIconeContato: "blue",
         colorIconeInforme: "blue",
         colorBarra: "bg-black",
