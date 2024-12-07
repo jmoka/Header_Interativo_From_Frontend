@@ -22,7 +22,7 @@
       <h4 :class="dados.colorAba1" v-text="dados.textoAba1" />
     </v-btn>
 
-    <v-btn to="/contatos" :color="dados.colorIconeContato">
+    <v-btn to="/contatos" v-if="dados.contatoVisible" :color="dados.colorIconeContato">
       <svg-icon type="mdi" :path="icoContato" />
       <h4 :class="dados.colorAba2" v-text="dados.textoAba2" />
     </v-btn>
@@ -83,8 +83,10 @@ export default {
         textVisibleHome: true,
         // Botao Contatos
         textoAba2: "Contatos",
+        contatoVisible: true,
         textoAba3: "Sobre Nós",
         visibleObs: true,
+
         obs: "empresa@gmail.com / (91)9 9629-3532",
         colorAba1: "text-white",
         colorAba2: "text-white",

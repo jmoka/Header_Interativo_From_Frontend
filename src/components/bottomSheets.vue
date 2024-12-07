@@ -112,14 +112,14 @@ export default {
   methods: {
     reset() {
       const resultado = confirm(
-        "Você tem certeza que deseja restaurar as configurações do site?"
+        "Você tem certeza que deseja restaurar as configurações do seu site?"
       );
       if (resultado) {
-        alert("Você clicou em OK.");
+        alert("Vamos Restaurar Click em OK.");
         localStorage.removeItem("dbConfig");
         location.reload();
       } else {
-        alert("Você clicou em Cancelar.");
+        alert("Click em OK e Permaneça com a sua Configuração Personalizada.");
       }
     },
   },

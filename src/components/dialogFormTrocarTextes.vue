@@ -32,32 +32,23 @@
         <v-container>
           <v-sheet class="mx-auto" width="300">
             <v-form @submit.prevent="alterar">
-              <v-row>
-                <v-col cols="10">
-                  <span class="d-flex">
-                    <v-text-field
-                      v-model="textHome"
-                      label="Título do Home"
-                    ></v-text-field>
-                    <svg-icon
-                      :color="colorIcone"
-                      v-if="iconeAba1Visivel"
-                      type="mdi"
-                      :path="mdiHandOkay"
-                      size="50"
-                    />
-                  </span>
-                </v-col>
-                <v-col>
-                  <v-switch
-                    v-model="keyHome"
-                    @change="acaobtnVisivel"
-                    color="green"
-                    base-color="red"
-                  >
-                  </v-switch>
-                </v-col>
-              </v-row>
+              <span class="d-flex">
+                <v-text-field v-model="textHome" label="Título Home"></v-text-field>
+                <svg-icon
+                  :color="colorIcone"
+                  v-if="iconeAba1Visivel"
+                  type="mdi"
+                  :path="mdiHandOkay"
+                  size="50"
+                />
+                <v-switch
+                  v-model="keyHome"
+                  @change="acaobtnVisivel"
+                  color="green"
+                  base-color="red"
+                >
+                </v-switch>
+              </span>
 
               <span class="d-flex">
                 <v-text-field
@@ -71,6 +62,13 @@
                   :path="mdiHandOkay"
                   size="50"
                 />
+                <v-switch
+                  v-model="contato"
+                  @change="acaobtnVisivel"
+                  color="green"
+                  base-color="red"
+                >
+                </v-switch>
               </span>
 
               <span class="d-flex">
@@ -108,7 +106,6 @@
                 />
               </span>
               <span class="d-flex">
-                <v-label text="+5591999999999"></v-label>
                 <v-text-field
                   v-model="TextWhatsapp"
                   label="Numero WhatsApp"
@@ -176,6 +173,7 @@ export default {
       textSobreNos: "",
       textDoLogin: "",
       TextWhatsapp: "",
+      contato: "",
       mdiHandOkay,
       colorIcone: "green",
     };
@@ -192,6 +190,12 @@ export default {
         localStorage.setItem("opcao1", JSON.stringify(this.whatsapp));
       } else {
         localStorage.setItem("opcao1", JSON.stringify(this.whatsapp));
+      }
+
+      if (this.contato) {
+        localStorage.setItem("opcao2", JSON.stringify(this.contato));
+      } else {
+        localStorage.setItem("opcao2", JSON.stringify(this.contato));
       }
     },
 
@@ -225,13 +229,13 @@ export default {
           this.visibleObs = true;
         }
         if (this.TextWhatsapp) {
-          console.log();
           dbAtualizado.numeroWhatsApp = this.TextWhatsapp || null;
           this.visibleWhatsapp = true;
         }
 
-        dbAtualizado.textVisibleHome = this.keyHome || true;
-        dbAtualizado.wnatsappVisible = this.whatsapp || true;
+        dbAtualizado.textVisibleHome = this.keyHome;
+        dbAtualizado.wnatsappVisible = this.whatsapp;
+        dbAtualizado.contatoVisible = this.contato;
 
         localStorage.setItem("dbConfig", JSON.stringify(dbAtualizado));
         this.visiveBtnlSalvar = true;
@@ -249,6 +253,9 @@ export default {
 
     const opcaoWhatsappa = localStorage.getItem("opcao1");
     this.whatsapp = opcaoWhatsappa ? JSON.parse(opcaoWhatsappa) : true;
+
+    const opcaoWContato = localStorage.getItem("opcao2");
+    this.contato = opcaoWContato ? JSON.parse(opcaoWContato) : true;
   },
 };
 </script>
