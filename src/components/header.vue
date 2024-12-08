@@ -13,7 +13,8 @@
 
     <!-- Texto Central -->
 
-    <h4 class="ml-5" :v-if="visibleObs" :class="colorObs" v-text="dados.obs"></h4>
+    <!-- Texto Obsercação -->
+    <h4 class="ml-5" v-if="dados.visibleObs" :class="colorObs" v-text="dados.obs"></h4>
     <v-spacer></v-spacer>
 
     <!-- Botões de Navegação -->
@@ -147,7 +148,6 @@ export default {
       try {
         // Usando o localStorage nativo para salvar
         localStorage.setItem("dbConfig", JSON.stringify(this.dados));
-        console.log("Configurações salvas:", JSON.stringify(this.dados));
       } catch (e) {
         console.error("Erro ao salvar configurações:", e);
       }
@@ -157,7 +157,6 @@ export default {
       try {
         const dadossalvos = localStorage.getItem("dbConfig");
         let p = JSON.parse(dadossalvos);
-        console.log(p);
 
         if (dadossalvos && p.padrao) {
           this.dados = p; // Atualize a propriedade `dados` diretamente

@@ -121,6 +121,13 @@
                   :path="mdiHandOkay"
                   size="50"
                 />
+                <v-switch
+                  v-model="textObsVisible"
+                  @change="acaobtnVisivel"
+                  color="green"
+                  base-color="red"
+                >
+                </v-switch>
               </span>
 
               <!-- whatsApp -->
@@ -182,6 +189,7 @@ export default {
       textVisibleLogin: true,
       visiveBtnlSalvar: false,
       visibleWhatsapp: false,
+      textObsVisible: false,
       visibleObs: false,
       colorSalvar: "white",
       bg: "bg-blue",
@@ -195,7 +203,7 @@ export default {
       textSobreNos: "",
       textDoLogin: "",
       TextWhatsapp: "",
-
+      textOBS: "",
       mdiHandOkay,
       colorIcone: "green",
     };
@@ -230,6 +238,12 @@ export default {
         localStorage.setItem("opcao4", JSON.stringify(this.textVisibleLogin));
       } else {
         localStorage.setItem("opcao4", JSON.stringify(this.textVisibleLogin));
+      }
+
+      if (this.textObsVisible) {
+        localStorage.setItem("opcao5", JSON.stringify(this.textObsVisible));
+      } else {
+        localStorage.setItem("opcao5", JSON.stringify(this.textObsVisible));
       }
     },
 
@@ -267,16 +281,18 @@ export default {
           this.visibleWhatsapp = true;
         }
         if (this.textLoginVisible) {
-          console.log("true" + true);
           dbAtualizado.textLoginVisible = this.textVisibleLogin;
-        } else {
-          dbAtualizado.textLoginVisible = this.textVisibleLogin;
+        }
+        if (this.textObsVisible) {
+          dbAtualizado.visibleObs = this.textObsVisible;
         }
 
         dbAtualizado.textVisibleHome = this.keyHome;
         dbAtualizado.wnatsappVisible = this.whatsapp;
         dbAtualizado.contatoVisible = this.contato;
         dbAtualizado.sobrenostoVisible = this.sobrenos;
+        dbAtualizado.textLoginVisible = this.textVisibleLogin;
+        dbAtualizado.visibleObs = this.textObsVisible;
 
         localStorage.setItem("dbConfig", JSON.stringify(dbAtualizado));
         this.visiveBtnlSalvar = true;
@@ -303,6 +319,9 @@ export default {
 
     const opcaoTextoLogin = localStorage.getItem("opcao4");
     this.textVisibleLogin = opcaoTextoLogin ? JSON.parse(opcaoTextoLogin) : true;
+
+    const opcaoTextoObs = localStorage.getItem("opcao5");
+    this.textObsVisible = opcaoTextoObs ? JSON.parse(opcaoTextoObs) : true;
   },
 };
 </script>
