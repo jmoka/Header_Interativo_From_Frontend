@@ -16,6 +16,16 @@
             <v-icon>mdi-close</v-icon>
           </v-btn>
 
+          <v-btn
+            v-if="!visiveBtnlSalvar"
+            :color="colorSalvar"
+            :class="bg"
+            text
+            @click="salvar"
+          >
+            <svg-icon :color="red" type="mdi" :path="mdiArrowLeftCircle" />
+          </v-btn>
+
           <v-toolbar-title>Configurar Textos e Títulos</v-toolbar-title>
           <v-spacer></v-spacer>
 
@@ -163,7 +173,7 @@
 
 <script>
 import SvgIcon from "@jamescoyle/vue-icon";
-import { mdiHandOkay, mdiNull, mdiWhatsapp } from "@mdi/js";
+import { mdiHandOkay, mdiArrowLeftCircle } from "@mdi/js";
 
 export default {
   props: {
@@ -182,6 +192,7 @@ export default {
 
   data() {
     return {
+      colorIcoVoltar: "",
       keyHome: true,
       whatsapp: true,
       contato: true,
@@ -205,6 +216,7 @@ export default {
       TextWhatsapp: "",
       textOBS: "",
       mdiHandOkay,
+      mdiArrowLeftCircle,
       colorIcone: "green",
     };
   },

@@ -5,7 +5,8 @@
 
     <!-- Logo -->
     <v-img
-      v-if="logoVisible"
+      class="logo"
+      v-if="dados.logoVisible"
       :src="dados.logo"
       :max-height="dados.altLogo"
       :max-width="dados.lagLogo"
@@ -18,19 +19,27 @@
     <v-spacer></v-spacer>
 
     <!-- Botões de Navegação -->
-    <v-btn to="/" v-if="dados.textVisibleHome">
+    <v-btn to="/">
       <svg-icon :color="dados.colorIcoHome" type="mdi" :path="icohome" />
-      <h4 :class="dados.colorAba1" v-text="dados.textoAba1" />
+      <h4
+        v-if="dados.textVisibleHome"
+        :class="dados.colorAba1"
+        v-text="dados.textoAba1"
+      />
     </v-btn>
 
-    <v-btn to="/contatos" v-if="dados.contatoVisible" :color="dados.colorIconeContato">
+    <v-btn to="/contatos" :color="dados.colorIconeContato">
       <svg-icon type="mdi" :path="icoContato" />
-      <h4 :class="dados.colorAba2" v-text="dados.textoAba2" />
+      <h4 v-if="dados.contatoVisible" :class="dados.colorAba2" v-text="dados.textoAba2" />
     </v-btn>
 
-    <v-btn v-if="dados.sobrenostoVisible" :color="dados.colorIconeInforme" to="/sobre">
+    <v-btn :color="dados.colorIconeInforme" to="/sobre">
       <svg-icon type="mdi" :path="icoSobre" />
-      <h4 :class="dados.colorAba3" v-text="dados.textoAba3" />
+      <h4
+        v-if="dados.sobrenostoVisible"
+        :class="dados.colorAba3"
+        v-text="dados.textoAba3"
+      />
     </v-btn>
 
     <!-- Botão de Login -->
@@ -114,7 +123,7 @@ export default {
         colorIconeInforme: "blue",
         colorBarra: "bg-black",
         logoVisible: true,
-        logo: "logo.webp",
+        logo: "logo.webp" || "https://via.placeholder.com/300x70",
         altLogo: "70",
         lagLogo: "300",
         imageHeader: false,
@@ -176,6 +185,7 @@ export default {
 
   mounted() {
     // this.salvarConfiguracoes();
+    console.log("Logo Visible:", this.logoVisible, "Logo Path:", this.dados.logo);
     this.carregarConfiguracoes(); // Carregar configurações ao montar o componente
   },
 };

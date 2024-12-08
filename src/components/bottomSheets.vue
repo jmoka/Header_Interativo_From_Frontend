@@ -8,23 +8,29 @@
 
     <v-list>
       <v-list-subheader>Configurações do Site</v-list-subheader>
-      <v-list-item v-for="tile in tiles" :key="tile.title">
+      <v-list-item v-for="(tile, index) in tiles" :key="index">
         <!-- Dialogo de Trocar Textos -->
         <DialogFormTrocarTextes
-          v-if="tile.visible && tile.title === Perfil"
+          v-if="tile.visible && tile.title === Titulos"
           :title="tile.text"
           :icones="tile.icones"
         />
 
         <!-- Dialogo de Trocar Imagens -->
         <DialogTrocarImagem
-          v-else-if="tile.visible && tile.title === Imagens"
+          v-if="tile.visible && tile.title === Imagem"
           :title="tile.text"
           :icones="tile.icones"
         />
 
         <DialogTrocarIcones
-          v-else-if="tile.visible && tile.title === Icons"
+          v-if="tile.visible && tile.title === Icones"
+          :title="tile.text"
+          :icones="tile.icones"
+        />
+
+        <DialogTrocarLogo
+          v-if="tile.visible && tile.title === Logo"
           :title="tile.text"
           :icones="tile.icones"
         />
@@ -38,6 +44,7 @@
 import DialogFormTrocarTextes from "../../src/components/DialogFormTrocarTextes.vue";
 import DialogTrocarImagem from "../../src/components/DialogTrocarImagem.vue";
 import DialogTrocarIcones from "../../src/components/dialogTrocarIcones.vue";
+import DialogTrocarLogo from "../../src/components/dialogTrocarLogo.vue";
 import {
   mdiAccountBoxEditOutline,
   mdiAccount,
@@ -57,44 +64,46 @@ export default {
     DialogFormTrocarTextes,
     DialogTrocarImagem,
     DialogTrocarIcones,
+    DialogTrocarLogo,
     SvgIcon,
   },
   data() {
     return {
       sheet: false,
-      Perfil: "Perfil",
-      Textos: "Textos",
+      Titulos: "Titulos",
+      Icones: "Icones",
+      Cores: "Cores",
       Imagem: "Imagens",
-      Icone: "Icons",
+      Logo: "Logo",
 
       tiles: [
         {
-          title: "Perfil",
-          text: "Perfil",
-          icones: mdiAccount,
-          visible: true,
-        },
-        {
-          title: this.Textos,
+          title: "Titulos",
+          text: "Títulos",
           icones: mdiAccountBoxEditOutline,
-          text: "Textos",
           visible: true,
         },
         {
-          title: this.Imagem,
-          text: "Imagens",
-          icones: mdiAccount,
-          visible: true,
-        },
-        {
-          title: this.Icone,
+          title: "Icones",
           text: "Icones",
           icones: mdiCardAccountMail,
           visible: true,
         },
         {
-          title: "Messenger",
-          text: "Redes",
+          title: "Imagens",
+          text: "Imagens",
+          icones: mdiAccount,
+          visible: true,
+        },
+        {
+          title: "Cores",
+          text: "Cores",
+          icones: mdiAccount,
+          visible: true,
+        },
+        {
+          title: "Logo",
+          text: "Logo",
           icones: mdiInformation,
           visible: true,
         },
