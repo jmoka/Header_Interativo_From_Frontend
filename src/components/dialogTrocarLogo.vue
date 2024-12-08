@@ -12,8 +12,8 @@
 
       <v-card>
         <v-toolbar>
-          <v-btn icon @click="dialog = false">
-            <v-icon>mdi-close</v-icon>
+          <v-btn v-if="!visiveBtnlSalvar" icon @click="dialog = false">
+            <svg-icon :color="red" type="mdi" :path="mdiArrowLeftCircle" />
           </v-btn>
 
           <v-toolbar-title>Configurar Logo e Barra</v-toolbar-title>
@@ -30,28 +30,51 @@
           </v-btn>
         </v-toolbar>
 
-        <v-container>
-          <v-sheet class="mx-auto" width="300">
-            <v-form @submit.prevent="alterar">
-              <v-text-field v-model="textHome" label="Logo"></v-text-field>
-              <svg-icon
-                :color="colorIcone"
-                v-if="iconeAba1Visivel"
-                type="mdi"
-                :path="mdiHandOkay"
-                size="50"
-              />
-              <v-switch
-                v-model="LogoVisible"
-                @change="acaobtnVisivel"
-                color="green"
-                base-color="red"
-              >
-              </v-switch>
+        <v-container fluid>
+          <v-row>
+            <v-col cols="7">
+              <v-sheet class="mx-auto w-100 pa-16">
+                <h3>Caminho da Logo</h3>
+                <v-form @submit.prevent="alterar">
+                  <v-text-field
+                    max-width="w-100"
+                    v-model="caminhoLogo"
+                    label="Logo"
+                  ></v-text-field>
+                  <svg-icon
+                    :color="colorIcone"
+                    v-if="iconeAba1Visivel"
+                    type="mdi"
+                    :path="mdiHandOkay"
+                    size="50"
+                  />
+                  <v-switch
+                    v-model="LogoVisible"
+                    @change="acaobtnVisivel"
+                    color="green"
+                    base-color="red"
+                  >
+                  </v-switch>
 
-              <v-btn class="mt-2" type="submit" block>Alterar</v-btn>
-            </v-form>
-          </v-sheet>
+                  <v-btn class="mt-2" type="submit" block>Alterar</v-btn>
+                </v-form>
+              </v-sheet>
+            </v-col>
+            <v-col>
+              <div class="pr-16">
+                <h1>Informe o caminho de duas formas:</h1>
+                <br />
+                <h5>HTML</h5>
+                <p>https://</p>
+                <br />
+                <br />
+                <h5>CAMINHO LOCAL</h5>
+                <p>Abra do ditetório do sistema e procure pela pasta "public"</p>
+                <p>Salve sua imagem</p>
+                <p>informe o nome e o tipo : Ex: logo.webp</p>
+              </div>
+            </v-col>
+          </v-row>
         </v-container>
       </v-card>
     </v-dialog>
@@ -78,19 +101,21 @@ export default {
   },
   data() {
     return {
+      caminhoLogo: "" || "https://via.placeholder.com/300x70",
       dialog: false, // Controle do diálogo
-      textHome: "", // Input para o campo "Logo"
       LogoVisible: true, // Controle do switch
       iconeAba1Visivel: false, // Visibilidade do ícone adicional
       visiveBtnlSalvar: false, // Controle do botão "Salvar"
       colorSalvar: "blue", // Cor do botão salvar
       bg: "", // Classe de fundo do botão
       colorIcone: "green", // Cor do ícone no switch
+      mdiArrowLeftCircle,
     };
   },
   methods: {
     acaobtnVisivel() {
       localStorage.setItem("logoVisible", JSON.stringify(this.LogoVisible));
+      localStorage.setItem("caminhoLogo", JSON.stringify(this.caminhoLogo));
     },
     salvar() {
       location.reload(); // Recarrega a página para aplicar as alterações
@@ -104,6 +129,10 @@ export default {
           dbAtualizado.logoVisible = this.LogoVisible;
         }
 
+        if (this.caminhoLogo) {
+          dbAtualizado.logo = this.caminhoLogo;
+        }
+        dbAtualizado.logo = this.caminhoLogo;
         dbAtualizado.logoVisible = this.LogoVisible;
         localStorage.setItem("dbConfig", JSON.stringify(dbAtualizado));
         this.visiveBtnlSalvar = true;

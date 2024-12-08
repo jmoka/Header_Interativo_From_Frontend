@@ -123,7 +123,7 @@ export default {
         colorIconeInforme: "blue",
         colorBarra: "bg-black",
         logoVisible: true,
-        logo: "logo.webp" || "https://via.placeholder.com/300x70",
+        logo: "https://via.placeholder.com/300x70",
         altLogo: "70",
         lagLogo: "300",
         imageHeader: false,

@@ -12,17 +12,7 @@
 
       <v-card>
         <v-toolbar>
-          <v-btn icon @click="dialog = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-
-          <v-btn
-            v-if="!visiveBtnlSalvar"
-            :color="colorSalvar"
-            :class="bg"
-            text
-            @click="salvar"
-          >
+          <v-btn v-if="!visiveBtnlSalvar" icon @click="dialog = false">
             <svg-icon :color="red" type="mdi" :path="mdiArrowLeftCircle" />
           </v-btn>
 
