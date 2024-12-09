@@ -48,8 +48,18 @@
                     :path="mdiHandOkay"
                     size="50"
                   />
+                  <h3>Logo Visivel</h3>
                   <v-switch
                     v-model="LogoVisible"
+                    @change="acaobtnVisivel"
+                    color="green"
+                    base-color="red"
+                  >
+                  </v-switch>
+
+                  <h3>Barra Transparente</h3>
+                  <v-switch
+                    v-model="opcaoBarraTransparente"
                     @change="acaobtnVisivel"
                     color="green"
                     base-color="red"
@@ -101,6 +111,9 @@ export default {
   },
   data() {
     return {
+      transparente: "bg-transparent",
+
+      opcaoBarraTransparente: false,
       caminhoLogo: "" || "https://via.placeholder.com/300x70",
       dialog: false, // Controle do diálogo
       LogoVisible: true, // Controle do switch
@@ -116,6 +129,10 @@ export default {
     acaobtnVisivel() {
       localStorage.setItem("logoVisible", JSON.stringify(this.LogoVisible));
       localStorage.setItem("caminhoLogo", JSON.stringify(this.caminhoLogo));
+      localStorage.setItem(
+        "opcaoBarraTransparente",
+        JSON.stringify(this.opcaoBarraTransparente)
+      );
     },
     salvar() {
       location.reload(); // Recarrega a página para aplicar as alterações
@@ -132,6 +149,13 @@ export default {
         if (this.caminhoLogo) {
           dbAtualizado.logo = this.caminhoLogo;
         }
+
+        if (this.opcaoBarraTransparente) {
+          dbAtualizado.colorBarra = this.transparente;
+        } else {
+          dbAtualizado.colorBarra = "bg-black";
+        }
+
         dbAtualizado.logo = this.caminhoLogo;
         dbAtualizado.logoVisible = this.LogoVisible;
         localStorage.setItem("dbConfig", JSON.stringify(dbAtualizado));
@@ -144,8 +168,15 @@ export default {
     },
   },
   mounted() {
+    const opcaoLogoArmazenada = localStorage.getItem("caminhoLogo");
+    this.caminhoLogo = opcaoLogoArmazenada ? JSON.parse(opcaoLogoArmazenada) : true;
+
     const opcaoArmazenada = localStorage.getItem("logoVisible");
     this.LogoVisible = opcaoArmazenada ? JSON.parse(opcaoArmazenada) : true;
+    const opcaoArmazenadaTransparente = localStorage.getItem("opcaoBarraTransparente");
+    this.opcaoBarraTransparente = opcaoArmazenadaTransparente
+      ? JSON.parse(opcaoArmazenadaTransparente)
+      : false;
   },
 };
 </script>

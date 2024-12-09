@@ -126,6 +126,16 @@ export default {
       if (resultado) {
         alert("Vamos Restaurar Click em OK.");
         localStorage.removeItem("dbConfig");
+        localStorage.removeItem("caminhoLogo");
+        localStorage.removeItem("logoVisible");
+        localStorage.removeItem("opcao");
+        localStorage.removeItem("opcao1");
+        localStorage.removeItem("opcao2");
+        localStorage.removeItem("opcao3");
+        localStorage.removeItem("opcao4");
+        localStorage.removeItem("opcao5");
+        localStorage.removeItem("opcaoBarraTransparente");
+
         location.reload();
       } else {
         alert("Click em OK e Permaneça com a sua Configuração Personalizada.");

@@ -73,6 +73,7 @@ export default {
     },
     TextLoginVisible: {
       type: Boolean,
+      default: true,
     },
   },
 };
