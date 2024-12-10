@@ -36,7 +36,7 @@
                 <!-- Ícone de Confirmação -->
                 <v-col
                   v-if="iconeAba1Visivel"
-                  cols="2"
+                  cols="1"
                   class="d-flex justify-center align-center"
                 >
                   <svg-icon
@@ -52,22 +52,35 @@
                   <v-label text="Trocar texto Home"></v-label>
                   <v-text-field class="w-100" v-model="textHome" label="Título Home">
                   </v-text-field>
+                  <span class="mt-2" :style="{ backgroundColor: corHome }">.</span>
                 </v-col>
 
                 <!-- Switch Visibilidade -->
-                <v-col cols="2" class="d-flex justify-center align-center">
+
+                <v-col cols="3" class="d-flex justify-center align-center">
+                  <p v-if="!TextovisivelOculto">Oculto</p>
                   <v-switch
                     v-model="keyHome"
                     @change="acaobtnVisivel"
                     color="green"
                     base-color="red"
-                  ></v-switch>
+                  >
+                  </v-switch>
+
+                  <p v-if="TextovisivelOculto">Visivel</p>
                 </v-col>
 
                 <!-- Cor do Texto -->
                 <v-col cols="3" class="d-flex flex-column align-center">
                   <p :style="{ color: corHome }">Cor texto Home</p>
-                  <v-color-picker hide-canvas v-model="corHome"></v-color-picker>
+                  <v-color-picker
+                    v-model="this.corHome"
+                    mode="hexa"
+                    show-swatches
+                    hide-inputs
+                    hide-sliders
+                    hide-canvas
+                  ></v-color-picker>
                 </v-col>
               </v-row>
 
@@ -203,9 +216,10 @@ export default {
 
   data() {
     return {
+      TextovisivelOculto: true,
       colorIcoVoltar: "",
       keyHome: true,
-      corHome: "color",
+      corHome: "color-black",
       whatsapp: true,
       contato: true,
       sobrenos: true,
@@ -237,8 +251,10 @@ export default {
     acaobtnVisivel() {
       if (this.keyHome) {
         localStorage.setItem("opcao", JSON.stringify(this.keyHome));
+        this.TextovisivelOculto = this.keyHome;
       } else {
         localStorage.setItem("opcao", JSON.stringify(this.keyHome));
+        this.TextovisivelOculto = this.keyHome;
       }
 
       if (this.whatsapp) {
