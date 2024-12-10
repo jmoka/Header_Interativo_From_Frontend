@@ -29,26 +29,47 @@
           >
         </v-toolbar>
 
-        <v-container>
-          <v-sheet class="mx-auto" width="300">
+        <v-container style="width: 50%">
+          <v-sheet>
             <v-form @submit.prevent="alterar">
-              <span class="d-flex">
-                <v-text-field v-model="textHome" label="Título Home"></v-text-field>
-                <svg-icon
-                  :color="colorIcone"
+              <v-row class="mb-6 justify-center align-center">
+                <!-- Ícone de Confirmação -->
+                <v-col
                   v-if="iconeAba1Visivel"
-                  type="mdi"
-                  :path="mdiHandOkay"
-                  size="50"
-                />
-                <v-switch
-                  v-model="keyHome"
-                  @change="acaobtnVisivel"
-                  color="green"
-                  base-color="red"
+                  cols="2"
+                  class="d-flex justify-center align-center"
                 >
-                </v-switch>
-              </span>
+                  <svg-icon
+                    :color="colorIcone"
+                    type="mdi"
+                    :path="mdiHandOkay"
+                    size="50"
+                  />
+                </v-col>
+                <!-- Texto Home -->
+
+                <v-col cols="5" class="d-flex flex-column align-left">
+                  <v-label text="Trocar texto Home"></v-label>
+                  <v-text-field class="w-100" v-model="textHome" label="Título Home">
+                  </v-text-field>
+                </v-col>
+
+                <!-- Switch Visibilidade -->
+                <v-col cols="2" class="d-flex justify-center align-center">
+                  <v-switch
+                    v-model="keyHome"
+                    @change="acaobtnVisivel"
+                    color="green"
+                    base-color="red"
+                  ></v-switch>
+                </v-col>
+
+                <!-- Cor do Texto -->
+                <v-col cols="3" class="d-flex flex-column align-center">
+                  <p :style="{ color: corHome }">Cor texto Home</p>
+                  <v-color-picker hide-canvas v-model="corHome"></v-color-picker>
+                </v-col>
+              </v-row>
 
               <span class="d-flex">
                 <v-text-field
@@ -184,6 +205,7 @@ export default {
     return {
       colorIcoVoltar: "",
       keyHome: true,
+      corHome: "color",
       whatsapp: true,
       contato: true,
       sobrenos: true,
@@ -210,6 +232,7 @@ export default {
       colorIcone: "green",
     };
   },
+
   methods: {
     acaobtnVisivel() {
       if (this.keyHome) {
@@ -246,6 +269,12 @@ export default {
         localStorage.setItem("opcao5", JSON.stringify(this.textObsVisible));
       } else {
         localStorage.setItem("opcao5", JSON.stringify(this.textObsVisible));
+      }
+
+      if (this.corHome) {
+        localStorage.setItem("corHome", JSON.stringify("color:" + this.corHome));
+      } else {
+        localStorage.setItem("corHome", JSON.stringify("color:" + this.corHome));
       }
     },
 
@@ -284,9 +313,15 @@ export default {
         }
         if (this.textLoginVisible) {
           dbAtualizado.textLoginVisible = this.textVisibleLogin;
+          this.iconeAba1Visivel = true;
         }
         if (this.textObsVisible) {
           dbAtualizado.visibleObs = this.textObsVisible;
+          this.iconeAba1Visivel = true;
+        }
+        if (this.corHome) {
+          dbAtualizado.colorTextHome = "color:" + this.corHome;
+          this.iconeAba1Visivel = true;
         }
 
         dbAtualizado.textVisibleHome = this.keyHome;
@@ -324,6 +359,9 @@ export default {
 
     const opcaoTextoObs = localStorage.getItem("opcao5");
     this.textObsVisible = opcaoTextoObs ? JSON.parse(opcaoTextoObs) : true;
+
+    const opcaoCorHome = localStorage.getItem("corHome");
+    this.corHome = opcaoCorHome ? JSON.parse(opcaoCorHome) : "";
   },
 };
 </script>

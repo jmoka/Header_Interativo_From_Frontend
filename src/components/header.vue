@@ -23,7 +23,7 @@
       <svg-icon :color="dados.colorIcoHome" type="mdi" :path="icohome" />
       <h4
         v-if="dados.textVisibleHome"
-        :class="dados.colorAba1"
+        :style="dados.colorTextHome"
         v-text="dados.textoAba1"
       />
     </v-btn>
@@ -112,7 +112,7 @@ export default {
         colorTextLogin: "#AB47BC",
 
         obs: "empresa@gmail.com / (91)9 9629-3532",
-        colorAba1: "text-white",
+        colorTextHome: "color:#ffff",
         colorAba2: "text-white",
         colorAba3: "text-white",
         colorIcoHome: "blue",
