@@ -169,7 +169,9 @@ export default {
   },
   mounted() {
     const opcaoLogoArmazenada = localStorage.getItem("caminhoLogo");
-    this.caminhoLogo = opcaoLogoArmazenada ? JSON.parse(opcaoLogoArmazenada) : true;
+    this.caminhoLogo = opcaoLogoArmazenada
+      ? JSON.parse(opcaoLogoArmazenada)
+      : this.caminhoLogo;
 
     const opcaoArmazenada = localStorage.getItem("logoVisible");
     this.LogoVisible = opcaoArmazenada ? JSON.parse(opcaoArmazenada) : true;
