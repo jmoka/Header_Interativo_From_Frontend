@@ -46,8 +46,8 @@
                     size="50"
                   />
                 </v-col>
-                <!-- Texto Home -->
 
+                <!-- Texto Home -->
                 <v-col cols="5" class="d-flex flex-column align-left">
                   <v-label text="Trocar texto Home"></v-label>
                   <v-text-field class="w-100" v-model="textHome" label="Título Home">
@@ -57,8 +57,8 @@
 
                 <!-- Switch Visibilidade -->
 
-                <v-col cols="3" class="d-flex justify-center align-center">
-                  <p v-if="!TextovisivelOculto">Oculto</p>
+                <v-col>
+                  <p v-if="!TextovisivelOcultoHome">Oculto</p>
                   <v-switch
                     v-model="keyHome"
                     @change="acaobtnVisivel"
@@ -67,14 +67,14 @@
                   >
                   </v-switch>
 
-                  <p v-if="TextovisivelOculto">Visivel</p>
+                  <p v-if="TextovisivelOcultoHome">Visivel</p>
                 </v-col>
 
                 <!-- Cor do Texto -->
                 <v-col cols="3" class="d-flex flex-column align-center">
                   <p :style="{ color: corHome }">Cor texto Home</p>
                   <v-color-picker
-                    v-model="this.corHome"
+                    v-model="corHome"
                     mode="hexa"
                     show-swatches
                     hide-inputs
@@ -83,108 +83,148 @@
                   ></v-color-picker>
                 </v-col>
               </v-row>
+              <v-row class="mb-6 justify-center align-center">
+                <!-- Texto Contato -->
 
-              <span class="d-flex">
-                <v-text-field
-                  v-model="textContato"
-                  label="Título do Contato"
-                ></v-text-field>
-                <svg-icon
-                  :color="colorIcone"
+                <v-col
                   v-if="iconeAba2Visivel"
-                  type="mdi"
-                  :path="mdiHandOkay"
-                  size="50"
-                />
-                <v-switch
-                  v-model="contato"
-                  @change="acaobtnVisivel"
-                  color="green"
-                  base-color="red"
+                  cols="1"
+                  class="d-flex justify-center align-center"
                 >
-                </v-switch>
-              </span>
+                  <svg-icon
+                    :color="colorIcone"
+                    type="mdi"
+                    :path="mdiHandOkay"
+                    size="50"
+                  />
+                </v-col>
+                <!-- texto contatos -->
+                <v-col cols="5" class="d-flex flex-column align-left">
+                  <v-label text="Trocar texto Contatos"></v-label>
+                  <v-text-field
+                    class="w-100"
+                    v-model="textContato"
+                    label="Título do Contato"
+                  ></v-text-field>
+                  <span class="mt-2" :style="{ backgroundColor: corContato }">.</span>
+                </v-col>
 
-              <span class="d-flex">
-                <v-text-field
-                  v-model="textSobreNos"
-                  label="Título Sobre Nós"
-                ></v-text-field>
-                <svg-icon
-                  :color="colorIcone"
-                  v-if="iconeAba3Visivel"
-                  type="mdi"
-                  :path="mdiHandOkay"
-                  size="50"
-                />
-                <v-switch
-                  v-model="sobrenos"
-                  @change="acaobtnVisivel"
-                  color="green"
-                  base-color="red"
-                >
-                </v-switch>
-              </span>
+                <!-- Switch Visibilidade -->
 
-              <!-- login -->
-              <span class="d-flex">
-                <v-text-field v-model="textDoLogin" label="Título Login"></v-text-field>
-                <svg-icon
-                  :color="colorIcone"
-                  v-if="iconeLoginVisivel"
-                  type="mdi"
-                  :path="mdiHandOkay"
-                  size="50"
-                />
-                <v-switch
-                  v-model="textVisibleLogin"
-                  @change="acaobtnVisivel"
-                  color="green"
-                  base-color="red"
-                >
-                </v-switch>
-              </span>
+                <v-col>
+                  <p v-if="!TextovisivelOcultoContatos">Oculto</p>
+                  <v-switch
+                    v-model="contato"
+                    @change="acaobtnVisivel"
+                    color="green"
+                    base-color="red"
+                  >
+                  </v-switch>
+
+                  <p v-if="TextovisivelOcultoContatos">Visivel</p>
+                </v-col>
+                <v-col cols="3" class="d-flex flex-column align-center">
+                  <p :style="{ color: corContato }">Cor texto Contato</p>
+                  <v-color-picker
+                    v-model="corContato"
+                    mode="hexa"
+                    show-swatches
+                    hide-inputs
+                    hide-sliders
+                    hide-canvas
+                  ></v-color-picker>
+                </v-col>
+              </v-row>
+              <v-row>
+                <span class="d-flex">
+                  <v-text-field
+                    v-model="textSobreNos"
+                    label="Título Sobre Nós"
+                  ></v-text-field>
+                  <svg-icon
+                    :color="colorIcone"
+                    v-if="iconeAba3Visivel"
+                    type="mdi"
+                    :path="mdiHandOkay"
+                    size="50"
+                  />
+                  <v-switch
+                    v-model="sobrenos"
+                    @change="acaobtnVisivel"
+                    color="green"
+                    base-color="red"
+                  >
+                  </v-switch>
+                </span>
+              </v-row>
+              <v-form>
+                <!-- login -->
+                <span class="d-flex">
+                  <v-text-field v-model="textDoLogin" label="Título Login"></v-text-field>
+                  <svg-icon
+                    :color="colorIcone"
+                    v-if="iconeLoginVisivel"
+                    type="mdi"
+                    :path="mdiHandOkay"
+                    size="50"
+                  />
+                  <v-switch
+                    v-model="textVisibleLogin"
+                    @change="acaobtnVisivel"
+                    color="green"
+                    base-color="red"
+                  >
+                  </v-switch>
+                </span> </v-form
+              >v-row>
 
               <!-- observação -->
-              <span class="d-flex">
-                <v-text-field v-model="textOBS" label="Título Observação"></v-text-field>
-                <svg-icon
-                  :color="colorIcone"
-                  v-if="visibleObs"
-                  type="mdi"
-                  :path="mdiHandOkay"
-                  size="50"
-                />
-                <v-switch
-                  v-model="textObsVisible"
-                  @change="acaobtnVisivel"
-                  color="green"
-                  base-color="red"
-                >
-                </v-switch>
-              </span>
+              <v-form>
+                <span class="d-flex">
+                  <v-text-field
+                    v-model="textOBS"
+                    label="Título Observação"
+                  ></v-text-field>
+                  <svg-icon
+                    :color="colorIcone"
+                    v-if="visibleObs"
+                    type="mdi"
+                    :path="mdiHandOkay"
+                    size="50"
+                  />
+                  <v-switch
+                    v-model="textObsVisible"
+                    @change="acaobtnVisivel"
+                    color="green"
+                    base-color="red"
+                  >
+                  </v-switch>
+                </span> </v-form
+              >v-row>
 
               <!-- whatsApp -->
-              <span class="d-flex">
-                <v-text-field
-                  v-model="TextWhatsapp"
-                  label="Numero WhatsApp"
-                ></v-text-field>
-                <svg-icon
-                  :color="colorIcone"
-                  v-if="visibleWhatsapp"
-                  type="mdi"
-                  :path="mdiHandOkay"
-                  size="50"
-                />
-                <v-switch
-                  v-model="whatsapp"
-                  @change="acaobtnVisivel"
-                  color="green"
-                  base-color="red"
-                >
-                </v-switch>
-              </span>
+              <v-row>
+                <span class="d-flex">
+                  <v-text-field
+                    v-model="TextWhatsapp"
+                    label="Numero WhatsApp"
+                  ></v-text-field>
+                  <svg-icon
+                    :color="colorIcone"
+                    v-if="visibleWhatsapp"
+                    type="mdi"
+                    :path="mdiHandOkay"
+                    size="50"
+                  />
+                  <v-switch
+                    v-model="whatsapp"
+                    @change="acaobtnVisivel"
+                    color="green"
+                    base-color="red"
+                  >
+                  </v-switch>
+                </span>
+              </v-row>
 
               <v-btn class="mt-2" type="submit" block>Alterar</v-btn>
             </v-form>
@@ -216,9 +256,11 @@ export default {
 
   data() {
     return {
-      TextovisivelOculto: true,
+      TextovisivelOcultoHome: true,
+      TextovisivelOcultoContatos: true,
       colorIcoVoltar: "",
       keyHome: true,
+      corContato: "color-black",
       corHome: "color-black",
       whatsapp: true,
       contato: true,
@@ -251,10 +293,12 @@ export default {
     acaobtnVisivel() {
       if (this.keyHome) {
         localStorage.setItem("opcao", JSON.stringify(this.keyHome));
-        this.TextovisivelOculto = this.keyHome;
+        this.TextovisivelOcultoHome = this.keyHome;
+        this.TextovisivelOcultoContatos = this.keyHome;
       } else {
         localStorage.setItem("opcao", JSON.stringify(this.keyHome));
-        this.TextovisivelOculto = this.keyHome;
+        this.TextovisivelOcultoHome = this.keyHome;
+        this.TextovisivelOcultoContatos = this.keyHome;
       }
 
       if (this.whatsapp) {
@@ -265,8 +309,10 @@ export default {
 
       if (this.contato) {
         localStorage.setItem("opcao2", JSON.stringify(this.contato));
+        this.TextovisivelOcultoContatos = this.contato;
       } else {
         localStorage.setItem("opcao2", JSON.stringify(this.contato));
+        this.TextovisivelOcultoContatos = this.contato;
       }
 
       if (this.sobrenos) {
@@ -291,6 +337,11 @@ export default {
         localStorage.setItem("corHome", JSON.stringify("color:" + this.corHome));
       } else {
         localStorage.setItem("corHome", JSON.stringify("color:" + this.corHome));
+      }
+      if (this.corContato) {
+        localStorage.setItem("corContato", JSON.stringify("color:" + this.corContato));
+      } else {
+        localStorage.setItem("corContato", JSON.stringify("color:" + this.corContato));
       }
     },
 
@@ -339,6 +390,10 @@ export default {
           dbAtualizado.colorTextHome = "color:" + this.corHome;
           this.iconeAba1Visivel = true;
         }
+        if (this.corContato) {
+          dbAtualizado.colorTextContato = "color:" + this.corContato;
+          this.iconeAba2Visivel = true;
+        }
 
         dbAtualizado.textVisibleHome = this.keyHome;
         dbAtualizado.wnatsappVisible = this.whatsapp;
@@ -378,6 +433,9 @@ export default {
 
     const opcaoCorHome = localStorage.getItem("corHome");
     this.corHome = opcaoCorHome ? JSON.parse(opcaoCorHome) : "";
+
+    const opcaoCorContato = localStorage.getItem("corContato");
+    this.corContato = opcaoCorContato ? JSON.parse(opcaoCorContato) : "";
   },
 };
 </script>

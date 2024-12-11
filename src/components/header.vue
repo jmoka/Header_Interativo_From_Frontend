@@ -30,7 +30,11 @@
 
     <v-btn to="/contatos" :color="dados.colorIconeContato">
       <svg-icon type="mdi" :path="icoContato" />
-      <h4 v-if="dados.contatoVisible" :class="dados.colorAba2" v-text="dados.textoAba2" />
+      <h4
+        :style="dados.colorTextContato"
+        v-if="dados.contatoVisible"
+        v-text="dados.textoAba2"
+      />
     </v-btn>
 
     <v-btn :color="dados.colorIconeInforme" to="/sobre">
@@ -113,6 +117,7 @@ export default {
 
         obs: "empresa@gmail.com / (91)9 9629-3532",
         colorTextHome: "color:#ffff",
+        colorTextContato: "color:#ffff",
         colorAba2: "text-white",
         colorAba3: "text-white",
         colorIcoHome: "blue",
