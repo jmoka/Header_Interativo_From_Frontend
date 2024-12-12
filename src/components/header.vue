@@ -40,6 +40,7 @@
     <v-btn :color="dados.colorIconeInforme" to="/sobre">
       <svg-icon type="mdi" :path="icoSobre" />
       <h4
+        :style="dados.colorTextSobreNos"
         v-if="dados.sobrenostoVisible"
         :class="dados.colorAba3"
         v-text="dados.textoAba3"
@@ -96,6 +97,7 @@ export default {
         // Botao Home
         textoAba1: "Home",
         textVisibleHome: true,
+        colorTextHome: "color:#ffff",
 
         // Botao Contatos
         textoAba2: "Contatos",
@@ -116,8 +118,9 @@ export default {
         colorTextLogin: "#AB47BC",
 
         obs: "empresa@gmail.com / (91)9 9629-3532",
-        colorTextHome: "color:#ffff",
+
         colorTextContato: "color:#ffff",
+        colorTextSobreNos: "color:#ffff",
         colorAba2: "text-white",
         colorAba3: "text-white",
         colorIcoHome: "blue",

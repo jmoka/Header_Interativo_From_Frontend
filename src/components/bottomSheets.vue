@@ -134,7 +134,9 @@ export default {
         localStorage.removeItem("opcao3");
         localStorage.removeItem("opcao4");
         localStorage.removeItem("opcao5");
-        localStorage.removeItem("opcaoBarraTransparente");
+        localStorage.removeItem("localStorageVisibleText");
+        localStorage.removeItem("localStorageCorTexto");
+        localStorage.removeItem(" localStorageTexto");
 
         location.reload();
       } else {
