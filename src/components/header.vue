@@ -24,7 +24,7 @@
       <h4
         v-if="dados.textVisibleHome"
         :style="dados.colorTextHome"
-        v-text="dados.textoAba1"
+        v-text="dados.textoHome"
       />
     </v-btn>
 
@@ -32,8 +32,8 @@
       <svg-icon type="mdi" :path="icoContato" />
       <h4
         :style="dados.colorTextContato"
-        v-if="dados.contatoVisible"
-        v-text="dados.textoAba2"
+        v-if="dados.textVisibleContato"
+        v-text="dados.textoContato"
       />
     </v-btn>
 
@@ -95,13 +95,14 @@ export default {
         padrao: true,
         titulo: "Header Reativo",
         // Botao Home
-        textoAba1: "Home",
+        textoHome: "Home",
         textVisibleHome: true,
         colorTextHome: "color:#ffff",
 
         // Botao Contatos
-        textoAba2: "Contatos",
-        contatoVisible: true,
+        textoContato: "Contatos",
+        textVisibleContato: true,
+        colorTextContato: "color:#ffff",
 
         // BOtão Sobre Nós
         textoAba3: "Sobre Nós",

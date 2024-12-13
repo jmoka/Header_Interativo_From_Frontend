@@ -136,7 +136,12 @@ export default {
         localStorage.removeItem("opcao5");
         localStorage.removeItem("localStorageVisibleText");
         localStorage.removeItem("localStorageCorTexto");
-        localStorage.removeItem(" localStorageTexto");
+        localStorage.removeItem(" localStorageVisibleTextHome");
+        localStorage.removeItem(" localStorageCorTextoHome");
+        localStorage.removeItem(" localStorageTextoHome");
+        localStorage.removeItem(" localStorageVisibleTextContato");
+        localStorage.removeItem(" localStorageCorTextoContato");
+        localStorage.removeItem(" localStorageTextoContato");
 
         location.reload();
       } else {
