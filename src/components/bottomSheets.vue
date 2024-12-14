@@ -41,10 +41,10 @@
 </template>
 
 <script>
-import DialogFormTrocarTextes from "../../src/components/DialogFormTrocarTextes.vue";
-import DialogTrocarImagem from "../../src/components/DialogTrocarImagem.vue";
-import DialogTrocarIcones from "../../src/components/dialogTrocarIcones.vue";
-import DialogTrocarLogo from "../../src/components/dialogTrocarLogo.vue";
+import DialogFormTrocarTextes from "../../src/components/textosTitulos/index.vue";
+import DialogTrocarImagem from "./dialogTrocarImagem_.vue";
+import DialogTrocarIcones from "./dialogTrocarIcones_.vue";
+import DialogTrocarLogo from "./dialogTrocarLogo_.vue";
 import {
   mdiAccountBoxEditOutline,
   mdiAccount,

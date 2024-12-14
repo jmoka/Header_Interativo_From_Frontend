@@ -36,8 +36,8 @@
             <v-row class="justify-center align-center">
               <!-- Coluna 1: Home Section -->
               <v-col cols="6">
-                <v-row class="justify-center align-center">
-                  <v-col
+                <v-col class="justify-center align-center">
+                  <v-row
                     v-if="home.iconeSalvar"
                     cols="2"
                     class="d-flex justify-center align-center"
@@ -48,9 +48,13 @@
                       :path="home.icone"
                       :size="home.size"
                     />
-                  </v-col>
+                  </v-row>
+                  <v-col> 
+                  <!-- =========================================== -->
+                  <!-- HOME -->
+                  <!-- =========================================== -->
 
-                  <v-col cols="6">
+                  <v-col cols="4">
                     <v-label :text="home.label" />
                     <v-text-field v-model="home.text" />
                     <v-color-picker
@@ -86,14 +90,71 @@
                       Salvar
                     </v-btn>
                   </v-col>
-                </v-row>
+                </v-col>
               </v-col>
 
               <!-- =========================================== -->
               <!-- CONTATO -->
               <!-- =========================================== -->
 
-              <v-col cols="6">
+              <v-col cols="4">
+                <v-row class="justify-center align-center">
+                  <v-col
+                    v-if="contato.iconeSalvar"
+                    cols="2"
+                    class="d-flex justify-center align-center"
+                  >
+                    <svg-icon
+                      :color="contato.colorIcone"
+                      type="mdi"
+                      :path="contato.icone"
+                      :size="contato.size"
+                    />
+                  </v-col>
+
+                  <v-col cols="6">
+                    <v-label :text="contato.label" />
+                    <v-text-field v-model="contato.text" />
+                    <v-color-picker
+                      v-model="contato.corTexto"
+                      @click="MetodoBarraContato"
+                      mode="hexa"
+                      show-swatches
+                      hide-inputs
+                      hide-sliders
+                      hide-canvas
+                    />
+                    <v-span class="d-flex">
+                      <v-switch
+                        v-model="contato.visivel_text"
+                        @change="acaocontato"
+                        :color="contato.colorVisivelTrue"
+                        :base-color="contato.colorVisivelFalse"
+                      />
+
+                      <v-span class="px-12 pt-5">
+                        <p v-if="!contato.visivel_text_Oculto_Visivel">Oculto</p>
+                        <p v-if="contato.visivel_text_Oculto_Visivel">Visível</p>
+                      </v-span>
+                      <v-span class="px-6 pt-5 mb-0">
+                        <span
+                          v-if="contato.barra"
+                          :style="{ backgroundColor: contato.corTexto }"
+                          >{{ contato.corTexto }}
+                        </span>
+                      </v-span>
+                    </v-span>
+                    <v-btn class="mt-0" @click="alterarcontato" type="btn" block>
+                      Salvar
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-col>
+              <!-- =========================================== -->
+              <!-- SOBRE NÓS -->
+              <!-- =========================================== -->
+
+              <v-col cols="4">
                 <v-row class="justify-center align-center">
                   <v-col
                     v-if="contato.iconeSalvar"

@@ -49,32 +49,15 @@ export default {
     return {
       dialog: false,
       mdiAccount: mdiAccount,
+      colorIconeLogin: "blue",
+      colorTextLogin: "text-blue",
+      TextLogin: "Login",
+      TextLoginVisible: true,
+      icologin: mdiAccount,
     };
   },
   components: {
     SvgIcon,
-  },
-  props: {
-    colorIconeLogin: {
-      type: String,
-      default: "blue", // Cor padrão
-    },
-    colorTextLogin: {
-      type: String,
-      default: "text-blue", // Classe de texto padrão
-    },
-    TextLogin: {
-      type: String,
-      default: "Login", // Classe de texto padrão
-    },
-    icologin: {
-      tyoe: String,
-      default: mdiAccount,
-    },
-    TextLoginVisible: {
-      type: Boolean,
-      default: true,
-    },
   },
 };
 </script>

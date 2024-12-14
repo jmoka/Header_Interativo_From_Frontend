@@ -42,19 +42,17 @@
       <h4
         :style="dados.colorTextSobreNos"
         v-if="dados.sobrenostoVisible"
-        :class="dados.colorAba3"
-        v-text="dados.textoAba3"
+        v-text="dados.textoSobreNos"
       />
     </v-btn>
-
-    <!-- Botão de Login -->
-    <dialogFormLogin
-      :colorIconeLogin="dados.colorIconeLogin"
-      :colorTextLogin="dados.colorTextLogin"
-      :TextLogin="dados.textLogin"
-      :icologin="icoLogin"
-      :TextLoginVisible="dados.textLoginVisible"
-    />
+    <v-btn :color="dados.colorIconeLogin" to="/login" @click="formLogin">
+      <svg-icon type="mdi" :path="dados.icoLogin" />
+      <h4
+        :style="dados.colorTextLogin"
+        v-if="dados.textLoginVisible"
+        v-text="dados.textLogin"
+      />
+    </v-btn>
 
     <!-- WhatsApp -->
     <v-btn
@@ -80,13 +78,13 @@ import {
   mdiMenu,
   mdiFormatLineStyle,
 } from "@mdi/js";
-import dialogFormLogin from "../../src/components/dialogFormLogin.vue";
+
 import bottomSheets from "../../src/components/bottomSheets.vue";
 
 export default {
   components: {
     SvgIcon,
-    dialogFormLogin,
+
     bottomSheets,
   },
   data() {
@@ -98,15 +96,19 @@ export default {
         textoHome: "Home",
         textVisibleHome: true,
         colorTextHome: "color:#ffff",
+        colorIcoHome: "blue",
 
         // Botao Contatos
         textoContato: "Contatos",
         textVisibleContato: true,
         colorTextContato: "color:#ffff",
+        colorIconeContato: "blue",
 
         // BOtão Sobre Nós
-        textoAba3: "Sobre Nós",
+        textoSobreNos: "Sobre Nós",
         sobrenostoVisible: true,
+        colorTextSobreNos: "color:#ffff",
+        colorIconeInforme: "blue",
 
         // Observação
         visibleObs: true,
@@ -114,22 +116,17 @@ export default {
         // Login
         textLogin: "Login",
         textLoginVisible: true,
-
         colorIconeLogin: "blue",
-        colorTextLogin: "#AB47BC",
+        colorTextLogin: "color:#ffff",
+        icoLogin: mdiAccount,
 
         obs: "empresa@gmail.com / (91)9 9629-3532",
 
         colorTextContato: "color:#ffff",
-        colorTextSobreNos: "color:#ffff",
-        colorAba2: "text-white",
-        colorAba3: "text-white",
-        colorIcoHome: "blue",
+
         colorIconeMenu: "blue",
         colorIconeWhatsapp: "green",
 
-        colorIconeContato: "blue",
-        colorIconeInforme: "blue",
         colorBarra: "bg-black",
         logoVisible: true,
         logo: "https://via.placeholder.com/300x70",
@@ -144,7 +141,7 @@ export default {
       icohome: mdiHomeAccount,
       icoContato: mdiCardAccountMail,
       icoSobre: mdiInformation,
-      icoLogin: mdiAccount,
+
       icoWhatsapp: mdiWhatsapp,
       mdiMenu,
     };
@@ -162,6 +159,9 @@ export default {
   },
 
   methods: {
+    formLogin() {
+      this.$emit("formLoginVisivel", true);
+    },
     salvarConfiguracoes() {
       try {
         // Usando o localStorage nativo para salvar
