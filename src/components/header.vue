@@ -19,8 +19,9 @@
     <v-spacer></v-spacer>
 
     <!-- Botões de Navegação -->
-    <v-btn to="/">
-      <svg-icon :color="dados.colorIcoHome" type="mdi" :path="icohome" />
+    <v-btn to="/" :color="dados.colorIcoHome">
+      <span v-if="iconeHomeVisible"></span>
+      <svg-icon v-if="dados.iconeHomeVisible" type="mdi" :path="dados.icohome" />
       <h4
         v-if="dados.textVisibleHome"
         :style="dados.colorTextHome"
@@ -29,7 +30,7 @@
     </v-btn>
 
     <v-btn to="/contatos" :color="dados.colorIconeContato">
-      <svg-icon type="mdi" :path="icoContato" />
+      <svg-icon type="mdi" :path="dados.icoContato" />
       <h4
         :style="dados.colorTextContato"
         v-if="dados.textVisibleContato"
@@ -38,7 +39,7 @@
     </v-btn>
 
     <v-btn :color="dados.colorIconeInforme" to="/sobre">
-      <svg-icon type="mdi" :path="icoSobre" />
+      <svg-icon type="mdi" :path="dados.icoSobre" />
       <h4
         :style="dados.colorTextSobreNos"
         v-if="dados.sobrenostoVisible"
@@ -97,18 +98,22 @@ export default {
         textVisibleHome: true,
         colorTextHome: "color:#ffff",
         colorIcoHome: "blue",
+        icohome: mdiHomeAccount,
+        iconeHomeVisible: true,
 
         // Botao Contatos
         textoContato: "Contatos",
         textVisibleContato: true,
         colorTextContato: "color:#ffff",
         colorIconeContato: "blue",
+        icoContato: mdiCardAccountMail,
 
         // BOtão Sobre Nós
         textoSobreNos: "Sobre Nós",
         sobrenostoVisible: true,
         colorTextSobreNos: "color:#ffff",
         colorIconeInforme: "blue",
+        icoSobre: mdiInformation,
 
         // Observação
         visibleObs: true,
@@ -119,6 +124,8 @@ export default {
         colorIconeLogin: "blue",
         colorTextLogin: "color:#ffff",
         icoLogin: mdiAccount,
+
+        icoWhatsapp: mdiWhatsapp,
 
         obs: "empresa@gmail.com / (91)9 9629-3532",
 
@@ -137,13 +144,6 @@ export default {
         numeroWhatsApp: "",
         wnatsappVisible: true,
       },
-      logoVisible: true,
-      icohome: mdiHomeAccount,
-      icoContato: mdiCardAccountMail,
-      icoSobre: mdiInformation,
-
-      icoWhatsapp: mdiWhatsapp,
-      mdiMenu,
     };
   },
 
@@ -194,7 +194,7 @@ export default {
 
   mounted() {
     // this.salvarConfiguracoes();
-    console.log("Logo Visible:", this.logoVisible, "Logo Path:", this.dados.logo);
+    console.log("Logo Visible:", this.dados.logoVisible, "Logo Path:", this.dados.logo);
     this.carregarConfiguracoes(); // Carregar configurações ao montar o componente
   },
 };

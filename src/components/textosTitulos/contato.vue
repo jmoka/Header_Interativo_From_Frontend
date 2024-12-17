@@ -4,6 +4,7 @@
   <!-- =========================================== -->
 
   <v-btn
+    class="mb-3"
     :height="auto"
     :width="'100%'"
     border
@@ -14,7 +15,13 @@
   ></v-btn>
   <v-sheet class="d-flex justify-center text-center">
     <div v-if="config">
-      <v-text-field v-model="text" />
+      <v-text-field class="mt-5" variant="solo-inverted" label="Contato" v-model="text" />
+      <v-span class="px-6 pt-5 mb-0 w-'100%'">
+        <span v-if="barra" :style="{ backgroundColor: corTexto }">
+          {{ corTexto }}
+        </span>
+      </v-span>
+
       <v-color-picker
         v-model="corTexto"
         @click="MetodoBarra"
@@ -24,7 +31,8 @@
         hide-sliders
         hide-canvas
       />
-      <v-span class="d-flex">
+      <v-span class="d-flex my-3">
+        <h5>Texto</h5>
         <v-switch
           v-model="visivel_text"
           @change="acao"
@@ -36,13 +44,36 @@
           <p v-if="!visivel_text_Oculto_Visivel">Oculto</p>
           <p v-if="visivel_text_Oculto_Visivel">Visível</p>
         </v-span>
-        <v-span class="px-6 pt-5 mb-0">
-          <span v-if="barra" :style="{ backgroundColor: corTexto }">
-            {{ corTexto }}
-          </span>
+      </v-span>
+      <v-span class="d-flex">
+        <h5>Icone</h5>
+        <v-switch
+          v-model="iconeContatoVisible"
+          @change="acao"
+          :color="colorVisivelTrue"
+          :base-color="colorVisivelFalse"
+        />
+
+        <v-span class="px-12 pt-5">
+          <p v-if="!visivel_icone_Oculto_Visivel">Oculto</p>
+          <p v-if="visivel_icone_Oculto_Visivel">Visível</p>
         </v-span>
       </v-span>
-      <v-btn class="mb-3" @click="alterar" type="btn" block> Confirmar </v-btn>
+
+      <v-hover>
+        <template v-slot:default="{ isHovering, props }">
+          <v-btn
+            v-bind="props"
+            :color="isHovering ? 'primary' : undefined"
+            class="mb-3"
+            @click="alterar"
+            type="btn"
+            block
+          >
+            Confirmar
+          </v-btn>
+        </template>
+      </v-hover>
     </div>
   </v-sheet>
 </template>
@@ -69,6 +100,7 @@ export default {
   data() {
     return {
       db: {},
+      iconeContatoVisible: true,
       config: false,
       barra: false,
       visivel_text_Oculto_Visivel: true,

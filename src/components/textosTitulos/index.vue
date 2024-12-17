@@ -56,7 +56,6 @@
 
 <script>
 import SvgIcon from "@jamescoyle/vue-icon";
-import { mdiArrowLeftCircle } from "@mdi/js";
 import Home from "./home.vue";
 import Contato from "./contato.vue";
 import Sobre from "./sobreNos.vue";
