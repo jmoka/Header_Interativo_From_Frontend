@@ -5,15 +5,15 @@
         <v-btn max-width="80" size="small" v-bind="activatorProps">
           <span class="mx-3">{{ title }}</span>
           <span>
-            <svg-icon type="mdi" :path="icones" />
+            <svg-icon type="mdi" :path="icones"></svg-icon>
           </span>
         </v-btn>
       </template>
 
       <v-card>
         <v-toolbar>
-          <v-btn v-if="visiveBtnlSalvar" icon @click="dialog = false">
-            <svg-icon :color="'red'" type="mdi" :path="mdiArrowLeftCircle" />
+          <v-btn v-if="!visiveBtnlSalvar" icon @click="dialog = false">
+            <svg-icon color="red" type="mdi" :path="mdiArrowLeftCircle" />
           </v-btn>
 
           <v-toolbar-title>Configurar Textos e Títulos</v-toolbar-title>
@@ -30,8 +30,8 @@
           </v-btn>
         </v-toolbar>
 
-        <v-container fluid class="bg-primary">
-          <v-row class="mb-1 bg-red">
+        <v-container fluid>
+          <v-row :class="bgfull">
             <v-col cols="12" md="6" lg="3" xl="12">
               <Home @alterado="visiveBtnlSalvar = $emit" />
             </v-col>
@@ -56,6 +56,7 @@
 
 <script>
 import SvgIcon from "@jamescoyle/vue-icon";
+import { mdiArrowLeftCircle } from "@mdi/js";
 import Home from "./home.vue";
 import Contato from "./contato.vue";
 import Sobre from "./sobreNos.vue";
@@ -82,10 +83,12 @@ export default {
 
   data() {
     return {
+      bgfull: "bg-black",
       visiveBtnlSalvar: false,
       colorSalvar: "white",
       bg: "bg-blue",
       dialog: false,
+      mdiArrowLeftCircle,
     };
   },
 

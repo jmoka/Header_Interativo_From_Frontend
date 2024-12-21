@@ -13,7 +13,7 @@
       <v-card>
         <v-toolbar>
           <v-btn v-if="!visiveBtnlSalvar" icon @click="dialog = false">
-            <svg-icon :color="red" type="mdi" :path="mdiArrowLeftCircle" />
+            <svg-icon color="red" type="mdi" :path="mdiArrowLeftCircle" />
           </v-btn>
 
           <v-toolbar-title>Configurar Logo e Barra</v-toolbar-title>
@@ -31,7 +31,7 @@
         </v-toolbar>
 
         <v-container fluid>
-          <v-row>
+          <v-row :class="bgfull">
             <v-col cols="7">
               <v-sheet class="mx-auto w-100 pa-16">
                 <h3>Caminho da Logo</h3>
@@ -66,7 +66,23 @@
                   >
                   </v-switch>
 
-                  <v-btn class="mt-2" type="submit" block>Alterar</v-btn>
+                  <v-hover>
+                    <template v-slot:default="{ isHovering, props }">
+                      <v-row>
+                        <v-col class="mx-3 mb-2">
+                          <v-btn
+                            v-bind="props"
+                            :color="isHovering ? 'primary' : undefined"
+                            style="border: 1px solid"
+                            type="submit"
+                            block
+                          >
+                            Confirmar
+                          </v-btn>
+                        </v-col>
+                      </v-row>
+                    </template>
+                  </v-hover>
                 </v-form>
               </v-sheet>
             </v-col>
@@ -93,7 +109,7 @@
 
 <script>
 import SvgIcon from "@jamescoyle/vue-icon";
-import { mdiHandOkay, mdiArrowLeftCircle } from "@mdi/js";
+import { mdiArrowLeftCircle } from "@mdi/js";
 
 export default {
   props: {
@@ -112,7 +128,7 @@ export default {
   data() {
     return {
       transparente: "bg-transparent",
-
+      bgfull: "bg-black",
       opcaoBarraTransparente: false,
       caminhoLogo: "" || "https://via.placeholder.com/300x70",
       dialog: false, // Controle do diálogo

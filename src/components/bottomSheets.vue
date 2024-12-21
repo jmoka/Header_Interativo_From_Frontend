@@ -15,20 +15,7 @@
           :title="tile.text"
           :icones="tile.icones"
         />
-
-        <!-- Dialogo de Trocar Imagens -->
-        <DialogTrocarImagem
-          v-if="tile.visible && tile.title === Imagem"
-          :title="tile.text"
-          :icones="tile.icones"
-        />
-
-        <DialogTrocarIcones
-          v-if="tile.visible && tile.title === Icones"
-          :title="tile.text"
-          :icones="tile.icones"
-        />
-
+        <!-- Dialogo de Trocar Textos -->
         <DialogTrocarLogo
           v-if="tile.visible && tile.title === Logo"
           :title="tile.text"
@@ -42,8 +29,7 @@
 
 <script>
 import DialogFormTrocarTextes from "../../src/components/textosTitulos/index.vue";
-import DialogTrocarImagem from "./dialogTrocarImagem_.vue";
-import DialogTrocarIcones from "./dialogTrocarIcones_.vue";
+
 import DialogTrocarLogo from "./dialogTrocarLogo_.vue";
 import {
   mdiAccountBoxEditOutline,
@@ -62,8 +48,7 @@ export default {
   },
   components: {
     DialogFormTrocarTextes,
-    DialogTrocarImagem,
-    DialogTrocarIcones,
+
     DialogTrocarLogo,
     SvgIcon,
   },
@@ -84,35 +69,9 @@ export default {
           visible: true,
         },
         {
-          title: "Icones",
-          text: "Icones",
-          icones: mdiCardAccountMail,
-          visible: true,
-        },
-        {
-          title: "Imagens",
-          text: "Imagens",
-          icones: mdiAccount,
-          visible: true,
-        },
-        {
-          title: "Cores",
-          text: "Cores",
-          icones: mdiAccount,
-          visible: true,
-        },
-        {
           title: "Logo",
           text: "Logo",
           icones: mdiInformation,
-          visible: true,
-        },
-
-        {
-          img: "google.png",
-          title: "Google+",
-          text: "Trocar",
-          icones: mdiMenu,
           visible: true,
         },
       ],
