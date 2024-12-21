@@ -19,13 +19,21 @@
     <v-spacer></v-spacer>
 
     <!-- Botões de Navegação -->
-    <v-btn to="/" :color="dados.colorIcoHome">
-      <span v-if="iconeHomeVisible"></span>
-      <svg-icon v-if="dados.iconeHomeVisible" type="mdi" :path="dados.icohome" />
+    <v-btn
+      :style="dados.home.border"
+      to="/"
+      :color="dados.home.colorIcoHome"
+      v-if="dados.home.textVisibleHome || dados.home.iconeHomeVisible"
+    >
+      <svg-icon
+        v-if="dados.home.iconeHomeVisible"
+        type="mdi"
+        :path="dados.home.icohome"
+      />
       <h4
-        v-if="dados.textVisibleHome"
-        :style="dados.colorTextHome"
-        v-text="dados.textoHome"
+        v-if="dados.home.textVisibleHome"
+        :style="dados.home.colorTextHome"
+        v-text="dados.home.textoHome"
       />
     </v-btn>
 
@@ -91,15 +99,28 @@ export default {
   data() {
     return {
       dados: {
+        home: {
+          border: null,
+          bg: "tranparent",
+          textoHome: "Home",
+          textVisibleHome: true,
+          colorTextHome: "color:#ffff",
+          colorIcoHome: "blue",
+          icohome: mdiHomeAccount,
+          iconeHomeVisible: true,
+        },
+
         padrao: true,
         titulo: "Header Reativo",
+
         // Botao Home
-        textoHome: "Home",
-        textVisibleHome: true,
-        colorTextHome: "color:#ffff",
-        colorIcoHome: "blue",
-        icohome: mdiHomeAccount,
-        iconeHomeVisible: true,
+
+        // textoHome: "Home",
+        // textVisibleHome: true,
+        // colorTextHome: "color:#ffff",
+        // colorIcoHome: "blue",
+        // icohome: mdiHomeAccount,
+        // iconeHomeVisible: true,
 
         // Botao Contatos
         textoContato: "Contatos",

@@ -13,75 +13,97 @@
     @click="toggleConfig"
     :text="label"
   ></v-btn>
-  <v-sheet class="d-flex justify-center text-center">
+  <v-sheet class="d-flex justify-center text-center rounded-lg">
     <div v-if="config">
       <v-text-field
         class="mt-5 mx-3"
         v-model="text"
-        label="Texto Home"
+        :label="labelHome"
         variant="solo-inverted"
       />
-      <v-span class="px-6 pt-5 mb-0 w-'100%'">
-        <span v-if="barra" :style="{ backgroundColor: corTexto }">
-          {{ corTexto }}
-        </span>
-      </v-span>
-      <v-color-picker
-        v-model="corTexto"
-        @click="MetodoBarra"
-        mode="hexa"
-        show-swatches
-        hide-inputs
-        hide-sliders
-        hide-canvas
-      />
-      <v-span class="d-flex my-3 mx-3">
-        <h5>Texto</h5>
-        <v-switch
-          v-model="visivel_text"
-          @change="acao"
-          :color="colorVisivelTrue"
-          :base-color="colorVisivelFalse"
-        />
-
-        <v-span class="px-12 pt-5">
-          <p v-if="!visivel_text_Oculto_Visivel">Oculto</p>
-          <p v-if="visivel_text_Oculto_Visivel">Visível</p>
-        </v-span>
-      </v-span>
       <v-span class="d-flex mx-3">
-        <h5>Icone</h5>
-        <v-switch
-          v-model="iconeHomeVisible"
-          @change="acao"
-          :color="colorVisivelTrue"
-          :base-color="colorVisivelFalse"
-        />
-
-        <v-span class="px-12 pt-5">
-          <p v-if="!visivel_icone_Oculto_Visivel">Oculto</p>
-          <p v-if="visivel_icone_Oculto_Visivel">Visível</p>
-        </v-span>
+        <v-row>
+          <v-col cols="4">
+            <h5 class="mx-2">Ocultar Texto</h5>
+            <v-switch
+              v-model="visivel_text"
+              @change="acao"
+              :color="colorVisivelTrue"
+              :base-color="colorVisivelFalse"
+          /></v-col>
+          <v-col cols="4"
+            ><h5 class="mx-2">Ocultar Icone</h5>
+            <v-switch
+              v-model="iconeHomeVisible"
+              @change="acao"
+              :color="colorVisivelTrue"
+              :base-color="colorVisivelFalse"
+          /></v-col>
+          <v-col cols="4"
+            ><h5 class="mx-2">Ocultar Bordar</h5>
+            <v-switch
+              v-model="borderHomeVisible"
+              @change="acao"
+              :color="colorVisivelTrue"
+              :base-color="colorVisivelFalse"
+          /></v-col>
+        </v-row>
       </v-span>
-      <!-- <v-select
-        v-model="icone"
-        class="mx-4"
-        label="Select"
-        :items="listaicones"
-      ></v-select> -->
+      <v-row>
+        <v-col cols="6">
+          <v-btn class="elevation-10" @click="ColoVisibleText">Cor Texto</v-btn>
+        </v-col>
+        <v-col cols="6">
+          <v-btn class="elevation-10" @click="ColoVisibleIcone">Cor Icone</v-btn>
+        </v-col>
+      </v-row>
+      <v-card class="my-5" v-if="coloVisibleText">
+        <span v-if="barra" :style="{ backgroundColor: corTexto }">
+          Cor do Texto : {{ corTexto }}
+        </span>
+        <v-color-picker
+          v-if="coloVisibleText"
+          v-model="corTexto"
+          @click="MetodoBarra"
+          mode="hexa"
+          show-swatches
+          hide-inputs
+          hide-sliders
+          hide-canvas
+        />
+      </v-card>
+
+      <v-card class="my-5" v-if="coloVisibleIcone">
+        <span v-if="barra" :style="{ backgroundColor: colorIcone }">
+          Cor do Icone : {{ colorIcone }}
+        </span>
+        <v-color-picker
+          v-model="colorIcone"
+          @click="MetodoBarra"
+          mode="hexa"
+          show-swatches
+          hide-inputs
+          hide-sliders
+          hide-canvas
+        />
+      </v-card>
 
       <v-hover>
         <template v-slot:default="{ isHovering, props }">
-          <v-btn
-            v-bind="props"
-            :color="isHovering ? 'primary' : undefined"
-            class="mb-3"
-            @click="alterar"
-            type="btn"
-            block
-          >
-            Confirmar
-          </v-btn>
+          <v-row>
+            <v-col class="mx-3 mb-2">
+              <v-btn
+                v-bind="props"
+                :color="isHovering ? 'primary' : undefined"
+                style="border: 1px solid"
+                @click="alterar"
+                type="btn"
+                block
+              >
+                Confirmar
+              </v-btn>
+            </v-col>
+          </v-row>
         </template>
       </v-hover>
     </div>
@@ -129,15 +151,20 @@ export default {
       //   "mdiFormatLineStyle",
       //   "mdiHandOkay",;
       // ],
+      borderHomeVisible: false,
+      coloVisibleText: false,
+      coloVisibleIcone: false,
+      labelHome: "Texto Home",
       iconeHomeVisible: true,
       config: false,
       barra: false,
-      visivel_text_Oculto_Visivel: true,
+      //visiveBtnlSalva: true,
+
       visivel_text: true,
-      visivel_icone_Oculto_Visivel: true,
-      visivel_icone_Oculto_Visivel: true,
+
       text: "",
-      corTexto: "#000000",
+
+      corTexto: "#ffff",
       iconeSalvar: false,
       colorIcone: "green",
       icone: mdiHomeAccount,
@@ -146,7 +173,6 @@ export default {
       colorVisivelTrue: "green",
       colorVisivelFalse: "red",
 
-      visiveBtnlSalvar: false,
       colorSalvar: "white",
       bg: "bg-blue",
       dialog: false,
@@ -167,6 +193,15 @@ export default {
     //   else if (this.listaicones === "mdiHandOkay") return this.$refs.mdiHandOkay;
     //   else return null;
     // },
+    ColoVisibleText() {
+      this.coloVisibleText = !this.coloVisibleText;
+
+      this.coloVisibleIcone = false;
+    },
+    ColoVisibleIcone() {
+      this.coloVisibleIcone = !this.coloVisibleIcone;
+      this.coloVisibleText = false;
+    },
 
     toggleConfig() {
       this.config = !this.config;
@@ -180,30 +215,45 @@ export default {
     },
 
     acao() {
-      this.visivel_text_Oculto_Visivel = this.visivel_text;
-
+      if (this.visivel_text) {
+        this.visivel_text;
+      } else {
+        this.labelHome = "Texto Home ";
+      }
       this.saveToLocalStorage();
     },
 
     alterar() {
       // console.log(this.icone);
-      this.db.icohome = this.icone; // ALTERA O ICONE
-      this.db.textVisibleHome = this.visivel_text; // ALTERA A VISIBILIDADE
-      this.db.colorTextHome = "color:" + this.corTexto; // ALTERA A COR DO TEXTO
-      this.db.textoHome = this.text; // ALTERA O TEXTO
-      this.saveToLocalStorage();
-      this.visiveBtnlSalvar = true;
+      // startsWith =   verificar se uma string começa com uma sequência específica de caracteres
+      if (!this.corTexto.startsWith("color:")) {
+        this.db.home.colorTextHome = "color:" + this.corTexto; // Adiciona "color:" apenas se necessário
+      } else {
+        this.db.home.colorTextHome = this.corTexto; // Usa o valor atual
+      }
+
+      this.db.home.iconeHomeVisible = this.iconeHomeVisible; // ALTERA A VISIBILIDADE DO ICONE
+      this.db.home.icohome = this.icone; // ALTERA O ICONE
+      this.db.home.textVisibleHome = this.visivel_text; // ALTERA A VISIBILIDADE
+
+      console.log(this.db.home.colorTextHome);
+
+      this.db.home.textoHome = this.text; // ALTERA O TEXTO
+      //this.visiveBtnlSalva = true;
       this.$emit("alterado", true);
+      this.saveToLocalStorage();
     },
   },
 
   mounted() {
     const storedDb = localStorage.getItem("dbConfig");
     this.db = storedDb ? JSON.parse(storedDb) : {};
-    this.visivel_text = this.db.textVisibleHome ?? true; // INICIALIZA O CAMPO VISIVEL TEXTO
-    this.text = this.db.textoHome ?? ""; // INICIALIZA O CAMPO TEXTO
-    this.corTexto = this.db.colorText; // INICIALIZA O CAMPO COR TEXTO
-    this.db.icohome = this.icone; // INICIALIZA O ICONE
+    this.visivel_text = this.db.home.textVisibleHome ?? true; // INICIALIZA O CAMPO VISIVEL TEXTO
+    this.iconeHomeVisible = this.db.home.iconeHomeVisible; // INICILIZA A VISIBILIDADE DO ICONE
+    this.text = this.db.home.textoHome ?? ""; // INICIALIZA O CAMPO TEXTO
+    this.corTexto = this.db.home.colorTextHome; // INICIALIZA O COR TEXTO
+    console.log(this.db.home.colorTextHome);
+    this.icone = this.db.home.icohome; // INICIALIZA O ICONE
   },
 };
 </script>

@@ -12,7 +12,7 @@
 
       <v-card>
         <v-toolbar>
-          <v-btn v-if="!visiveBtnlSalvar" icon @click="dialog = false">
+          <v-btn v-if="visiveBtnlSalvar" icon @click="dialog = false">
             <svg-icon :color="'red'" type="mdi" :path="mdiArrowLeftCircle" />
           </v-btn>
 
@@ -33,7 +33,7 @@
         <v-container fluid class="bg-primary">
           <v-row class="mb-1 bg-red">
             <v-col cols="12" md="6" lg="3" xl="12">
-              <Home @alterado="this.visiveBtnlSalvar = $emit" />
+              <Home @alterado="visiveBtnlSalvar = $emit" />
             </v-col>
 
             <v-col cols="12" md="6" lg="3" xl="12">
@@ -82,7 +82,6 @@ export default {
 
   data() {
     return {
-      // UI states
       visiveBtnlSalvar: false,
       colorSalvar: "white",
       bg: "bg-blue",
