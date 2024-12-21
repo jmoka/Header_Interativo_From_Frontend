@@ -10,13 +10,13 @@
         </v-btn>
       </template>
 
-      <v-card>
+      <v-card :class="bgfull">
         <v-toolbar>
           <v-btn v-if="!visiveBtnlSalvar" icon @click="dialog = false">
             <svg-icon color="red" type="mdi" :path="mdiArrowLeftCircle" />
           </v-btn>
 
-          <v-toolbar-title>Configurar Logo e Barra</v-toolbar-title>
+          <v-toolbar-title>{{ titulo }}</v-toolbar-title>
           <v-spacer></v-spacer>
 
           <v-btn
@@ -26,15 +26,16 @@
             text
             @click="salvar"
           >
-            Salvar
+            {{ Salvar }}
           </v-btn>
         </v-toolbar>
 
-        <v-container fluid>
-          <v-row :class="bgfull">
-            <v-col cols="7">
-              <v-sheet class="mx-auto w-100 pa-16">
-                <h3>Caminho da Logo</h3>
+        <!--  CAMINHO DA LOGO -->
+        <v-container fluid class="mt-12 mx-12">
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-sheet class="mx-auto w-100 pa-5">
+                <h3>{{ textoCaminhoLogo }}</h3>
                 <v-form @submit.prevent="alterar">
                   <v-text-field
                     max-width="w-100"
@@ -48,23 +49,24 @@
                     :path="mdiHandOkay"
                     size="50"
                   />
-                  <h3>Logo Visivel</h3>
+
+                  <!-- LOGO VISIVEL -->
+                  <h3>{{ logoVisivel }}</h3>
                   <v-switch
-                    v-model="LogoVisible"
-                    @change="acaobtnVisivel"
+                    v-model="logoVisible_"
+                    @change="acao"
                     color="green"
                     base-color="red"
-                  >
-                  </v-switch>
+                  ></v-switch>
 
-                  <h3>Barra Transparente</h3>
+                  <!-- BARRA TRANSPARENTE -->
+                  <h3>{{ textBarra }}</h3>
                   <v-switch
                     v-model="opcaoBarraTransparente"
-                    @change="acaobtnVisivel"
+                    @change="acao"
                     color="green"
                     base-color="red"
-                  >
-                  </v-switch>
+                  ></v-switch>
 
                   <v-hover>
                     <template v-slot:default="{ isHovering, props }">
@@ -77,7 +79,7 @@
                             type="submit"
                             block
                           >
-                            Confirmar
+                            {{ confirma }}
                           </v-btn>
                         </v-col>
                       </v-row>
@@ -86,18 +88,18 @@
                 </v-form>
               </v-sheet>
             </v-col>
-            <v-col>
+
+            <v-col cols="12" md="6">
               <div class="pr-16">
                 <h1>Informe o caminho de duas formas:</h1>
                 <br />
                 <h5>HTML</h5>
-                <p>https://</p>
-                <br />
-                <br />
+                <p>https://via.placeholder.com/300x70</p>
+                <br /><br />
                 <h5>CAMINHO LOCAL</h5>
-                <p>Abra do ditetório do sistema e procure pela pasta "public"</p>
+                <p>Abra o diretório do sistema e procure pela pasta "public"</p>
                 <p>Salve sua imagem</p>
-                <p>informe o nome e o tipo : Ex: logo.webp</p>
+                <p>Informe o nome e o tipo: Ex: logo.webp</p>
               </div>
             </v-col>
           </v-row>
@@ -109,7 +111,7 @@
 
 <script>
 import SvgIcon from "@jamescoyle/vue-icon";
-import { mdiArrowLeftCircle } from "@mdi/js";
+import { mdiArrowLeftCircle, mdiHandOkay } from "@mdi/js";
 
 export default {
   props: {
@@ -127,74 +129,75 @@ export default {
   },
   data() {
     return {
+      db: {},
+      opcaoBarraTransparente: false,
+      transparencia: "",
+      confirma: "Confirmar",
+      textBarra: "Header Transparente",
+      logoVisivel: "Logo Visível",
+      textoCaminhoLogo: "Caminho da Logo",
+      Salvar: "Salvar",
+      titulo: "Configurar Logo e Barra",
       transparente: "bg-transparent",
       bgfull: "bg-black",
       opcaoBarraTransparente: false,
-      caminhoLogo: "" || "https://via.placeholder.com/300x70",
+      caminhoLogo: "",
       dialog: false, // Controle do diálogo
-      LogoVisible: true, // Controle do switch
+      logoVisible_: true, // Controle do switch
       iconeAba1Visivel: false, // Visibilidade do ícone adicional
       visiveBtnlSalvar: false, // Controle do botão "Salvar"
       colorSalvar: "blue", // Cor do botão salvar
       bg: "", // Classe de fundo do botão
       colorIcone: "green", // Cor do ícone no switch
       mdiArrowLeftCircle,
+      mdiHandOkay,
     };
   },
   methods: {
-    acaobtnVisivel() {
-      localStorage.setItem("logoVisible", JSON.stringify(this.LogoVisible));
-      localStorage.setItem("caminhoLogo", JSON.stringify(this.caminhoLogo));
-      localStorage.setItem(
-        "opcaoBarraTransparente",
-        JSON.stringify(this.opcaoBarraTransparente)
-      );
+    saveToLocalStorage() {
+      localStorage.setItem("dbConfig", JSON.stringify(this.db));
     },
+
+    acao() {
+      console.log("ação ok");
+    },
+
     salvar() {
       location.reload(); // Recarrega a página para aplicar as alterações
     },
+
     alterar() {
-      try {
-        let db = localStorage.getItem("dbConfig");
-        let dbAtualizado = db ? JSON.parse(db) : {};
-
-        if (this.LogoVisible) {
-          dbAtualizado.logoVisible = this.LogoVisible;
-        }
-
-        if (this.caminhoLogo) {
-          dbAtualizado.logo = this.caminhoLogo;
-        }
-
-        if (this.opcaoBarraTransparente) {
-          dbAtualizado.colorBarra = this.transparente;
-        } else {
-          dbAtualizado.colorBarra = "bg-black";
-        }
-
-        dbAtualizado.logo = this.caminhoLogo;
-        dbAtualizado.logoVisible = this.LogoVisible;
-        localStorage.setItem("dbConfig", JSON.stringify(dbAtualizado));
-        this.visiveBtnlSalvar = true;
-        this.colorSalvar = "white";
-        this.bg = "bg-green";
-      } catch (error) {
-        console.error("Erro ao alterar as configurações:", error);
+      if (this.logoVisible_) {
+        this.db.logo.logoVisible = this.logoVisible_;
+      } else {
+        this.db.logo.logoVisible = this.logoVisible_;
       }
+
+      if (this.opcaoBarraTransparente) {
+        this.transparencia = "bg-transparent";
+        this.db.header.color = this.transparencia;
+        this.db.header.tansparente = this.opcaoBarraTransparente;
+      } else {
+        this.transparencia = "bg-black";
+        this.db.header.color = this.transparencia;
+        this.db.header.tansparente = this.opcaoBarraTransparente;
+      }
+
+      this.db.logo.logotipo = this.caminhoLogo;
+      this.visiveBtnlSalvar = true;
+      this.colorSalvar = "white";
+      this.bg = "bg-green";
+      this.saveToLocalStorage();
     },
   },
   mounted() {
-    const opcaoLogoArmazenada = localStorage.getItem("caminhoLogo");
-    this.caminhoLogo = opcaoLogoArmazenada
-      ? JSON.parse(opcaoLogoArmazenada)
-      : this.caminhoLogo;
-
-    const opcaoArmazenada = localStorage.getItem("logoVisible");
-    this.LogoVisible = opcaoArmazenada ? JSON.parse(opcaoArmazenada) : true;
-    const opcaoArmazenadaTransparente = localStorage.getItem("opcaoBarraTransparente");
-    this.opcaoBarraTransparente = opcaoArmazenadaTransparente
-      ? JSON.parse(opcaoArmazenadaTransparente)
-      : false;
+    // PEGA O LOCALSTORAGE E ATRIBUI A THIS.DB
+    const storedDb = localStorage.getItem("dbConfig");
+    this.db = storedDb ? JSON.parse(storedDb) : {};
+    this.logoVisible_ = this.db.logo.logoVisible;
+    this.caminhoLogo = this.db.logo.logotipo;
+    this.db.header.color = this.transparencia;
+    this.opcaoBarraTransparente = this.db.header.tansparente;
   },
 };
 </script>

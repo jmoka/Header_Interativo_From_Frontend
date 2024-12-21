@@ -113,8 +113,6 @@ import {
   mdiCardAccountMail,
   mdiInformation,
   mdiWhatsapp,
-  mdiMenu,
-  mdiFormatLineStyle,
 } from "@mdi/js";
 
 import bottomSheets from "../../src/components/bottomSheets.vue";
@@ -122,7 +120,6 @@ import bottomSheets from "../../src/components/bottomSheets.vue";
 export default {
   components: {
     SvgIcon,
-
     bottomSheets,
   },
   data() {
@@ -192,6 +189,7 @@ export default {
           lagLogo: "300",
         },
         header: {
+          tansparente: false,
           color: "bg-black",
           imageHeader: false,
         },
