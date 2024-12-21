@@ -1,77 +1,101 @@
 <template>
-  <v-toolbar :class="dados.colorBarra" flat :image="imagemfundoBarra" prominent>
+  <v-toolbar :class="dados.header.color" flat :image="imagemfundoheader" prominent>
     <!-- Menu -->
-    <bottomSheets :colorIconeMenu="dados.colorIconeMenu" />
+    <bottomSheets :colorIcone="dados.menu.colorIcone" />
 
     <!-- Logo -->
     <v-img
       class="logo"
-      v-if="dados.logoVisible"
-      :src="dados.logo"
-      :max-height="dados.altLogo"
-      :max-width="dados.lagLogo"
+      v-if="dados.logo.logoVisible"
+      :src="dados.logo.logotipo"
+      :max-height="dados.logo.altLogo"
+      :max-width="dados.logo.lagLogo"
     />
 
     <!-- Texto Central -->
 
     <!-- Texto Obsercação -->
-    <h4 class="ml-5" v-if="dados.visibleObs" :class="colorObs" v-text="dados.obs"></h4>
+    <h4
+      class="ml-5"
+      v-if="dados.obs.visible"
+      :class="colorObs"
+      v-text="dados.obs.observacao"
+    ></h4>
     <v-spacer></v-spacer>
 
     <!-- Botões de Navegação -->
+
+    <!-- HOME -->
     <v-btn
       :style="dados.home.border"
       to="/"
-      :color="dados.home.colorIcoHome"
-      v-if="dados.home.textVisibleHome || dados.home.iconeHomeVisible"
+      :color="dados.home.colorIco"
+      v-if="dados.home.textVisible || dados.home.iconeVisible"
+    >
+      <svg-icon v-if="dados.home.iconeVisible" type="mdi" :path="dados.home.icone" />
+      <h4
+        v-if="dados.home.textVisible"
+        :style="dados.home.colorText"
+        v-text="dados.home.texto"
+      />
+    </v-btn>
+
+    <!-- CONTATO -->
+    <v-btn
+      :style="dados.contato.border"
+      to="/contato"
+      :color="dados.contato.colorIco"
+      v-if="dados.contato.textVisible || dados.contato.iconeVisible"
     >
       <svg-icon
-        v-if="dados.home.iconeHomeVisible"
+        v-if="dados.contato.iconeVisible"
         type="mdi"
-        :path="dados.home.icohome"
+        :path="dados.contato.icone"
       />
       <h4
-        v-if="dados.home.textVisibleHome"
-        :style="dados.home.colorTextHome"
-        v-text="dados.home.textoHome"
-      />
-    </v-btn>
-
-    <v-btn to="/contatos" :color="dados.colorIconeContato">
-      <svg-icon type="mdi" :path="dados.icoContato" />
-      <h4
-        :style="dados.colorTextContato"
-        v-if="dados.textVisibleContato"
-        v-text="dados.textoContato"
+        v-if="dados.contato.textVisible"
+        :style="dados.contato.colorText"
+        v-text="dados.contato.texto"
       />
     </v-btn>
-
-    <v-btn :color="dados.colorIconeInforme" to="/sobre">
-      <svg-icon type="mdi" :path="dados.icoSobre" />
+    <!-- SOBRE -->
+    <v-btn
+      :style="dados.sobre.border"
+      to="/sobre"
+      :color="dados.sobre.colorIco"
+      v-if="dados.sobre.textVisible || dados.sobre.iconeVisible"
+    >
+      <svg-icon v-if="dados.sobre.iconeVisible" type="mdi" :path="dados.sobre.icone" />
       <h4
-        :style="dados.colorTextSobreNos"
-        v-if="dados.sobrenostoVisible"
-        v-text="dados.textoSobreNos"
+        v-if="dados.sobre.textVisible"
+        :style="dados.sobre.colorText"
+        v-text="dados.sobre.texto"
       />
     </v-btn>
-    <v-btn :color="dados.colorIconeLogin" to="/login" @click="formLogin">
-      <svg-icon type="mdi" :path="dados.icoLogin" />
+    <!-- LOGIN -->
+    <v-btn
+      :style="dados.login.border"
+      to="/Login"
+      :color="dados.login.colorIco"
+      v-if="dados.login.textVisible || dados.login.iconeVisible"
+    >
+      <svg-icon v-if="dados.login.iconeVisible" type="mdi" :path="dados.login.icone" />
       <h4
-        :style="dados.colorTextLogin"
-        v-if="dados.textLoginVisible"
-        v-text="dados.textLogin"
+        v-if="dados.login.textVisible"
+        :style="dados.login.colorText"
+        v-text="dados.login.texto"
       />
     </v-btn>
 
     <!-- WhatsApp -->
     <v-btn
-      v-if="dados.wnatsappVisible"
+      v-if="dados.whatsapp.Visible"
       icon
-      :color="dados.colorIconeWhatsapp"
+      :color="dados.colorIcone"
       :href="linkWhatsapp"
       target="_blank"
     >
-      <svg-icon type="mdi" :path="icoWhatsapp" />
+      <svg-icon type="mdi" :path="dados.whatsapp.icone" />
     </v-btn>
   </v-toolbar>
 </template>
@@ -100,80 +124,84 @@ export default {
     return {
       dados: {
         home: {
+          borderVisible: false,
           border: null,
           bg: "tranparent",
-          textoHome: "Home",
-          textVisibleHome: true,
-          colorTextHome: "color:#ffff",
-          colorIcoHome: "blue",
-          icohome: mdiHomeAccount,
-          iconeHomeVisible: true,
+          texto: "Home",
+          textVisible: true,
+          colorText: "color:#ffff",
+          colorIco: "blue",
+          icone: mdiHomeAccount,
+          iconeVisible: true,
+        },
+        contato: {
+          borderVisible: false,
+          border: null,
+          bg: "tranparent",
+          texto: "Constato",
+          textVisible: true,
+          colorText: "color:#ffff",
+          colorIco: "blue",
+          icone: mdiCardAccountMail,
+          iconeVisible: true,
+        },
+        sobre: {
+          borderVisible: false,
+          border: null,
+          bg: "tranparent",
+          texto: "Sobre Nós",
+          textVisible: true,
+          colorText: "color:#ffff",
+          colorIco: "blue",
+          icone: mdiInformation,
+          iconeVisible: true,
+        },
+        login: {
+          borderVisible: false,
+          border: null,
+          bg: "tranparent",
+          texto: "Login",
+          textVisible: true,
+          colorText: "color:#ffff",
+          colorIco: "blue",
+          icone: mdiAccount,
+          iconeVisible: true,
+        },
+        whatsapp: {
+          icone: mdiWhatsapp,
+          numero: "",
+          Visible: true,
+          colorIcone: "green",
+        },
+        obs: {
+          visible: true,
+          observacao: "empresa@gmail.com / (91)9 9629-3532",
+        },
+        menu: {
+          colorIcone: "blue",
+        },
+        logo: {
+          logoVisible: true,
+          logotipo: "logo.webp",
+          altLogo: "70",
+          lagLogo: "300",
+        },
+        header: {
+          color: "bg-black",
+          imageHeader: false,
         },
 
         padrao: true,
-        titulo: "Header Reativo",
-
-        // Botao Home
-
-        // textoHome: "Home",
-        // textVisibleHome: true,
-        // colorTextHome: "color:#ffff",
-        // colorIcoHome: "blue",
-        // icohome: mdiHomeAccount,
-        // iconeHomeVisible: true,
-
-        // Botao Contatos
-        textoContato: "Contatos",
-        textVisibleContato: true,
-        colorTextContato: "color:#ffff",
-        colorIconeContato: "blue",
-        icoContato: mdiCardAccountMail,
-
-        // BOtão Sobre Nós
-        textoSobreNos: "Sobre Nós",
-        sobrenostoVisible: true,
-        colorTextSobreNos: "color:#ffff",
-        colorIconeInforme: "blue",
-        icoSobre: mdiInformation,
-
-        // Observação
-        visibleObs: true,
-
-        // Login
-        textLogin: "Login",
-        textLoginVisible: true,
-        colorIconeLogin: "blue",
-        colorTextLogin: "color:#ffff",
-        icoLogin: mdiAccount,
-
-        icoWhatsapp: mdiWhatsapp,
-
-        obs: "empresa@gmail.com / (91)9 9629-3532",
-
-        colorTextContato: "color:#ffff",
-
-        colorIconeMenu: "blue",
-        colorIconeWhatsapp: "green",
-
-        colorBarra: "bg-black",
-        logoVisible: true,
-        logo: "https://via.placeholder.com/300x70",
-        altLogo: "70",
-        lagLogo: "300",
-        imageHeader: false,
-        // whatsapp
-        numeroWhatsApp: "",
-        wnatsappVisible: true,
       },
     };
   },
 
   computed: {
     linkWhatsapp() {
-      return `https://wa.me/${this.dados.numeroWhatsApp}?text=suporte`;
+      return `https://wa.me/${this.dados.whatsapp.numero}?text=suporte`;
     },
-    imagemfundoBarra() {
-      return this.dados.imageHeader
+    imagemfundoheader() {
+      return this.dados.header.imageHeader
         ? "https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
         : null;
     },
@@ -215,7 +243,12 @@ export default {
 
   mounted() {
     // this.salvarConfiguracoes();
-    console.log("Logo Visible:", this.dados.logoVisible, "Logo Path:", this.dados.logo);
+    console.log(
+      "Logo Visible:",
+      this.dados.logo.logoVisible,
+      "Logo Path:",
+      this.dados.logo
+    );
     this.carregarConfiguracoes(); // Carregar configurações ao montar o componente
   },
 };

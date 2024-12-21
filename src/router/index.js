@@ -10,7 +10,7 @@ import LoginView from '../views/dialogFormLogin.vue';
 const routes = [
   { path: '/', name: 'home', component: HomeView },
   { path: '/sobre', name: 'sobre', component: SobreView },
-  { path: '/contatos', name: 'contatos', component: ContatosView },
+  { path: '/contato', name: 'contato', component: ContatosView },
   { path: '/login', name: 'login', component: LoginView },
 ];
 

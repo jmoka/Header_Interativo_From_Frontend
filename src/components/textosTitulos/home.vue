@@ -18,31 +18,31 @@
       <v-text-field
         class="mt-5 mx-3"
         v-model="text"
-        :label="labelHome"
+        :label="label_"
         variant="solo-inverted"
       />
       <v-span class="d-flex mx-3">
         <v-row>
           <v-col cols="4">
-            <h5 class="mx-2">Ocultar Texto</h5>
+            <h5 class="mx-2">{{ textOcutarTexto }}</h5>
             <v-switch
-              v-model="visivel_text"
+              v-model="visivelText"
               @change="acao"
               :color="colorVisivelTrue"
               :base-color="colorVisivelFalse"
           /></v-col>
           <v-col cols="4"
-            ><h5 class="mx-2">Ocultar Icone</h5>
+            ><h5 class="mx-2">{{ textOcutarIcone }}</h5>
             <v-switch
-              v-model="iconeHomeVisible"
+              v-model="iconeVisible_"
               @change="acao"
               :color="colorVisivelTrue"
               :base-color="colorVisivelFalse"
           /></v-col>
           <v-col cols="4"
-            ><h5 class="mx-2">Ocultar Bordar</h5>
+            ><h5 class="mx-2">{{ textOcutarBorda }}</h5>
             <v-switch
-              v-model="borderHomeVisible"
+              v-model="borderVisible_"
               @change="acao"
               :color="colorVisivelTrue"
               :base-color="colorVisivelFalse"
@@ -51,15 +51,15 @@
       </v-span>
       <v-row>
         <v-col cols="6">
-          <v-btn class="elevation-10" @click="ColoVisibleText">Cor Texto</v-btn>
+          <v-btn class="elevation-10" @click="ColoVisibleText">{{ textCorText }}</v-btn>
         </v-col>
         <v-col cols="6">
-          <v-btn class="elevation-10" @click="ColoVisibleIcone">Cor Icone</v-btn>
+          <v-btn class="elevation-10" @click="ColoVisibleIcone">{{ textCorIcone }}</v-btn>
         </v-col>
       </v-row>
       <v-card class="my-5" v-if="coloVisibleText">
         <span v-if="barra" :style="{ backgroundColor: corTexto }">
-          Cor do Texto : {{ corTexto }}
+          {{ textCorText }} : {{ corTexto }}
         </span>
         <v-color-picker
           v-if="coloVisibleText"
@@ -140,30 +140,23 @@ export default {
 
   data() {
     return {
+      textOcutarTexto: "Ocultar Texto",
+      textOcutarIcone: "Ocultar Icone",
+      textOcutarBorda: "Ocultar Bordar",
+      textCorText: "Cor do Texto",
+      textCorIcone: "Cor do Icone",
+
       db: {},
-      // listaicones: [
-      //   "mdiAccount",
-      //   "mdiHomeAccount",
-      //   "mdiCardAccountMail",
-      //   "mdiInformation",
-      //   "mdiWhatsapp",
-      //   "mdiMenu",
-      //   "mdiFormatLineStyle",
-      //   "mdiHandOkay",;
-      // ],
-      borderHomeVisible: false,
+      borderVisible_: false,
+      border_: "border:1px solid",
       coloVisibleText: false,
       coloVisibleIcone: false,
-      labelHome: "Texto Home",
-      iconeHomeVisible: true,
+      label_: "Texto Home",
+      iconeVisible_: true,
       config: false,
       barra: false,
-      //visiveBtnlSalva: true,
-
-      visivel_text: true,
-
+      visivelText: true,
       text: "",
-
       corTexto: "#ffff",
       iconeSalvar: false,
       colorIcone: "green",
@@ -172,7 +165,6 @@ export default {
       label: "Home",
       colorVisivelTrue: "green",
       colorVisivelFalse: "red",
-
       colorSalvar: "white",
       bg: "bg-blue",
       dialog: false,
@@ -180,19 +172,6 @@ export default {
   },
 
   methods: {
-    // element() {
-    //   if (this.listaicones === "mdiAccount") return this.$refs.mdiAccount;
-    //   else if (this.listaicones === "mdiHomeAccount") return this.$refs.mdiHomeAccount;
-    //   else if (this.listaicones === "mdiCardAccountMail")
-    //     return this.$refs.mdiCardAccountMail;
-    //   else if (this.listaicones === "mdiInformation") return this.$refs.mdiInformation;
-    //   else if (this.listaicones === "mdiWhatsapp") return this.$refs.mdiWhatsapp;
-    //   else if (this.listaicones === "mdiMenu") return this.$refs.mdiMenu;
-    //   else if (this.listaicones === "mdiFormatLineStyle")
-    //     return this.$refs.mdiFormatLineStyle;
-    //   else if (this.listaicones === "mdiHandOkay") return this.$refs.mdiHandOkay;
-    //   else return null;
-    // },
     ColoVisibleText() {
       this.coloVisibleText = !this.coloVisibleText;
 
@@ -215,32 +194,42 @@ export default {
     },
 
     acao() {
-      if (this.visivel_text) {
-        this.visivel_text;
+      if (this.visivelText) {
+        this.visivelText;
       } else {
-        this.labelHome = "Texto Home ";
+        this.label_ = "Texto Home ";
       }
+
       this.saveToLocalStorage();
     },
 
     alterar() {
-      // console.log(this.icone);
       // startsWith =   verificar se uma string começa com uma sequência específica de caracteres
+
+      // ALTERA A COR
       if (!this.corTexto.startsWith("color:")) {
-        this.db.home.colorTextHome = "color:" + this.corTexto; // Adiciona "color:" apenas se necessário
+        this.db.home.colorText = "color:" + this.corTexto; // Adiciona "color:" apenas se necessário
       } else {
-        this.db.home.colorTextHome = this.corTexto; // Usa o valor atual
+        this.db.home.colorText = this.corTexto; // Usa o valor atual
+      }
+      // ALTERA A BORDAR
+      if (this.borderVisible_) {
+        this.db.home.border = this.border_;
+        console.log(this.db.home.border);
+      } else {
+        this.db.home.border = null;
       }
 
-      this.db.home.iconeHomeVisible = this.iconeHomeVisible; // ALTERA A VISIBILIDADE DO ICONE
-      this.db.home.icohome = this.icone; // ALTERA O ICONE
-      this.db.home.textVisibleHome = this.visivel_text; // ALTERA A VISIBILIDADE
+      this.db.home.iconeVisible = this.iconeVisible_; // ALTERA A VISIBILIDADE  ICONE
+      this.db.home.colorIco = this.colorIcone; // ALTERA A COR DO ICONE
+      this.db.home.icone = this.icone; // ALTERA O ICONE
+      this.db.home.textVisible = this.visivelText; // ALTERA A VISIBILIDADE
+      this.db.home.texto = this.text; // ALTERA O TEXTO
 
-      console.log(this.db.home.colorTextHome);
-
-      this.db.home.textoHome = this.text; // ALTERA O TEXTO
-      //this.visiveBtnlSalva = true;
+      // CRIA UM EVENTO CHAMADO ALTERADO COM VALOR TRUE
       this.$emit("alterado", true);
+
+      // SALVA AS ALTERAÇÕES NO LOCAL STORAGE
       this.saveToLocalStorage();
     },
   },
@@ -248,12 +237,15 @@ export default {
   mounted() {
     const storedDb = localStorage.getItem("dbConfig");
     this.db = storedDb ? JSON.parse(storedDb) : {};
-    this.visivel_text = this.db.home.textVisibleHome ?? true; // INICIALIZA O CAMPO VISIVEL TEXTO
-    this.iconeHomeVisible = this.db.home.iconeHomeVisible; // INICILIZA A VISIBILIDADE DO ICONE
-    this.text = this.db.home.textoHome ?? ""; // INICIALIZA O CAMPO TEXTO
-    this.corTexto = this.db.home.colorTextHome; // INICIALIZA O COR TEXTO
-    console.log(this.db.home.colorTextHome);
-    this.icone = this.db.home.icohome; // INICIALIZA O ICONE
+    this.visivelText = this.db.home.textVisible ?? true; // INICIALIZA O CAMPO VISIVEL TEXTO
+    this.iconeVisible_ = this.db.home.iconeVisible; // INICILIZA A VISIBILIDADE DO ICONE
+    this.text = this.db.home.texto ?? ""; // INICIALIZA O CAMPO TEXTO
+    this.corTexto = this.db.home.colorText; // INICIALIZA O COR TEXTO
+
+    this.icone = this.db.home.icone; // INICIALIZA O ICONE
+    this.colorIcone = this.db.home.colorIco;
+    this.borderVisible_ = this.db.home.borderVisible;
+    // this.border_ = this.db.home.border;
   },
 };
 </script>
