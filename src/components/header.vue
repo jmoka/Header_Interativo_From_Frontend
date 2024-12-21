@@ -31,6 +31,7 @@
       to="/"
       :color="dados.home.colorIco"
       v-if="dados.home.textVisible || dados.home.iconeVisible"
+      class="mx-1"
     >
       <svg-icon v-if="dados.home.iconeVisible" type="mdi" :path="dados.home.icone" />
       <h4
@@ -46,6 +47,7 @@
       to="/contato"
       :color="dados.contato.colorIco"
       v-if="dados.contato.textVisible || dados.contato.iconeVisible"
+      class="mx-1"
     >
       <svg-icon
         v-if="dados.contato.iconeVisible"
@@ -64,6 +66,7 @@
       to="/sobre"
       :color="dados.sobre.colorIco"
       v-if="dados.sobre.textVisible || dados.sobre.iconeVisible"
+      class="mx-1"
     >
       <svg-icon v-if="dados.sobre.iconeVisible" type="mdi" :path="dados.sobre.icone" />
       <h4
@@ -78,6 +81,7 @@
       to="/Login"
       :color="dados.login.colorIco"
       v-if="dados.login.textVisible || dados.login.iconeVisible"
+      class="mx-1"
     >
       <svg-icon v-if="dados.login.iconeVisible" type="mdi" :path="dados.login.icone" />
       <h4
@@ -94,6 +98,7 @@
       :color="dados.colorIcone"
       :href="linkWhatsapp"
       target="_blank"
+      class="mx-1"
     >
       <svg-icon type="mdi" :path="dados.whatsapp.icone" />
     </v-btn>
@@ -138,7 +143,7 @@ export default {
           borderVisible: false,
           border: null,
           bg: "tranparent",
-          texto: "Constato",
+          texto: "Contato",
           textVisible: true,
           colorText: "color:#ffff",
           colorIco: "blue",

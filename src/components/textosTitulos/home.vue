@@ -214,9 +214,11 @@ export default {
       }
       // ALTERA A BORDAR
       if (this.borderVisible_) {
+        this.db.home.borderVisible = this.borderVisible_;
         this.db.home.border = this.border_;
         console.log(this.db.home.border);
       } else {
+        this.db.home.borderVisible = this.borderVisible_;
         this.db.home.border = null;
       }
 
@@ -245,7 +247,6 @@ export default {
     this.icone = this.db.home.icone; // INICIALIZA O ICONE
     this.colorIcone = this.db.home.colorIco;
     this.borderVisible_ = this.db.home.borderVisible;
-    // this.border_ = this.db.home.border;
   },
 };
 </script>

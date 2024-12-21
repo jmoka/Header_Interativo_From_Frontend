@@ -1,6 +1,6 @@
 <template>
   <!-- =========================================== -->
-  <!-- SOBRE NÓS -->
+  <!-- Sobre Nós -->
   <!-- =========================================== -->
 
   <v-btn
@@ -13,76 +13,97 @@
     @click="toggleConfig"
     :text="label"
   ></v-btn>
-  <v-sheet class="d-flex justify-center text-center">
+  <v-sheet class="d-flex justify-center text-center rounded-lg">
     <div v-if="config">
       <v-text-field
-        class="mt-5"
-        variant="solo-inverted"
-        label="Texto Sobre Nós"
+        class="mt-5 mx-3"
         v-model="text"
+        :label="label_"
+        variant="solo-inverted"
       />
-
-      <v-span class="px-6 pt-5 mb-0 w-'100%'">
+      <v-span class="d-flex mx-3">
+        <v-row>
+          <v-col cols="4">
+            <h5 class="mx-2">{{ textOcutarTexto }}</h5>
+            <v-switch
+              v-model="visivelText"
+              @change="acao"
+              :color="colorVisivelTrue"
+              :base-color="colorVisivelFalse"
+          /></v-col>
+          <v-col cols="4"
+            ><h5 class="mx-2">{{ textOcutarIcone }}</h5>
+            <v-switch
+              v-model="iconeVisible_"
+              @change="acao"
+              :color="colorVisivelTrue"
+              :base-color="colorVisivelFalse"
+          /></v-col>
+          <v-col cols="4"
+            ><h5 class="mx-2">{{ textOcutarBorda }}</h5>
+            <v-switch
+              v-model="borderVisible_"
+              @change="acao"
+              :color="colorVisivelTrue"
+              :base-color="colorVisivelFalse"
+          /></v-col>
+        </v-row>
+      </v-span>
+      <v-row>
+        <v-col cols="6">
+          <v-btn class="elevation-10" @click="ColoVisibleText">{{ textCorText }}</v-btn>
+        </v-col>
+        <v-col cols="6">
+          <v-btn class="elevation-10" @click="ColoVisibleIcone">{{ textCorIcone }}</v-btn>
+        </v-col>
+      </v-row>
+      <v-card class="my-5" v-if="coloVisibleText">
         <span v-if="barra" :style="{ backgroundColor: corTexto }">
-          {{ corTexto }}
+          {{ textCorText }} : {{ corTexto }}
         </span>
-      </v-span>
-
-      <v-color-picker
-        v-model="corTexto"
-        @click="MetodoBarra"
-        mode="hexa"
-        show-swatches
-        hide-inputs
-        hide-sliders
-        hide-canvas
-      />
-      <v-span class="d-flex my-3">
-        <h5>Texto</h5>
-        <v-switch
-          v-model="visivel_text"
-          @change="acao"
-          :color="colorVisivelTrue"
-          :base-color="colorVisivelFalse"
+        <v-color-picker
+          v-if="coloVisibleText"
+          v-model="corTexto"
+          @click="MetodoBarra"
+          mode="hexa"
+          show-swatches
+          hide-inputs
+          hide-sliders
+          hide-canvas
         />
+      </v-card>
 
-        <v-span class="px-12 pt-5">
-          <p v-if="!visivel_text_Oculto_Visivel">Oculto</p>
-          <p v-if="visivel_text_Oculto_Visivel">Visível</p>
-        </v-span>
-        <v-span class="px-6 pt-5 mb-0">
-          <span v-if="barra" :style="{ backgroundColor: corTexto }">
-            {{ corTexto }}
-          </span>
-        </v-span>
-      </v-span>
-      <v-span class="d-flex">
-        <h5>Icone</h5>
-        <v-switch
-          v-model="iconeSobreNosVisible"
-          @change="acao"
-          :color="colorVisivelTrue"
-          :base-color="colorVisivelFalse"
+      <v-card class="my-5" v-if="coloVisibleIcone">
+        <span v-if="barra" :style="{ backgroundColor: colorIcone }">
+          Cor do Icone : {{ colorIcone }}
+        </span>
+        <v-color-picker
+          v-model="colorIcone"
+          @click="MetodoBarra"
+          mode="hexa"
+          show-swatches
+          hide-inputs
+          hide-sliders
+          hide-canvas
         />
-
-        <v-span class="px-12 pt-5">
-          <p v-if="!visivel_text_Oculto_Visivel">Oculto</p>
-          <p v-if="visivel_text_Oculto_Visivel">Visível</p>
-        </v-span>
-      </v-span>
+      </v-card>
 
       <v-hover>
         <template v-slot:default="{ isHovering, props }">
-          <v-btn
-            v-bind="props"
-            :color="isHovering ? corHover : undefined"
-            class="mb-3"
-            @click="alterar"
-            type="btn"
-            block
-          >
-            Confirmar
-          </v-btn>
+          <v-row>
+            <v-col class="mx-3 mb-2">
+              <v-btn
+                v-bind="props"
+                :color="isHovering ? 'primary' : undefined"
+                style="border: 1px solid"
+                @click="alterar"
+                type="btn"
+                block
+              >
+                Confirmar
+              </v-btn>
+            </v-col>
+          </v-row>
         </template>
       </v-hover>
     </div>
@@ -91,7 +112,16 @@
 
 <script>
 import SvgIcon from "@jamescoyle/vue-icon";
-import { mdiHandOkay } from "@mdi/js";
+import {
+  mdiAccount,
+  mdiHomeAccount,
+  mdiCardAccountMail,
+  mdiInformation,
+  mdiWhatsapp,
+  mdiMenu,
+  mdiFormatLineStyle,
+  mdiHandOkay,
+} from "@mdi/js";
 
 export default {
   props: {
@@ -110,23 +140,31 @@ export default {
 
   data() {
     return {
+      textOcutarTexto: "Ocultar Texto",
+      textOcutarIcone: "Ocultar Icone",
+      textOcutarBorda: "Ocultar Bordar",
+      textCorText: "Cor do Texto",
+      textCorIcone: "Cor do Icone",
+
       db: {},
-      iconeSobreNosVisible: true,
+      borderVisible_: false,
+      border_: "border:1px solid",
+      coloVisibleText: false,
+      coloVisibleIcone: false,
+      label_: "Texto Conatato",
+      iconeVisible_: true,
       config: false,
       barra: false,
-      visivel_text_Oculto_Visivel: true,
-      visivel_text: true,
+      visivelText: true,
       text: "",
-      corTexto: "#000000",
+      corTexto: "#ffff",
       iconeSalvar: false,
       colorIcone: "green",
-      icone: mdiHandOkay,
+      icone: mdiHomeAccount,
       size: 50,
       label: "Sobre Nós",
       colorVisivelTrue: "green",
       colorVisivelFalse: "red",
-
-      visiveBtnlSalvar: false,
       colorSalvar: "white",
       bg: "bg-blue",
       dialog: false,
@@ -134,6 +172,16 @@ export default {
   },
 
   methods: {
+    ColoVisibleText() {
+      this.coloVisibleText = !this.coloVisibleText;
+
+      this.coloVisibleIcone = false;
+    },
+    ColoVisibleIcone() {
+      this.coloVisibleIcone = !this.coloVisibleIcone;
+      this.coloVisibleText = false;
+    },
+
     toggleConfig() {
       this.config = !this.config;
     },
@@ -146,27 +194,59 @@ export default {
     },
 
     acao() {
-      this.visivel_text_Oculto_Visivel = this.visivel_text;
+      if (this.visivelText) {
+        this.visivelText;
+      } else {
+        this.label_ = "Texto Sobre Nós ";
+      }
 
       this.saveToLocalStorage();
     },
 
     alterar() {
-      this.db.sobrenostoVisible = this.visivel_text; // ALTERA A VISIBILIDADE
-      this.db.colorTextSobreNos = "color:" + this.corTexto; // ALTERA A COR DO TEXTO
-      this.db.textoSobreNos = this.text; // ALTERA O TEXTO
-      this.saveToLocalStorage();
-      this.visiveBtnlSalvar = true;
+      // startsWith =   verificar se uma string começa com uma sequência específica de caracteres
+
+      // ALTERA A COR
+      if (!this.corTexto.startsWith("color:")) {
+        this.db.sobre.colorText = "color:" + this.corTexto; // Adiciona "color:" apenas se necessário
+      } else {
+        this.db.sobre.colorText = this.corTexto; // Usa o valor atual
+      }
+      // ALTERA A BORDAR
+      if (this.borderVisible_) {
+        this.db.sobre.borderVisible = this.borderVisible_;
+        this.db.sobre.border = this.border_;
+        console.log(this.db.sobre.border);
+      } else {
+        this.db.sobre.borderVisible = this.borderVisible_;
+        this.db.sobre.border = null;
+      }
+
+      this.db.sobre.iconeVisible = this.iconeVisible_; // ALTERA A VISIBILIDADE  ICONE
+      this.db.sobre.colorIco = this.colorIcone; // ALTERA A COR DO ICONE
+      this.db.sobre.icone = this.icone; // ALTERA O ICONE
+      this.db.sobre.textVisible = this.visivelText; // ALTERA A VISIBILIDADE
+      this.db.sobre.texto = this.text; // ALTERA O TEXTO
+
+      // CRIA UM EVENTO CHAMADO ALTERADO COM VALOR TRUE
       this.$emit("alterado", true);
+
+      // SALVA AS ALTERAÇÕES NO LOCAL STORAGE
+      this.saveToLocalStorage();
     },
   },
 
   mounted() {
     const storedDb = localStorage.getItem("dbConfig");
     this.db = storedDb ? JSON.parse(storedDb) : {};
-    this.visivel_text = this.db.sobrenostoVisible ?? true; // INICIALIZA O CAMPO VISIVEL TEXTO
-    this.text = this.db.textoSobreNos ?? ""; // INICIALIZA O CAMPO TEXTO
-    this.corTexto = this.db.colorTextSobreNos; // INICIALIZA O CAMPO COR TEXTO
+    this.visivelText = this.db.sobre.textVisible ?? true; // INICIALIZA O CAMPO VISIVEL TEXTO
+    this.iconeVisible_ = this.db.sobre.iconeVisible; // INICILIZA A VISIBILIDADE DO ICONE
+    this.text = this.db.sobre.texto ?? ""; // INICIALIZA O CAMPO TEXTO
+    this.corTexto = this.db.sobre.colorText; // INICIALIZA O COR TEXTO
+
+    this.icone = this.db.sobre.icone; // INICIALIZA O ICONE
+    this.colorIcone = this.db.sobre.colorIco;
+    this.borderVisible_ = this.db.sobre.borderVisible;
   },
 };
 </script>
