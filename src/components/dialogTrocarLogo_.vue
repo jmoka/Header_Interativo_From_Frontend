@@ -31,42 +31,70 @@
         </v-toolbar>
 
         <!--  CAMINHO DA LOGO -->
-        <v-container fluid class="mt-12 mx-12">
+        <v-container fluid class="mt-6">
           <v-row>
             <v-col cols="12" md="6">
-              <v-sheet class="mx-auto w-100 pa-5">
-                <h3>{{ textoCaminhoLogo }}</h3>
+              <v-sheet class="mx-auto w-100 pa-3">
                 <v-form @submit.prevent="alterar">
-                  <v-text-field
-                    max-width="w-100"
-                    v-model="caminhoLogo"
-                    label="Logo"
-                  ></v-text-field>
-                  <svg-icon
-                    :color="colorIcone"
-                    v-if="iconeAba1Visivel"
-                    type="mdi"
-                    :path="mdiHandOkay"
-                    size="50"
-                  />
+                  <v-col cols="12">
+                    <h3>{{ textoCaminhoLogo }}</h3>
 
-                  <!-- LOGO VISIVEL -->
-                  <h3>{{ logoVisivel }}</h3>
-                  <v-switch
-                    v-model="logoVisible_"
-                    @change="acao"
-                    color="green"
-                    base-color="red"
-                  ></v-switch>
+                    <v-text-field
+                      max-width="w-100"
+                      v-model="caminhoLogo"
+                      label="Logo"
+                    ></v-text-field>
+                    <svg-icon
+                      :color="colorIcone"
+                      v-if="iconeAba1Visivel"
+                      type="mdi"
+                      :path="mdiHandOkay"
+                      size="50"
+                    />
+                  </v-col>
+                  <v-row>
+                    <v-col cols="6" class="d-flex justify-center">
+                      <!-- LOGO VISIVEL -->
+                      <h3>{{ logoVisivel }}</h3>
+                      <v-switch
+                        v-model="logoVisible_"
+                        @change="acao"
+                        color="green"
+                        base-color="red"
+                      ></v-switch>
+                    </v-col>
+                    <v-col cols="5" class="d-flex justify-center">
+                      <!-- BARRA TRANSPARENTE -->
+                      <h3>{{ textBarra }}</h3>
+                      <v-switch
+                        v-model="opcaoBarraTransparente"
+                        @change="acao"
+                        color="green"
+                        base-color="red"
+                      ></v-switch>
+                    </v-col>
 
-                  <!-- BARRA TRANSPARENTE -->
-                  <h3>{{ textBarra }}</h3>
-                  <v-switch
-                    v-model="opcaoBarraTransparente"
-                    @change="acao"
-                    color="green"
-                    base-color="red"
-                  ></v-switch>
+                    <v-col cols="12" class="d-flex justify-center m-0 p-0">
+                      <v-card :title="mudarCorHeader">
+                        <v-color-picker
+                          v-model="corTexto"
+                          @click="MetodoBarra"
+                          mode="hexa"
+                          show-swatches
+                          hide-inputs
+                          hide-sliders
+                          hide-canvas
+                        />
+                        <span
+                          v-if="barra"
+                          :style="{ backgroundColor: corTexto }"
+                          class="d-flex justify-center mt-2"
+                        >
+                          {{ textCorText }} : {{ corTexto }}
+                        </span>
+                      </v-card>
+                    </v-col>
+                  </v-row>
 
                   <v-hover>
                     <template v-slot:default="{ isHovering, props }">
@@ -130,6 +158,10 @@ export default {
   data() {
     return {
       db: {},
+      barra: false,
+      corTexto: "#BDBDBD",
+      textCorText: "Cor da barra",
+      mudarCorHeader: "Mudar Cor da Barra Header",
       opcaoBarraTransparente: false,
       transparencia: "",
       confirma: "Confirmar",
@@ -154,12 +186,18 @@ export default {
     };
   },
   methods: {
+    MetodoBarra() {
+      this.barra = true;
+    },
     saveToLocalStorage() {
       localStorage.setItem("dbConfig", JSON.stringify(this.db));
     },
 
     acao() {
       console.log("ação ok");
+      if (this.opcaoBarraTransparente == false) {
+        alert("Escolha uma cor para sua Barra ou confirme para ser Cinza");
+      }
     },
 
     salvar() {
@@ -174,11 +212,11 @@ export default {
       }
 
       if (this.opcaoBarraTransparente) {
-        this.transparencia = "bg-transparent";
+        this.transparencia = "transparent";
         this.db.header.color = this.transparencia;
         this.db.header.tansparente = this.opcaoBarraTransparente;
       } else {
-        this.transparencia = "bg-black";
+        this.transparencia = this.corTexto;
         this.db.header.color = this.transparencia;
         this.db.header.tansparente = this.opcaoBarraTransparente;
       }
@@ -196,8 +234,12 @@ export default {
     this.db = storedDb ? JSON.parse(storedDb) : {};
     this.logoVisible_ = this.db.logo.logoVisible;
     this.caminhoLogo = this.db.logo.logotipo;
+    if (this.db.header.tansparente) {
+      this.opcaoBarraTransparente = this.db.header.tansparente;
+    } else {
+      this.opcaoBarraTransparente = this.db.header.tansparente;
+    }
     this.db.header.color = this.transparencia;
-    this.opcaoBarraTransparente = this.db.header.tansparente;
   },
 };
 </script>

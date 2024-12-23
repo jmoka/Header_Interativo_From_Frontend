@@ -1,5 +1,10 @@
 <template>
-  <v-toolbar :class="dados.header.color" flat :image="imagemfundoheader" prominent>
+  <v-toolbar
+    :style="{ backgroundColor: dados.header.color }"
+    flat
+    :image="imagemfundoheader"
+    prominent
+  >
     <!-- Menu -->
     <bottomSheets :colorIcone="dados.menu.colorIcone" />
 
@@ -190,7 +195,7 @@ export default {
         },
         header: {
           tansparente: false,
-          color: "bg-black",
+          color: "#ffff",
           imageHeader: false,
         },
 
