@@ -1,0 +1,44 @@
+type Query {
+   consultar(key:String!): Titulos
+   
+}
+
+scalar AllType
+
+
+type Mutation {
+    logar(dados: Login): User   
+    atualizar(key: String!, item: String!, value: AllType): Titulos    
+}
+
+type User {
+    nome: String
+    email: String
+    senha: String
+} 
+
+type Titulos {
+   
+    borderVisible: Boolean
+    border: String
+    bg: String
+    texto: String
+    textVisible: Boolean
+    colorText: String
+    colorIco: String
+    icone: String
+    iconeVisible: Boolean
+
+}
+
+type Dev {
+    nome: String
+    email: String
+    senha: String
+}
+
+
+input Login {
+    email: String!
+    senha: String!
+}

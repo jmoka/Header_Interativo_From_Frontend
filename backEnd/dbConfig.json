@@ -1,0 +1,71 @@
+{
+  "home": {
+    "borderVisible": false,
+    "border": null,
+    "bg": "tranparent",
+    "texto": "Home",
+    "textVisible": true,
+    "colorText": "color:#ffff",
+    "colorIco": "blue",
+    "icone": "mdiHomeAccount",
+    "iconeVisible": true
+  },
+  "contato": {
+    "borderVisible": false,
+    "border": null,
+    "bg": "tranparent",
+    "texto": "Contato",
+    "textVisible": true,
+    "colorText": "color:#ffff",
+    "colorIco": "blue",
+    "icone": "mdiCardAccountMail",
+    "iconeVisible": true
+  },
+  "sobre": {
+    "borderVisible": false,
+    "border": null,
+    "bg": "tranparent",
+    "texto": "Sobre Nós",
+    "textVisible": true,
+    "colorText": "color:#ffff",
+    "colorIco": "blue",
+    "icone": "mdiInformation",
+    "iconeVisible": true
+  },
+  "login": {
+    "borderVisible": false,
+    "border": null,
+    "bg": "tranparent",
+    "texto": "Login",
+    "textVisible": true,
+    "colorText": "color:#ffff",
+    "colorIco": "blue",
+    "icone": "mdiAccount",
+    "iconeVisible": true
+  },
+  "whatsapp": {
+    "icone": "mdiWhatsapp",
+    "numero": "",
+    "Visible": true,
+    "colorIcone": "green"
+  },
+  "obs": {
+    "visible": true,
+    "observacao": "empresa@gmail.com / (91)9 9629-3532"
+  },
+  "menu": {
+    "colorIcone": "blue"
+  },
+  "logo": {
+    "logoVisible": true,
+    "logotipo": "logo.webp",
+    "altLogo": "70",
+    "lagLogo": "300"
+  },
+  "header": {
+    "tansparente": false,
+    "color": "#ffff",
+    "imageHeader": false
+  },
+  "padrao": true
+}

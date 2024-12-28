@@ -1,0 +1,35 @@
+{
+  "name": "HeaderEditavel",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --ext js,graphql",
+    "dev": "node index.js",
+    "client": "node client.js"
+  },
+  "_moduleAliases": {
+    "@data": "data"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@apollo/server": "^4.11.2",
+    "@graphql-tools/graphql-file-loader": "^8.0.9",
+    "@graphql-tools/load": "^8.0.10",
+    "@graphql-tools/schema": "^10.0.14",
+    "apollo-server": "^3.13.0",
+    "fs": "^0.0.1-security",
+    "graphql": "^16.10.0",
+    "graphql-tag": "^2.12.6",
+    "HeaderEditavel": "file:",
+    "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
+    "path": "^0.12.7"
+  },
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

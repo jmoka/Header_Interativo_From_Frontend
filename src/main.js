@@ -1,4 +1,3 @@
-
 import { createApp } from 'vue';
 
 // Vuetify
@@ -12,6 +11,7 @@ import * as directives from 'vuetify/directives';
 import router from './router';
 // App Component
 import App from './App.vue';
+
 // Configuração do Vuetify
 const vuetify = createVuetify({
   components,
@@ -21,11 +21,10 @@ const vuetify = createVuetify({
   },
 });
 
+
+
 // Criação e montagem do aplicativo Vue
 createApp(App)
   .use(router) // Registra o Vue Router
   .use(vuetify) // Registra o Vuetify
   .mount('#app'); // Monta a aplicação no elemento com id 'app'
-
-
-  
