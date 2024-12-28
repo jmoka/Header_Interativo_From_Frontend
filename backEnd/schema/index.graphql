@@ -1,21 +1,17 @@
+scalar AllType
+
 type Query {
-   consultar(key:String!): Titulos
+   consultarTitulos(key:String!): Titulos
+   consultarUser(user: String! , email:String!, senha:String!):Perfil
    
 }
 
-scalar AllType
-
-
 type Mutation {
-    logar(dados: Login): User   
-    atualizar(key: String!, item: String!, value: AllType): Titulos    
+    logar(dados: Login): Perfil   
+    atualizarDb(key: String!, item: String!, value: AllType): Titulos    
 }
 
-type User {
-    nome: String
-    email: String
-    senha: String
-} 
+
 
 type Titulos {
    
@@ -31,8 +27,8 @@ type Titulos {
 
 }
 
-type Dev {
-    nome: String
+type Perfil {
+    user: String
     email: String
     senha: String
 }

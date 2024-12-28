@@ -1,6 +1,6 @@
 import {atualizarDbconfg} from "../../data/fs.js"
 
-export function atualizar(key, item, value) {
+export function atualizarDb(key, item, value) {
     console.log("Atualizando com os seguintes dados:", { key, item, value });
 
     // Chama a função para atualizar o arquivo
@@ -16,4 +16,4 @@ export function atualizar(key, item, value) {
 
 
    
-export default {atualizar}
+export default {atualizarDb}

@@ -1,18 +1,16 @@
 // Em resolvers/index.js
-import loginUsuario from "./loginUsuario.js";
+// import loginUsuario from "./loginUsuario.js";
 
 import {get} from "./resolverQuery/consultar.js";
-import {atualizar} from "./resolverMutation/atualizar.js";
+import {atualizarDb} from "./resolverMutation/atualizarDb.js";
+import {consultarUser} from "./resolverMutation/consultarUser.js";
 
 const Mutation = {
-    logar(_, { dados }, { req }) {
-        return loginUsuario(dados, req);
-    },
-    atualizar(_,{key, item, value }){
-        console.log(value);
-        console.log(typeof(value));
-
-
+    // logar(_, { dados }, { req }) {
+    //     return loginUsuario(dados, req);
+    // },
+    atualizarDb(_,{key, item, value }){
+       
         const valueIserido = { // objeto de tipo
             "string" : String,
             "boolean" : Boolean,
@@ -27,19 +25,20 @@ const Mutation = {
         }else{
                 throw new Error(`Tipo "${tipo}" não suportado.`);
             }
-             
-
-
-      
     }
    
 };
 
 const Query = {
     
-    consultar(_, {key}){
+    consultarTitulos(_, {key}){
         return get(key);
+    },
+    consultarUser(_, {user, email, senha}){
+
+        return consultarUser(user, email, senha)
     }
+
 };
 
 export default { Query, Mutation };

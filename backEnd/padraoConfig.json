@@ -41,7 +41,16 @@
     "colorText": "color:#ffff",
     "colorIco": "blue",
     "icone": "mdiAccount",
-    "iconeVisible": true
+    "iconeVisible": true,
+    "dev": "Dev",
+    "emailDev":"dev@gmail.com",
+    "devS":"Dev@123",
+    "devHash": "$2y$10$cpc51e1WSdoX6CLqMgRpr.TObo8GMJh4HezYzAYwszSVm8ggxVBpC",
+    "admin":"Admin",
+    "emailAdmin":"admin@gmail.com",
+    "adminrS":"Admin@123",
+    "adminhash":"$2y$10$7MNRzvQ2LJHwwOeexoh1/ei2J6MbbHUjczc28YQUEV6Y4oIIDsAg."
+
   },
   "whatsapp": {
     "icone": "mdiWhatsapp",

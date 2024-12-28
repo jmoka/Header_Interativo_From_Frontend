@@ -32,7 +32,7 @@ export function pdPathCriar() {
             fs.writeFileSync(dbPath, JSON.stringify(dadosPadrao, null, 2));
             const dbConfig = JSON.parse(fs.readFileSync(dbPath, "utf8"));
             console.log("Base criada com sucesso");
-            console.log(dbConfig);
+          
         } catch (error) {
             console.error("Erro ao criar a base:", error.message);
         }
@@ -53,7 +53,7 @@ export function atualizarDbconfg(key, item, value) {
         if (dbConfig[key] && dbConfig[key][item] !== undefined) {
             dbConfig[key][item] = value; // Atualiza o valor
             fs.writeFileSync(dbPath, JSON.stringify(dbConfig, null, 2));
-            console.log('Arquivo atualizado com sucesso:', dbConfig);
+          
             return dbConfig[key]; // Retorna a seção atualizada
         } else {
             console.warn(`Propriedade ${key}.${item} não encontrada no arquivo de configuração.`);
@@ -69,12 +69,63 @@ export function atualizarDbconfg(key, item, value) {
 export function buscarTitulosJSON(key){
     const data = fs.readFileSync(dbPath, 'utf8');
     const dbConfig = JSON.parse(data);
-    console.log(key, "-", dbConfig);
+    
+
     return dbConfig
 
 }
 
+export function consultarDev(email, senha) {
+    const data = fs.readFileSync(dbPath, "utf8");
+    const dev = JSON.parse(data);
+    const emailDev = dev["login"]["emailDev"];
+    const senhaDev = dev["login"]["devS"];
+
+    console.log(emailDev, "", senhaDev);
+
+    if (email === emailDev && senha === senhaDev) {
+        console.log("Logado Dev", dev["login"]["emailDev"] );
+        const devLogado = {
+            "user" : dev["login"]["dev"],
+            "email" : dev["login"]["emailDev"],
+            "senha" : dev["login"]["devS"],
+        }
+
+        console.log(devLogado);
+        
+    
+        return devLogado;
+            
+        
+    } else {
+        console.log("Erro ao Logar Dev");
+        return null; // Retorne algo em caso de erro para evitar falhas
+    }
+}
+
+
+export function consultarAdmin(email, senha){
+
+        const data = fs.readFileSync(dbPath, "utf8");
+        const admin = JSON.parse(data);
+        const emailAdmin = admin.login.email ;
+        const senhaAdmin = admin.login.senha;
+        const hashAdmin = admin.login.adminHash;
+
+        if(email === emailAdmin && senha === A){
+            console.log("Logado admin");
+
+        }else{
+            console.log("Erro ao Logar admin");
+        }
+
+
+    
+}
+
 export default {
+    consultarAdmin,
+    consultarDev,
     buscarTitulosJSON,
     pdPathCriar,
     atualizarDbconfg,
