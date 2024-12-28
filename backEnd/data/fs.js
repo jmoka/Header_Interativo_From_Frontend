@@ -75,57 +75,67 @@ export function buscarTitulosJSON(key){
 
 }
 
-export function consultarDev(email, senha) {
+export function userAtivo(user, email, senha) {
     const data = fs.readFileSync(dbPath, "utf8");
-    const dev = JSON.parse(data);
-    const emailDev = dev["login"]["emailDev"];
-    const senhaDev = dev["login"]["devS"];
+   const  data1 = JSON.parse(data);
+    const emailDev = data1["login"]["emailDev"];
+    const senhaDev = data1["login"]["devS"];
+    const emailAdmin = data1["login"]["emailAdmin"];
+    const adminrS = data1["login"]["adminrS"];
+ 
+    
 
-    console.log(emailDev, "", senhaDev);
+    if(user === "Dev" && email === emailDev && senha === senhaDev){        
+        
+        const email = data1["login"]["emailDev"];
+        const senha = data1["login"]["devS"];
 
-    if (email === emailDev && senha === senhaDev) {
-        console.log("Logado Dev", dev["login"]["emailDev"] );
+        console.log(`${user} = >` , email, "", senha);
+
+        console.log("Logado Dev", data1["login"]["emailDev"] );
+
+
         const devLogado = {
-            "user" : dev["login"]["dev"],
-            "email" : dev["login"]["emailDev"],
-            "senha" : dev["login"]["devS"],
+            "user" : data1["login"]["dev"],
+            "email" : data1["login"]["emailDev"],
+            "senha" : data1["login"]["devS"],
         }
 
-        console.log(devLogado);
-        
-    
+        console.log(devLogado);       
+
         return devLogado;
-            
+      
+    } else if (user === "Admin" && email === emailAdmin && senha === adminrS ) {
         
-    } else {
-        console.log("Erro ao Logar Dev");
-        return null; // Retorne algo em caso de erro para evitar falhas
+        const email = data1["login"]["emailAdmin"];
+        const senha = data1["login"]["adminrS"];
+
+        console.log(`${user} = >` , email, "", senha);
+ 
+
+        console.log("Logado Admin", data1["login"]["emailAdmin"] );
+
+        const adminLogado = {
+            "user" : data1["login"]["admin"],
+            "email" : data1["login"]["emailAdmin"],
+            "senha" : data1["login"]["adminrS"],
+        }
+        
+        console.log(adminLogado);
+        
+
+
+        return adminLogado;
+    }else{
+        console.log("Usuário não Encontrado");
+        
     }
 }
 
 
-export function consultarAdmin(email, senha){
-
-        const data = fs.readFileSync(dbPath, "utf8");
-        const admin = JSON.parse(data);
-        const emailAdmin = admin.login.email ;
-        const senhaAdmin = admin.login.senha;
-        const hashAdmin = admin.login.adminHash;
-
-        if(email === emailAdmin && senha === A){
-            console.log("Logado admin");
-
-        }else{
-            console.log("Erro ao Logar admin");
-        }
-
-
-    
-}
 
 export default {
-    consultarAdmin,
-    consultarDev,
+    userAtivo,
     buscarTitulosJSON,
     pdPathCriar,
     atualizarDbconfg,

@@ -1,22 +1,15 @@
-import {consultarDev, consultarAdmin } from '../../data/fs.js'
+import {userAtivo } from '../../data/fs.js'
 
 
 
 export function consultarUser (user, email , senha){
 
-    if(user==="Dev"){
-       return consultarDev(email , senha)
+  
+       return userAtivo(user, email , senha)
         
 
     }
-    if(user==="Admin"){
-       return  consultarAdmin(email , senha)
-    }
-
-
-
-}
-
+   
 
 export default {
     consultarUser,
