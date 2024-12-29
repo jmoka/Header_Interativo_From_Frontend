@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import { createSSRApp } from 'vue';
 
 // Vuetify
 import 'vuetify/styles'; // Importa os estilos do Vuetify
@@ -24,7 +24,7 @@ const vuetify = createVuetify({
 
 
 // Criação e montagem do aplicativo Vue
-createApp(App)
+createSSRApp(App)
   .use(router) // Registra o Vue Router
   .use(vuetify) // Registra o Vuetify
   .mount('#app'); // Monta a aplicação no elemento com id 'app'

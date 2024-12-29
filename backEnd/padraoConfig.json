@@ -43,14 +43,17 @@
     "icone": "mdiAccount",
     "iconeVisible": true,
     "dev": "Dev",
-    "emailDev":"dev@gmail.com",
-    "devS":"Dev@123",
+    "emailDev": "dev@gmail.com",
+    "devS": "Dev@123",
     "devHash": "$2y$10$cpc51e1WSdoX6CLqMgRpr.TObo8GMJh4HezYzAYwszSVm8ggxVBpC",
-    "admin":"Admin",
-    "emailAdmin":"admin@gmail.com",
-    "adminrS":"Admin@123",
-    "adminhash":"$2y$10$7MNRzvQ2LJHwwOeexoh1/ei2J6MbbHUjczc28YQUEV6Y4oIIDsAg."
-
+    "admin": "Admin",
+    "emailAdmin": "admin@gmail.com",
+    "adminS": "Admin@123",
+    "adminHash": "$2y$10$7MNRzvQ2LJHwwOeexoh1/ei2J6MbbHUjczc28YQUEV6Y4oIIDsAg.",
+    "use": "User",
+    "emailUse": "user@gmail.com",
+    "useS": "User@123",
+    "useHash": "$2y$10$3ONhZjxeMZKUJKFhZUXGVeKv5qF8e8GzEqL2yHdpYDtsLZiHW/SxS"
   },
   "whatsapp": {
     "icone": "mdiWhatsapp",

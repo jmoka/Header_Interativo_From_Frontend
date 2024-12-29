@@ -20,6 +20,8 @@
     "@graphql-tools/load": "^8.0.10",
     "@graphql-tools/schema": "^10.0.14",
     "apollo-server": "^3.13.0",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "fs": "^0.0.1-security",
     "graphql": "^16.10.0",
     "graphql-tag": "^2.12.6",

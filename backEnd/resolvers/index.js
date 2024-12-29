@@ -3,12 +3,13 @@
 
 import {get} from "./resolverQuery/consultar.js";
 import {atualizarDb} from "./resolverMutation/atualizarDb.js";
-import {consultarUser} from "./resolverMutation/consultarUser.js";
+import {logar} from "./resolverMutation/logar.js";
 
 const Mutation = {
-    // logar(_, { dados }, { req }) {
-    //     return loginUsuario(dados, req);
-    // },
+    logar(_, {user, email, senha}){
+
+        return logar(user, email, senha)
+    },
     atualizarDb(_,{key, item, value }){
        
         const valueIserido = { // objeto de tipo
@@ -34,10 +35,7 @@ const Query = {
     consultarTitulos(_, {key}){
         return get(key);
     },
-    consultarUser(_, {user, email, senha}){
-
-        return consultarUser(user, email, senha)
-    }
+  
 
 };
 

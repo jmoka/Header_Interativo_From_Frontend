@@ -1,40 +1,34 @@
 scalar AllType
 
 type Query {
-   consultarTitulos(key:String!): Titulos
-   consultarUser(user: String! , email:String!, senha:String!):Perfil
-   
+  consultarTitulos(key: String!): Titulos  
+  perfil(email: String): Perfil
 }
 
 type Mutation {
-    logar(dados: Login): Perfil   
-    atualizarDb(key: String!, item: String!, value: AllType): Titulos    
+  atualizarDb(key: String!, item: String!, value: AllType): Titulos
+  logar(user: String!, email: String!, senha: String!): Perfil
 }
 
-
-
 type Titulos {
-   
-    borderVisible: Boolean
-    border: String
-    bg: String
-    texto: String
-    textVisible: Boolean
-    colorText: String
-    colorIco: String
-    icone: String
-    iconeVisible: Boolean
-
+  borderVisible: Boolean
+  border: String
+  bg: String
+  texto: String
+  textVisible: Boolean
+  colorText: String
+  colorIco: String
+  icone: String
+  iconeVisible: Boolean
 }
 
 type Perfil {
-    user: String
-    email: String
-    senha: String
+  user: String
+  email: String
+  senha: String
 }
 
-
 input Login {
-    email: String!
-    senha: String!
+  email: String!
+  senha: String!
 }

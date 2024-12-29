@@ -30,23 +30,26 @@
               @change="acao"
               :color="colorVisivelTrue"
               :base-color="colorVisivelFalse"
-          /></v-col>
-          <v-col cols="4"
-            ><h5 class="mx-2">{{ textOcutarIcone }}</h5>
+            />
+          </v-col>
+          <v-col cols="4">
+            <h5 class="mx-2">{{ textOcutarIcone }}</h5>
             <v-switch
               v-model="iconeVisible_"
               @change="acao"
               :color="colorVisivelTrue"
               :base-color="colorVisivelFalse"
-          /></v-col>
-          <v-col cols="4"
-            ><h5 class="mx-2">{{ textOcutarBorda }}</h5>
+            />
+          </v-col>
+          <v-col cols="4">
+            <h5 class="mx-2">{{ textOcutarBorda }}</h5>
             <v-switch
               v-model="borderVisible_"
               @change="acao"
               :color="colorVisivelTrue"
               :base-color="colorVisivelFalse"
-          /></v-col>
+            />
+          </v-col>
         </v-row>
       </v-span>
       <v-row>
