@@ -4,7 +4,7 @@ import  {consultarHash}  from "../data/hash.js";
 
 const dbPath = path.resolve("./dbConfig.json");
 const pdPath = path.resolve("./padraoConfig.json");
-
+let dbConfig = {};
 export function deleteDbConfig() {
   const dbPathExiste = fs.existsSync(dbPath); // verifica se o arquivo existe no caminho
   if (dbPathExiste) {
@@ -22,7 +22,7 @@ export function deleteDbConfig() {
 
 export function pdPathCriar() {
   const dbPathVerificado = fs.existsSync(dbPath); // verifica se existe o arquivo
-  console.log(dbPathVerificado);
+
 
   if (dbPathVerificado) {
     console.log("Base já existe");
@@ -31,7 +31,7 @@ export function pdPathCriar() {
       const dadosPadraoString = fs.readFileSync(pdPath, "utf8"); // pega os dados do arquivo
       const dadosPadrao = JSON.parse(dadosPadraoString);
       fs.writeFileSync(dbPath, JSON.stringify(dadosPadrao, null, 2));
-      const dbConfig = JSON.parse(fs.readFileSync(dbPath, "utf8"));
+      dbConfig = JSON.parse(fs.readFileSync(dbPath, "utf8"));
       console.log("Base criada com sucesso");
     } catch (error) {
       console.error("Erro ao criar a base:", error.message);
@@ -47,7 +47,7 @@ export function atualizarDbconfg(key, item, value) {
 
   try {
     const data = fs.readFileSync(dbPath, "utf8");
-    const dbConfig = JSON.parse(data);
+    dbConfig = JSON.parse(data);
 
     // Verifica se a chave e o item existem
     if (dbConfig[key] && dbConfig[key][item] !== undefined) {
@@ -67,11 +67,44 @@ export function atualizarDbconfg(key, item, value) {
   }
 }
 
-export function buscarTitulosJSON(key) {
+export function buscarTitulosJSON() {
   const data = fs.readFileSync(dbPath, "utf8");
-  const dbConfig = JSON.parse(data);
-
+  dbConfig = JSON.parse(data);
   return dbConfig;
+}
+
+
+export function buscarPerfilEmail(email){
+  const data = buscarTitulosJSON()
+  
+  
+  if(email === data.login.emailDev){
+    const perfil ={
+      "user" : data.login.dev,
+      "email": data.login.emailDev
+    }
+    return perfil;
+    
+
+  }else if(email === data.login.emailAdmin){
+
+    const perfil ={
+      "user" : data.login.admin,
+      "email": data.login.emailAdmin
+    }
+    return perfil;
+    
+  }else if(email === data.login.emailUse){
+    const perfil ={
+      "user" : data.login.use,
+      "email": data.login.emailUse
+    }
+    return perfil;
+  }else{
+    console.log("não perfil");
+  }
+  
+
 }
 
 export async function logado(user, email, senha) {
@@ -100,7 +133,7 @@ export async function logado(user, email, senha) {
       senha: senha, // Apenas para fins de teste; evite armazenar senhas em texto simples.
     };
 
-    console.log(devLogado);
+    // console.log(devLogado);
     return devLogado;
   }
   if (user === "Admin" && email === emailAdmin) {
@@ -118,7 +151,7 @@ export async function logado(user, email, senha) {
       senha: senha, // Apenas para fins de teste; evite armazenar senhas em texto simples.
     };
 
-    console.log(adminLogado);
+    // console.log(adminLogado);
     return adminLogado;
   }
   if (user === "User" && email === emailUse) {
@@ -136,7 +169,7 @@ export async function logado(user, email, senha) {
       senha: senha, // Apenas para fins de teste; evite armazenar senhas em texto simples.
     };
 
-    console.log(userLogado);
+    // console.log(userLogado);
     return userLogado;
   }
 

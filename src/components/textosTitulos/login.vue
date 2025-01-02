@@ -112,16 +112,7 @@
 
 <script>
 import SvgIcon from "@jamescoyle/vue-icon";
-import {
-  mdiAccount,
-  mdiHomeAccount,
-  mdiCardAccountMail,
-  mdiInformation,
-  mdiWhatsapp,
-  mdiMenu,
-  mdiFormatLineStyle,
-  mdiHandOkay,
-} from "@mdi/js";
+import { mdiHomeAccount } from "@mdi/js";
 
 export default {
   props: {
@@ -172,6 +163,16 @@ export default {
   },
 
   methods: {
+    logar() {
+      const LOGIN_MUTATION = gql`
+        mutation Login($email: String!, $password: String!) {
+          login(email: $email, password: $password) {
+            token
+          }
+        }
+      `;
+    },
+
     ColoVisibleText() {
       this.coloVisibleText = !this.coloVisibleText;
 

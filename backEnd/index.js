@@ -2,18 +2,19 @@ import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { loadSchemaSync } from "@graphql-tools/load";
 import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
-// Importe os resolvers
 import resolvers from "./resolvers/index.js";
 import { atualizarDbconfg, pdPathCriar, deleteDbConfig } from "./data/fs.js";
 import AllType from "./resolvers/scalars/AllType.js"; // Importar o tipo escalar
-
-// Defina o caminho para o seu arquivo de esquema
+import  context from "./data/context.js";
 const schemaPath = "./schema/index.graphql";
 
 // Carregue o esquema usando @graphql-tools
 const typeDefs = loadSchemaSync(schemaPath, {
   loaders: [new GraphQLFileLoader()],
 });
+
+
+
 
 pdPathCriar();
 // deleteDbConfig();

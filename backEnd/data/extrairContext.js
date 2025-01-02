@@ -1,49 +1,55 @@
-import jwt from 'jsonwebtoken';
+import  jwt from 'jsonwebtoken';
+import fs from "fs"
+import path from "path";
 
-export const extrairTokenContext = (ctx) => {
+const pdPath = path.resolve("./padraoConfig.json");
+
+const dadosPadrao = fs.readFileSync(pdPath); 
+const dadosPadaoJSON = JSON.parse(dadosPadrao)
+const SEGREDO_JWT = dadosPadaoJSON.login["devHash"]
+// console.log("dadosLogin ", SEGREDO_JWT);
+
+export function extrairTokenContext(ctx) {
     console.log("Iniciando extrairTokenContext");
-
-    // Verificando se o contexto está disponível
     if (!ctx || !ctx.req || !ctx.req.headers) {
         console.log("Contexto ou requisição não encontrados");
         throw new Error("Requisição inválida ou contexto não disponível");
     }
-
-    const authHeader = ctx.req.headers.authorization;
+    const authHeader = ctx.req.headers.authorization; // salva no header do autorization
     if (!authHeader) {
         console.log("Cabeçalho de autorização não encontrado");
-        throw new Error("Token não encontrado no cabeçalho");
+        throw new Error("Token não encontrado");
     }
-
-    // Extraindo o token do cabeçalho de autorização
-    const token = authHeader.replace('Bearer ', '');
+    const token = authHeader.replace('Bearer ', ''); // cria uma variavel que armazena o valor do token extraido do header
     if (!token) {
         throw new Error("Token não encontrado após 'Bearer'");
     }
-
     return token;
 }
 
-export const extrairDecoded = (token) => {
-    const SEGREDO_JWT = process.env.DB_SECRET;
+export function extrairDecoded(token) {
+
     if (!SEGREDO_JWT) {
         console.log("Segredo JWT não definido");
-        throw new Error("Configuração inválida do servidor: SEGREDO_JWT não definido");
+        throw new Error("Configuração inválida do servidor");
     }
-
     try {
-        // Decodificando e verificando o token com o segredo
         const decoded = jwt.verify(token, SEGREDO_JWT);
         return decoded;
     } catch (err) {
         console.log("Erro ao decodificar o token:", err.message);
-        throw new Error("Token inválido ou expirado");
+        throw new Error("Token inválido");
     }
 }
 
-export const extrairObjDecoder = (ctx) => {
-    // Extraindo o token e decodificando-o
+export function extrairObjDecoder(ctx) {
     const token = extrairTokenContext(ctx);
     const decodedExtraido = extrairDecoded(token);
     return decodedExtraido;
+}
+export default {
+    extrairObjDecoder,
+    extrairDecoded,
+    extrairTokenContext
+
 }

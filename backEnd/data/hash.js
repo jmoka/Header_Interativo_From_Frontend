@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs"; // Substituir bcrypt por bcryptjs
 export function criarHash(senha) {
   try {
     const hashCriado = bcrypt.hashSync(senha, 10); // Sincronizado
-    console.log("Hash Criado:", hashCriado);
+    // console.log("Hash Criado:", hashCriado);
     return hashCriado;
   } catch (error) {
     console.error("Erro ao criar o hash:", error.message);
@@ -16,9 +16,9 @@ export function criarHash(senha) {
 export function consultarHash(senha, hash) {
   try {
     const res = bcrypt.compareSync(senha, hash); // Sincronizado
-    console.log("Senha:", senha);
-    console.log("Hash:", hash);
-    console.log("Resultado da Comparação:", res);
+    // console.log("Senha:", senha);
+    // console.log("Hash:", hash);
+    // console.log("Resultado da Comparação:", res);
     return res;
   } catch (error) {
     console.error("Erro ao verificar o hash:", error.message);

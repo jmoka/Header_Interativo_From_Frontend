@@ -1,7 +1,7 @@
 // Em resolvers/index.js
 // import loginUsuario from "./loginUsuario.js";
 
-import {get} from "./resolverQuery/consultar.js";
+import {getTitulos, getPerfil } from "./resolverQuery/consultar.js";
 import {atualizarDb} from "./resolverMutation/atualizarDb.js";
 import {logar} from "./resolverMutation/logar.js";
 
@@ -33,7 +33,12 @@ const Mutation = {
 const Query = {
     
     consultarTitulos(_, {key}){
-        return get(key);
+        return getTitulos(key);
+    },
+
+    perfil(_, {email}){
+        return getPerfil(email);
+
     },
   
 

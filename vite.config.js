@@ -9,9 +9,15 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
   },
+  server: {
+    hmr: {
+        overlay: false, // Desabilita a sobreposição de erros HMR no navegador
+    },
+  },
   resolve: {
     alias: {
-      '@': '/src',  // Ajuste o alias conforme necessário
+      '@': '/src',  // Ajuste o alias conforme necessário para corresponder à sua estrutura de diretórios
+      url: 'url',    // Confirme se você realmente precisa disso. Se não, pode ser removido
     },
   },
 })

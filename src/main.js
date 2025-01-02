@@ -1,30 +1,14 @@
-import { createSSRApp } from 'vue';
+import { createApp } from "vue";
+import App from "./App.vue";
+import apolloPlugin from "./plugins/graphql"; // Caminho correto do seu plugin
+import vuetify from "./plugins/vuetify";
+import router from "./router";
 
-// Vuetify
-import 'vuetify/styles'; // Importa os estilos do Vuetify
-import { createVuetify } from 'vuetify';
-import * as components from 'vuetify/components';
-import * as directives from 'vuetify/directives';
+// Criar a aplicação Vue e registrar o Apollo Client
+const app = createApp(App);
 
+app.use(vuetify);
+app.use(router);
+app.use(apolloPlugin);  // Usar o plugin Apollo
 
-// Router
-import router from './router';
-// App Component
-import App from './App.vue';
-
-// Configuração do Vuetify
-const vuetify = createVuetify({
-  components,
-  directives,
-  theme: {
-    defaultTheme: 'light', // Define o tema padrão (opcional)
-  },
-});
-
-
-
-// Criação e montagem do aplicativo Vue
-createSSRApp(App)
-  .use(router) // Registra o Vue Router
-  .use(vuetify) // Registra o Vuetify
-  .mount('#app'); // Monta a aplicação no elemento com id 'app'
+app.mount("#app");

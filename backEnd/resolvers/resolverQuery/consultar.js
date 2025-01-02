@@ -1,10 +1,20 @@
-import {buscarTitulosJSON} from "../../data/fs.js"
+import {buscarTitulosJSON, buscarPerfilEmail} from "../../data/fs.js"
 
 
-export function get(key){
-  const dados = buscarTitulosJSON(key)
+export function getTitulos(key){
+  const dados = buscarTitulosJSON()
+    console.log(dados[key]);
+    
   
    return  dados[key];
 }
+export function getPerfil(email){
+  const dados = buscarPerfilEmail(email)
+  
+   return  dados;
+}
 
-export default {get}
+export default {
+  getTitulos, 
+  getPerfil
+}
