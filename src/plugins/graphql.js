@@ -12,6 +12,7 @@ const httpLink = createHttpLink({
 const authLink = setContext((_, { headers }) => {
     const token = localStorage.getItem("token");
     return {
+        
         headers: {
             ...headers,
             authorization: token ? `Bearer ${token}` : "",
@@ -19,11 +20,14 @@ const authLink = setContext((_, { headers }) => {
     };
 });
 
+
 // Criar instância do Apollo Client
 const apolloClient = new ApolloClient({
     link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
 });
+
+
 
 // Exportar o Apollo Client para ser usado na aplicação
 export default {

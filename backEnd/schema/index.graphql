@@ -1,5 +1,6 @@
 scalar AllType
 
+
 type Query {
   consultarTitulos(key: String!): Titulos  
   perfil(email: String): Perfil
@@ -25,7 +26,7 @@ type Titulos {
 type Perfil {
   user: String
   email: String
-  senha: String
+  token: AllType
 }
 
 input Login {

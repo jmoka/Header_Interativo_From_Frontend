@@ -3,6 +3,9 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vite.dev/config/
 export default defineConfig({
+  optimizeDeps: {
+    include: ["jwt-decode"],
+  },
   plugins: [vue()],
   base: './', // Isso garante que os caminhos no build sejam relativos
   build: {

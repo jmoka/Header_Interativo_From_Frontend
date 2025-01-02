@@ -13,7 +13,7 @@ const err = new Error("Token inválido ou expirado");
 
 class Token {
     // Método estático para gerar o token JWT
-    static gerarToken(dados, user, email) {
+    static gerarToken(dados) {
         const agora = Math.floor(Date.now() / 1000);
         const payload = {
             dev:dados.dev,
@@ -26,7 +26,8 @@ class Token {
             emailUse: dados.emailUse,
             useHash: dados.useHash,
             iat: agora,
-            exp: agora + (24 * 60 * 60) // Token válido por 24 horas
+            exp: agora + (3 * 60 * 60), // Token válido por 24 horas
+            
         };
         
         // Assinar o token com o segredo do servidor, NÃO com a senha do usuário

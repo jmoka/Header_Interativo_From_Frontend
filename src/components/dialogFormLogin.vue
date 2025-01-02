@@ -50,6 +50,7 @@ const LOGIN_MUTATION = gql`
     logar(user: $user, email: $email, senha: $senha) {
       user
       email
+      token
     }
   }
 `;
@@ -67,8 +68,8 @@ export default {
   methods: {
     async consultarUserEmail() {
       if (!this.email || !this.senha) {
-        console.error("Email e senha são obrigatórios.");
-        return;
+        alert("É Obrigatório o Email e Senha ");
+        localStorage.removeItem("token");
       }
 
       this.loading = true;
@@ -86,8 +87,6 @@ export default {
           variables
         );
 
-        // console.log("Resposta da Mutação:", response.perfil.user);
-
         return response.perfil.user;
       } catch (err) {
         throw new Error(err);
@@ -96,7 +95,11 @@ export default {
 
     async entrar() {
       const user = await this.consultarUserEmail();
-      console.log(user);
+
+      if (!user) {
+        alert("Email e Senha não Confere");
+        localStorage.removeItem("token");
+      }
 
       this.loading = true;
 
@@ -113,11 +116,16 @@ export default {
           variables
         );
 
-        console.log("Resposta da Mutação:", response.logar);
+        // console.log("Resposta da Mutação: ", response.logar.token);
 
-        // Fazer algo com a resposta, como armazenar um token ou redirecionar
+        const token = JSON.stringify(response.logar.token);
+
+        localStorage.setItem("token", token);
+
+        //console.log(token);
       } catch (error) {
         console.error("Erro ao realizar login:", error);
+        localStorage.removeItem("token");
       } finally {
         this.loading = false;
       }

@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import  {consultarHash}  from "../data/hash.js";
+import Token from "../data/token.js"
 
 const dbPath = path.resolve("./dbConfig.json");
 const pdPath = path.resolve("./padraoConfig.json");
@@ -75,6 +76,7 @@ export function buscarTitulosJSON() {
 
 
 export function buscarPerfilEmail(email){
+  
   const data = buscarTitulosJSON()
   
   
@@ -101,7 +103,7 @@ export function buscarPerfilEmail(email){
     }
     return perfil;
   }else{
-    console.log("não perfil");
+    return false
   }
   
 
@@ -125,13 +127,21 @@ export async function logado(user, email, senha) {
       throw new Error("Erro: senha incorreta ou usuário inválido.");
     }
 
+
+
     console.log("Logado como Dev");
+   
+    
+     const token = Token.gerarToken(data1.login)
+
+    //  console.log(token, "  gerarToken");
+    
 
     const devLogado = {
       user: data1["login"]["dev"],
       email: data1["login"]["emailDev"],
-      senha: senha, // Apenas para fins de teste; evite armazenar senhas em texto simples.
-    };
+      token: token, // Apenas para fins de teste; evite armazenar senhas em texto simples.
+       };
 
     // console.log(devLogado);
     return devLogado;
