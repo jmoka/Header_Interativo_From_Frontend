@@ -6,6 +6,8 @@ import Token from "../data/token.js"
 const dbPath = path.resolve("./dbConfig.json");
 const pdPath = path.resolve("./padraoConfig.json");
 let dbConfig = {};
+
+
 export function deleteDbConfig() {
   const dbPathExiste = fs.existsSync(dbPath); // verifica se o arquivo existe no caminho
   if (dbPathExiste) {
@@ -189,6 +191,15 @@ export async function logado(user, email, senha) {
   return false;
 }
 
+export function buscarDbConfig (){ 
+  return  fs.readFileSync(dbPath, "utf8");
+
+}
+export function buscarPdConfig (){ 
+  return  fs.readFileSync(pdPath, "utf8");
+
+}
+
 
 export default {
   logado,
@@ -196,4 +207,6 @@ export default {
   pdPathCriar,
   atualizarDbconfg,
   deleteDbConfig,
+  buscarDbConfig,
+  buscarPdConfig
 };

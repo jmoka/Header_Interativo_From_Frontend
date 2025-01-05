@@ -26,7 +26,7 @@ class Token {
             emailUse: dados.emailUse,
             useHash: dados.useHash,
             iat: agora,
-            exp: agora + (3 * 60 * 60), // Token válido por 24 horas
+            exp: agora + (1 * 60), // Token válido por 24 horas
             
         };
         

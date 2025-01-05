@@ -1,7 +1,7 @@
 // Em resolvers/index.js
 // import loginUsuario from "./loginUsuario.js";
 
-import {getTitulos, getPerfil } from "./resolverQuery/consultar.js";
+import {getTitulos, getPerfil, getDbConfig, getPdConfig} from "./resolverQuery/consultar.js";
 import {atualizarDb} from "./resolverMutation/atualizarDb.js";
 import {logar} from "./resolverMutation/logar.js";
 
@@ -31,7 +31,11 @@ const Mutation = {
 };
 
 const Query = {
-    
+
+    dados: () => JSON.parse(getDbConfig()), // Retorna o objeto esperado
+    reset: () => JSON.parse(getPdConfig()), // Retorna o objeto esperado
+
+       
     consultarTitulos(_, {key}){
         return getTitulos(key);
     },

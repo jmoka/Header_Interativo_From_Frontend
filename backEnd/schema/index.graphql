@@ -2,6 +2,8 @@ scalar AllType
 
 
 type Query {
+  reset:DbConfig
+  dados:DbConfig
   consultarTitulos(key: String!): Titulos  
   perfil(email: String): Perfil
 }
@@ -33,3 +35,84 @@ input Login {
   email: String!
   senha: String!
 }
+
+type DbConfig {
+  home: TituloConfig
+  contato: TituloConfig
+  sobre: TituloConfig
+  login: LoginConfig
+  whatsapp: WhatsappConfig
+  obs: ObservacaoConfig
+  menu: MenuConfig
+  logo: LogoConfig
+  header: HeaderConfig
+  padrao: Boolean
+}
+
+type TituloConfig {
+  borderVisible: Boolean
+  border: String
+  bg: String
+  texto: String
+  textVisible: Boolean
+  colorText: String
+  colorIco: String
+  icone: String
+  iconeVisible: Boolean
+}
+
+type LoginConfig {
+  borderVisible: Boolean
+  border: String
+  bg: String
+  texto: String
+  textVisible: Boolean
+  colorText: String
+  colorIco: String
+  icone: String
+  iconeVisible: Boolean
+  dev: String
+  emailDev: String
+  devS: String
+  devHash: String
+  admin: String
+  emailAdmin: String
+  adminS: String
+  adminHash: String
+  use: String
+  emailUse: String
+  useS: String
+  useHash: String
+}
+
+type WhatsappConfig {
+  icone: String
+  numero: String
+  visible: Boolean
+  colorIcone: String
+}
+
+type ObservacaoConfig {
+  colorObs: String
+  visible: Boolean
+  observacao: String
+}
+
+type MenuConfig {
+  colorIcone: String
+  menuVisible: Boolean
+}
+
+type LogoConfig {
+  logoVisible: Boolean
+  logotipo: String
+  altLogo: String
+  lagLogo: String
+}
+
+type HeaderConfig {
+  transparente: Boolean
+  color: String
+  imageHeader: Boolean
+}
+

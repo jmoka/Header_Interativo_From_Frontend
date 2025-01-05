@@ -2,7 +2,9 @@
   <v-bottom-sheet v-model="sheet">
     <template v-slot:activator="{ props }">
       <div class="text-center">
-        <v-btn v-bind="props" :color="colorIconeMenu" size="x-large"> Menu </v-btn>
+        <v-btn v-bind="props" v-if="menuVisivel" :color="colorIconeMenu" size="x-large">
+          Menu
+        </v-btn>
       </div>
     </template>
 
@@ -31,24 +33,23 @@
 import DialogFormTrocarTextes from "../../src/components/textosTitulos/index.vue";
 
 import DialogTrocarLogo from "./dialogTrocarLogo_.vue";
-import {
-  mdiAccountBoxEditOutline,
-  mdiAccount,
-  mdiCardAccountMail,
-  mdiInformation,
-  mdiMenu,
-} from "@mdi/js";
+import { mdiAccountBoxEditOutline, mdiInformation } from "@mdi/js";
 import SvgIcon from "@jamescoyle/vue-icon";
+import { request, gql } from "graphql-request";
 
 export default {
   props: {
     colorIconeMenu: {
       type: String,
+      default: "red",
+    },
+    menuVisivel: {
+      type: Boolean,
+      default: false,
     },
   },
   components: {
     DialogFormTrocarTextes,
-
     DialogTrocarLogo,
     SvgIcon,
   },
@@ -79,33 +80,11 @@ export default {
   },
   methods: {
     reset() {
-      const resultado = confirm(
-        "Você tem certeza que deseja restaurar as configurações do seu site?"
-      );
-      if (resultado) {
-        alert("Vamos Restaurar Click em OK.");
-        localStorage.removeItem("dbConfig");
-        localStorage.removeItem("caminhoLogo");
-        localStorage.removeItem("logoVisible");
-        localStorage.removeItem("opcao");
-        localStorage.removeItem("opcao1");
-        localStorage.removeItem("opcao2");
-        localStorage.removeItem("opcao3");
-        localStorage.removeItem("opcao4");
-        localStorage.removeItem("opcao5");
-        localStorage.removeItem("localStorageVisibleText");
-        localStorage.removeItem("localStorageCorTexto");
-        localStorage.removeItem(" localStorageVisibleTextHome");
-        localStorage.removeItem(" localStorageCorTextoHome");
-        localStorage.removeItem(" localStorageTextoHome");
-        localStorage.removeItem(" localStorageVisibleTextContato");
-        localStorage.removeItem(" localStorageCorTextoContato");
-        localStorage.removeItem(" localStorageTextoContato");
-
-        location.reload();
-      } else {
-        alert("Click em OK e Permaneça com a sua Configuração Personalizada.");
-      }
+      // Log aqui antes do redirecionamento
+      window.location.href = "/";
+      localStorage.removeItem("token");
+      localStorage.setItem("reset", "true");
+      window.location.reload();
     },
   },
 };

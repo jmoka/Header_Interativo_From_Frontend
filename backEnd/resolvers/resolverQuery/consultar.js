@@ -1,4 +1,4 @@
-import {buscarTitulosJSON, buscarPerfilEmail} from "../../data/fs.js"
+import {buscarTitulosJSON, buscarPerfilEmail, buscarDbConfig, buscarPdConfig} from "../../data/fs.js"
 
 
 export function getTitulos(key){
@@ -12,6 +12,12 @@ export function getPerfil(email){
   const dados = buscarPerfilEmail(email)
   
    return  dados;
+}
+export function getDbConfig(){
+  return   buscarDbConfig()
+}
+export function getPdConfig(){
+  return   buscarPdConfig()
 }
 
 export default {

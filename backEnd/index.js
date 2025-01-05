@@ -16,7 +16,7 @@ const typeDefs = loadSchemaSync(schemaPath, {
 
 
 
-pdPathCriar();
+ pdPathCriar();
 // deleteDbConfig();
 // atualizarDbconfg();
 

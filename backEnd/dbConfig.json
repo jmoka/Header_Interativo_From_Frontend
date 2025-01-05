@@ -5,7 +5,7 @@
     "bg": "tranparent",
     "texto": "Home",
     "textVisible": true,
-    "colorText": "color:#ffff",
+    "colorText": "color:blue",
     "colorIco": "blue",
     "icone": "mdiHomeAccount",
     "iconeVisible": true
@@ -62,11 +62,13 @@
     "colorIcone": "green"
   },
   "obs": {
+    "colorObs": "color:green",
     "visible": true,
     "observacao": "empresa@gmail.com / (91)9 9629-3532"
   },
   "menu": {
-    "colorIcone": "blue"
+    "colorIcone": "blue",
+    "menuVisible": false
   },
   "logo": {
     "logoVisible": true,
@@ -76,7 +78,7 @@
   },
   "header": {
     "tansparente": false,
-    "color": "#ffff",
+    "color": "black",
     "imageHeader": false
   },
   "padrao": true

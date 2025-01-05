@@ -6,7 +6,10 @@
     prominent
   >
     <!-- Menu -->
-    <bottomSheets :colorIcone="dados.menu.colorIcone" />
+    <bottomSheets
+      :menuVisivel="dados.menu.menuVisible"
+      :colorIcone="dados.menu.colorIcone"
+    />
 
     <!-- Logo -->
     <v-img
@@ -19,11 +22,11 @@
 
     <!-- Texto Central -->
 
-    <!-- Texto Obsercação -->
+    <!-- Obsercação -->
     <h4
       class="ml-5"
       v-if="dados.obs.visible"
-      :class="colorObs"
+      :style="dados.obs.colorObs"
       v-text="dados.obs.observacao"
     ></h4>
     <v-spacer></v-spacer>
@@ -128,79 +131,102 @@ export default {
     bottomSheets,
   },
   data() {
-    return {
-      dados: {
-        home: {
-          borderVisible: false,
-          border: null,
-          bg: "tranparent",
-          texto: "Home",
-          textVisible: true,
-          colorText: "color:#ffff",
-          colorIco: "blue",
-          icone: mdiHomeAccount,
-          iconeVisible: true,
-        },
-        contato: {
-          borderVisible: false,
-          border: null,
-          bg: "tranparent",
-          texto: "Contato",
-          textVisible: true,
-          colorText: "color:#ffff",
-          colorIco: "blue",
-          icone: mdiCardAccountMail,
-          iconeVisible: true,
-        },
-        sobre: {
-          borderVisible: false,
-          border: null,
-          bg: "tranparent",
-          texto: "Sobre Nós",
-          textVisible: true,
-          colorText: "color:#ffff",
-          colorIco: "blue",
-          icone: mdiInformation,
-          iconeVisible: true,
-        },
-        login: {
-          borderVisible: false,
-          border: null,
-          bg: "tranparent",
-          texto: "Login",
-          textVisible: true,
-          colorText: "color:#ffff",
-          colorIco: "blue",
-          icone: mdiAccount,
-          iconeVisible: true,
-        },
-        whatsapp: {
-          icone: mdiWhatsapp,
-          numero: "",
-          Visible: true,
-          colorIcone: "green",
-        },
-        obs: {
-          visible: true,
-          observacao: "empresa@gmail.com / (91)9 9629-3532",
-        },
-        menu: {
-          colorIcone: "blue",
-        },
-        logo: {
-          logoVisible: true,
-          logotipo: "logo.webp",
-          altLogo: "70",
-          lagLogo: "300",
-        },
-        header: {
-          tansparente: false,
-          color: "#ffff",
-          imageHeader: false,
-        },
+    const dadosRecuperados = JSON.parse(localStorage.getItem("dbConfig"));
 
-        padrao: true,
-      },
+    if (dadosRecuperados.home.icone) {
+      dadosRecuperados.home.icone = mdiHomeAccount;
+    }
+    if (dadosRecuperados.contato.icone) {
+      dadosRecuperados.contato.icone = mdiCardAccountMail;
+    }
+    if (dadosRecuperados.sobre.icone) {
+      dadosRecuperados.sobre.icone = mdiInformation;
+    }
+    if (dadosRecuperados.login.icone) {
+      dadosRecuperados.login.icone = mdiAccount;
+    }
+    if (dadosRecuperados.whatsapp.icone) {
+      dadosRecuperados.whatsapp.icone = mdiWhatsapp;
+    }
+
+    const localData = JSON.stringify(dadosRecuperados);
+
+    return {
+      dados: localData
+        ? JSON.parse(localData)
+        : {
+            home: {
+              borderVisible: false,
+              border: null,
+              bg: "",
+              texto: "",
+              textVisible: true,
+              colorText: "",
+              colorIco: "",
+              icone: mdiHomeAccount,
+              iconeVisible: true,
+            },
+            contato: {
+              borderVisible: false,
+              border: null,
+              bg: "",
+              texto: "",
+              textVisible: true,
+              colorText: "",
+              colorIco: "",
+              icone: mdiCardAccountMail,
+              iconeVisible: true,
+            },
+            sobre: {
+              borderVisible: false,
+              border: null,
+              bg: "",
+              texto: "",
+              textVisible: true,
+              colorText: "",
+              colorIco: "",
+              icone: mdiInformation,
+              iconeVisible: true,
+            },
+            login: {
+              borderVisible: false,
+              border: null,
+              bg: "",
+              texto: "",
+              textVisible: true,
+              colorText: "",
+              colorIco: "",
+              icone: mdiAccount,
+              iconeVisible: true,
+            },
+            whatsapp: {
+              icone: mdiWhatsapp,
+              numero: "",
+              Visible: true,
+              colorIcone: "",
+            },
+            obs: {
+              visible: true,
+              observacao: "",
+              colorObs: "",
+            },
+            menu: {
+              colorIcone: "",
+              menuVisible: false,
+            },
+            logo: {
+              logoVisible: true,
+              logotipo: "",
+              altLogo: "",
+              lagLogo: "",
+            },
+            header: {
+              tansparente: false,
+              color: "",
+              imageHeader: false,
+            },
+            padrao: true,
+          },
     };
   },
 
@@ -222,7 +248,7 @@ export default {
     salvarConfiguracoes() {
       try {
         // Usando o localStorage nativo para salvar
-        localStorage.setItem("dbConfig", JSON.stringify(this.dados));
+        // localStorage.setItem("dbConfig", JSON.stringify(this.dados));
       } catch (e) {
         console.error("Erro ao salvar configurações:", e);
       }
@@ -230,34 +256,35 @@ export default {
 
     carregarConfiguracoes() {
       try {
-        const dadossalvos = localStorage.getItem("dbConfig");
-        let p = JSON.parse(dadossalvos);
+        const dadosRecuperados = JSON.parse(localStorage.getItem("dbConfig"));
 
-        if (dadossalvos && p.padrao) {
-          this.dados = p; // Atualize a propriedade `dados` diretamente
-          this.textLogin = this.dados.textLogin; // Carregue o valor de `textLogin`
-        } else {
-          this.salvarConfiguracoes();
+        if (dadosRecuperados.home.icone) {
+          dadosRecuperados.home.icone = mdiHomeAccount;
         }
+        if (dadosRecuperados.contato.icone) {
+          dadosRecuperados.contato.icone = mdiCardAccountMail;
+        }
+        if (dadosRecuperados.sobre.icone) {
+          dadosRecuperados.sobre.icone = mdiInformation;
+        }
+        if (dadosRecuperados.login.icone) {
+          dadosRecuperados.login.icone = mdiAccount;
+        }
+        if (dadosRecuperados.whatsapp.icone) {
+          dadosRecuperados.whatsapp.icone = mdiWhatsapp;
+        }
+
+        localStorage.setItem("dbConfig", JSON.stringify(dadosRecuperados));
+
+        this.dados = dadosRecuperados;
       } catch (e) {
         console.error("Erro ao carregar configurações:", e);
       }
     },
-    // reset() {
-    //   localStorage.removeItem("dbConfig");
-    //   location.reload();
-    // },
   },
 
   mounted() {
-    // this.salvarConfiguracoes();
-    console.log(
-      "Logo Visible:",
-      this.dados.logo.logoVisible,
-      "Logo Path:",
-      this.dados.logo
-    );
-    this.carregarConfiguracoes(); // Carregar configurações ao montar o componente
+    this.carregarConfiguracoes();
   },
 };
 </script>
