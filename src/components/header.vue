@@ -212,7 +212,7 @@ export default {
             },
             menu: {
               colorIcone: "",
-              menuVisible: false,
+              menuVisible,
             },
             logo: {
               logoVisible: true,
@@ -275,6 +275,7 @@ export default {
         }
 
         localStorage.setItem("dbConfig", JSON.stringify(dadosRecuperados));
+        console.log("dadosRecuperados ", dadosRecuperados);
 
         this.dados = dadosRecuperados;
       } catch (e) {

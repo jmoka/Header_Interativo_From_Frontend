@@ -187,7 +187,7 @@ const PD_CONFIG = gql`
 
 export default {
   methods: {
-    async dbConfig() {
+    async dbConfig(reset) {
       try {
         const variables = {
           home: {
@@ -278,9 +278,6 @@ export default {
           senha: this.senha,
         };
 
-        const reset = localStorage.getItem("reset");
-        console.log("reset:", reset);
-
         if (reset) {
           console.log("Carregando configurações padrão (PD_CONFIG).");
           const responsePD = await request(
@@ -294,13 +291,12 @@ export default {
           localStorage.setItem("dbConfig", JSON.stringify(dadosPD));
           console.log("Configurações padrão salvas com sucesso.");
         } else {
-          console.log("Carregando configurações personalizadas (DB_CONFIG).");
-          const response = await request("http://localhost:4000/", DB_CONFIG, variables);
-          const dados = response.dados;
-          console.log(response.dados);
+          // console.log("Carregando configurações personalizadas (DB_CONFIG).");
+          // const response = await request("http://localhost:4000/", DB_CONFIG, variables);
+          // const dados = JSON.parse(localStorage.getItem("dbConfig"));
 
-          localStorage.setItem("dbConfig", JSON.stringify(dados));
-          console.log("Configurações personalizadas salvas com sucesso.");
+          //localStorage.setItem("dbConfig", JSON.stringify(dados));
+          console.log("1  - Configurações personalizadas salvas com sucesso.");
         }
       } catch (error) {
         console.error("Erro ao carregar as configurações do servidor:", error);
@@ -310,16 +306,15 @@ export default {
     validateToken() {
       try {
         const tokenString1 = localStorage.getItem("token");
+        console.log("tokenString1", tokenString1);
 
         if (!tokenString1) {
-          console.warn("Token não encontrado.");
+          console.warn("Token não encontrado 1111.");
           return false;
         }
-        const tokenString = JSON.parse(tokenString1);
-        console.log(tokenString.token);
 
         // Decodifica o token JWT
-        const token = jwt_decode(tokenString.token);
+        const token = jwt_decode(tokenString1);
         const { exp } = token;
         const currentTime = Math.floor(Date.now() / 1000);
 
@@ -327,10 +322,10 @@ export default {
           console.warn("Token expirado. Acesso negado.");
           localStorage.removeItem("token");
           return false;
+        } else {
+          console.log("Token válido.");
+          return true;
         }
-
-        console.log("Token válido.");
-        return true;
       } catch (error) {
         console.error("Erro ao validar o token:", error);
         localStorage.removeItem("token");
@@ -341,25 +336,36 @@ export default {
     toggleMenuVisibility() {
       try {
         const dadosRecuperados = JSON.parse(localStorage.getItem("dbConfig"));
+
+        console.log("App   ", dadosRecuperados);
+
         if (!dadosRecuperados) {
           console.warn("Dados de configuração não encontrados.");
           return;
         }
 
         const isTokenValid = this.validateToken();
+
+        console.log("isTokenValid", isTokenValid);
         dadosRecuperados.menu.menuVisible = isTokenValid;
 
         localStorage.setItem("dbConfig", JSON.stringify(dadosRecuperados));
         console.log("Menu atualizado com base no token.");
+        const reset = localStorage.getItem("reset");
+
+        if (reset) {
+          this.dbConfig(reset);
+        } else {
+          console.log("reser off");
+        }
       } catch (error) {
         console.error("Erro ao atualizar a visibilidade do menu:", error);
       }
     },
   },
-
   mounted() {
-    this.dbConfig();
     this.toggleMenuVisibility();
+    this.dbConfig();
   },
 };
 </script>

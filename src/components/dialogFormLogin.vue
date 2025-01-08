@@ -1,34 +1,26 @@
 <template>
-  <v-dialog v-model="dialog" max-width="500">
-    <v-card title="Login">
+  <v-dialog v-model="dialog" persistent max-width="400px">
+    <v-card>
+      <v-card-title>
+        <span class="headline">Login</span>
+      </v-card-title>
       <v-card-text>
-        <v-row dense>
-          <v-col cols="8">
-            <v-text-field label="Email*" required v-model="email"></v-text-field>
-          </v-col>
-
-          <v-col cols="4">
-            <v-text-field
-              label="Password*"
-              type="password"
-              required
-              v-model="senha"
-            ></v-text-field>
-          </v-col>
-        </v-row>
+        <v-form @submit.prevent="entrar">
+          <v-text-field
+            v-model="email"
+            label="Email"
+            type="email"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="senha"
+            label="Senha"
+            type="password"
+            required
+          ></v-text-field>
+          <v-btn type="submit" :loading="loading" color="primary" block>Entrar</v-btn>
+        </v-form>
       </v-card-text>
-
-      <v-divider></v-divider>
-
-      <v-card-actions>
-        <v-spacer></v-spacer>
-
-        <v-btn variant="plain" to="/"> Sair </v-btn>
-
-        <v-btn color="primary" variant="tonal" @click="entrar" :loading="loading">
-          Entrar
-        </v-btn>
-      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -36,102 +28,8 @@
 <script>
 import { request, gql } from "graphql-request";
 
-const DB_CONFIG = gql`
-  query($email: String) {
-    dados {
-      home {
-        borderVisible
-        border
-        bg
-        texto
-        textVisible
-        colorText
-        colorIco
-        icone
-        iconeVisible
-      }
-      contato {
-        borderVisible
-        border
-        bg
-        texto
-        textVisible
-        colorText
-        colorIco
-        icone
-        iconeVisible
-      }
-      sobre {
-        borderVisible
-        border
-        bg
-        texto
-        textVisible
-        colorText
-        colorIco
-        icone
-        iconeVisible
-      }
-      login {
-        borderVisible
-        border
-        bg
-        texto
-        textVisible
-        colorText
-        colorIco
-        icone
-        iconeVisible
-        dev
-        emailDev
-        devS
-        devHash
-        admin
-        emailAdmin
-        adminS
-        adminHash
-        use
-        emailUse
-        useS
-        useHash
-      }
-      whatsapp {
-        icone
-        numero
-        visible
-        colorIcone
-      }
-      obs {
-        colorObs
-        visible
-        observacao
-      }
-      menu {
-        colorIcone
-        menuVisible
-      }
-      logo {
-        logoVisible
-        logotipo
-        altLogo
-        lagLogo
-      }
-      header {
-        transparente
-        color
-        imageHeader
-      }
-      padrao
-    }
-    perfil(email: $email) {
-      user
-      email
-    }
-  }
-`;
-
 const CONSULTAR_USER_EMAIL = gql`
-  query perfil($email: String) {
+  query perfil($email: String!) {
     perfil(email: $email) {
       user
       email
@@ -155,186 +53,83 @@ export default {
       dialog: true,
       senha: "",
       email: "",
-      loading: false, // Estado de carregamento
+      loading: false,
     };
   },
 
   methods: {
-    async deConfig() {
-      try {
-        const variables = {
-          home: {
-            borderVisible: this.homeBorderVisible, // Exemplo de como acessar a variável
-            border: this.homeBorder, // Exemplo de como acessar a variável
-            bg: this.homeBg,
-            texto: this.homeTexto,
-            textVisible: this.homeTextVisible,
-            colorText: this.homeColorText,
-            colorIco: this.homeColorIco,
-            icone: this.homeIcone,
-            iconeVisible: this.homeIconeVisible,
-          },
-          contato: {
-            borderVisible: this.contatoBorderVisible,
-            border: this.contatoBorder,
-            bg: this.contatoBg,
-            texto: this.contatoTexto,
-            textVisible: this.contatoTextVisible,
-            colorText: this.contatoColorText,
-            colorIco: this.contatoColorIco,
-            icone: this.contatoIcone,
-            iconeVisible: this.contatoIconeVisible,
-          },
-          sobre: {
-            borderVisible: this.sobreBorderVisible,
-            border: this.sobreBorder,
-            bg: this.sobreBg,
-            texto: this.sobreTexto,
-            textVisible: this.sobreTextVisible,
-            colorText: this.sobreColorText,
-            colorIco: this.sobreColorIco,
-            icone: this.sobreIcone,
-            iconeVisible: this.sobreIconeVisible,
-          },
-          login: {
-            borderVisible: this.loginBorderVisible,
-            border: this.loginBorder,
-            bg: this.loginBg,
-            texto: this.loginTexto,
-            textVisible: this.loginTextVisible,
-            colorText: this.loginColorText,
-            colorIco: this.loginColorIco,
-            icone: this.loginIcone,
-            iconeVisible: this.loginIconeVisible,
-            dev: this.loginDev,
-            emailDev: this.loginEmailDev,
-            devS: this.loginDevS,
-            devHash: this.loginDevHash,
-            admin: this.loginAdmin,
-            emailAdmin: this.loginEmailAdmin,
-            adminS: this.loginAdminS,
-            adminHash: this.loginAdminHash,
-            use: this.loginUse,
-            emailUse: this.loginEmailUse,
-            useS: this.loginUseS,
-            useHash: this.loginUseHash,
-          },
-          whatsapp: {
-            icone: this.whatsappIcone,
-            numero: this.whatsappNumero,
-            visible: this.whatsappVisible,
-            colorIcone: this.whatsappColorIcone,
-          },
-          obs: {
-            colorObs: this.obsColorObs,
-            visible: this.obsVisible,
-            observacao: this.obsObservacao,
-          },
-          menu: {
-            colorIcone: this.menuColorIcone,
-            menuVisible: this.menuMenuVisible,
-          },
-          logo: {
-            logoVisible: this.logoLogoVisible,
-            logotipo: this.logoLogotipo,
-            altLogo: this.logoAltLogo,
-            lagLogo: this.logoLagLogo,
-          },
-          header: {
-            transparente: this.headerTransparente,
-            color: this.headerColor,
-            imageHeader: this.headerImageHeader,
-          },
-          padrao: this.padrao, // Caso seja um valor booleano ou qualquer outro valor
-          email: this.email, // Passando o valor de email
-          user: this.user, // Passando o valor de user
-          senha: this.senha, // Passando o valor de senha
-        };
-
-        // console.log(variables);
-        const response = await request(
-          "http://localhost:4000/", // URL da API GraphQL
-          DB_CONFIG,
-          variables
-        );
-
-        // console.log("response", response);
-        return response;
-      } catch (error) {
-        console.error("Erro na consulta:", error);
-      }
-    },
-
     async consultarUserEmail() {
       if (!this.email || !this.senha) {
-        alert("É Obrigatório o Email e Senha ");
+        alert("É obrigatório fornecer Email e Senha.");
         localStorage.removeItem("token");
+        return null;
       }
 
       try {
-        const variables = {
-          // user: "User", // Alterar conforme necessário
-          email: this.email,
-          // senha: this.senha, // Adicione a senha aqui
-        };
-
+        const variables = { email: this.email };
         const response = await request(
-          "http://localhost:4000/", // URL da API GraphQL
+          "http://localhost:4000/",
           CONSULTAR_USER_EMAIL,
           variables
         );
 
-        return response.perfil.user;
+        return response.perfil?.user || null; // Retorna null caso perfil.user não exista
       } catch (err) {
-        throw new Error(err);
+        console.error("Erro ao consultar usuário:", err);
+        alert("Usuário não encontrado ou erro na consulta.");
+        return null;
       }
     },
 
     async entrar() {
-      const user = await this.consultarUserEmail();
-
-      if (!user) {
-        alert("Email e Senha não Confere");
-        localStorage.removeItem("token");
-      }
-
       this.loading = true;
 
       try {
-        const variables = {
-          user: user, // Alterar conforme necessário
-          email: this.email,
-          senha: this.senha, // Adicione a senha aqui
-        };
+        const user = await this.consultarUserEmail();
 
+        if (!user) {
+          alert("Email e senha não conferem.");
+          localStorage.removeItem("token");
+          this.loading = false;
+          return;
+        }
+
+        const variables = { user, email: this.email, senha: this.senha };
         const response = await request(
-          "http://localhost:4000/", // URL da API GraphQL
+          "http://localhost:4000/",
           LOGIN_MUTATION,
           variables
         );
 
-        // alterar visivel menu
-        const dbConfigServer = await this.deConfig();
-        dbConfigServer.dados.menu.menuVisible = true;
-        localStorage.setItem("dbConfig", JSON.stringify(dbConfigServer.dados));
+        const token1 = response;
+        console.log(token1.logar.token, "hhhhh");
+        const { token } = token1.logar.token;
+        console.log(token, "hhhhh");
 
-        //=============================
+        if (!token) {
+          throw new Error("Token não retornado pelo servidor.");
+        }
 
-        // SETANDO O TOKEN
-        const token = JSON.stringify(response.logar.token);
+        // Armazena o token diretamente
         localStorage.setItem("token", token);
 
-        // HABILITANDO O BOTÃO MENU
-        const dadosRecuperados = JSON.parse(localStorage.getItem("dbConfig"));
-        dadosRecuperados.menu.menuVisible = true;
-        localStorage.setItem("dbConfig", JSON.stringify(dadosRecuperados));
+        // Configuração do menu
+        const dbConfig = localStorage.getItem("dbConfig");
 
-        // Redireciona para a página inicial
-        window.location.href = "/"; // Redireciona para a home ou outra página
+        if (dbConfig) {
+          const dados = JSON.parse(dbConfig);
+          dados.menu.menuVisible = true;
+          localStorage.setItem("dbConfig", JSON.stringify(dados));
+          console.log("Configurações do menu atualizadas:", dados);
+        } else {
+          console.log("Nenhuma configuração encontrada.");
+        }
 
-        //console.log(token);
+        // Redirecionamento
+        window.location.href = "/";
       } catch (error) {
-        console.error("Erro ao realizar login:", error);
+        console.error("Erro ao realizar login:", error.message || error);
+        alert("Erro ao realizar login. Verifique suas credenciais e tente novamente.");
         localStorage.removeItem("token");
       } finally {
         this.loading = false;
@@ -343,3 +138,7 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* Adicione estilos personalizados aqui */
+</style>
